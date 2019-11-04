@@ -110,6 +110,26 @@ function kreirajRjecnik(){
     return $korisnikovRjecnik;
 }
 /*
+    Funkcija koja ažurira atribut određenog korisnika
+*/
+if(isset($_GET["query"]) && $_GET["query"]=="update" && isset($_POST["identifikator"]) && isset($_POST["atribut"]) && isset($_POST["vrijednost"])){
+
+    $atribut = $_POST["atribut"];
+    $vrijednost = $_POST["vrijednost"];
+    $identifikator = $_POST["identifikator"];
+    $upit = "UPDATE korisnik SET $atribut='{$vrijednost}' WHERE id=$identifikator";
+    $baza->updateDB($upit);
+    var_dump($upit);
+}
+/*
+    Funkcija koja briše određenog korisnika
+*/
+if(isset($_GET["query"]) && $_GET["query"]=="delete" && isset($_POST["user"])){
+    $korisnikZaBrisanje = $_POST["user"];
+    $upit = "DELETE FROM korisnik WHERE id=$korisnikZaBrisanje";
+    $rezultatBrisanje = $baza->updateDB($upit);
+}
+/*
     Funkcija koja kreira novog korisnika.
 */
 if(isset($_GET["query"]) && $_GET["query"] == "insert" && postojanostNuznihElemenataUnosa()){

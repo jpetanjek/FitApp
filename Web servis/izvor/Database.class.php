@@ -2,10 +2,10 @@
 
 class Database {
 
-    const server = "localhost";
-    const korisnik = "jmigac";
-    const lozinka = "111111";
-    const baza = "air";
+    const server = "31.22.4.26";
+    const korisnik = "juricami_jm";
+    const lozinka = "lepoglava15";
+    const baza = "juricami_fitapp";
 
     private $veza = null;
     private $greska = '';

@@ -119,7 +119,6 @@ if(isset($_GET["query"]) && $_GET["query"]=="update" && isset($_POST["identifika
     $identifikator = $_POST["identifikator"];
     $upit = "UPDATE korisnik SET $atribut='{$vrijednost}' WHERE id=$identifikator";
     $baza->updateDB($upit);
-    var_dump($upit);
 }
 /*
     Funkcija koja briše određenog korisnika
@@ -134,9 +133,9 @@ if(isset($_GET["query"]) && $_GET["query"]=="delete" && isset($_POST["user"])){
 */
 if(isset($_GET["query"]) && $_GET["query"] == "insert" && postojanostNuznihElemenataUnosa()){
     $korisnik = kreirajRjecnik();
-    $majk = new Korisnik($korisnik);
+    $noviKorisnikInsert = new Korisnik($korisnik);
     $upit = "INSERT INTO korisnik (ime,prezime,email,visina,razina_aktivnosti,cilj_mase,cilj_tjednog_mrsavljenja,spol,datum_rodenja) 
-    VALUES ('$majk->ime','$majk->prezime','$majk->email',$majk->visina,$majk->razinaAktivnosti,$majk->ciljMase,$majk->ciljTjednogMrsavljenja,'$majk->spol','$majk->datumRodenja')";
+    VALUES ('$noviKorisnikInsert->ime','$noviKorisnikInsert->prezime','$noviKorisnikInsert->email',$noviKorisnikInsert->visina,$noviKorisnikInsert->razinaAktivnosti,$noviKorisnikInsert->ciljMase,$noviKorisnikInsert->ciljTjednogMrsavljenja,'$noviKorisnikInsert->spol','$noviKorisnikInsert->datumRodenja')";
     $rezultatObrade = $baza->updateDB($upit);
 }
 
@@ -152,8 +151,9 @@ if(isset($_GET["query"]) && $_GET["query"]=="getAll"){
         $noviKorisnik = new Korisnik($redak,true);
         array_push($sviKorisnici,$noviKorisnik->dohvatiJson());
     }
-    $objekt = Korisnik::kreirajJsonObjekt("korisnik",$brojKorisnika,$sviKorisnici);
-    var_dump($objekt);
+    header('Content-type: application/json');
+    http_response_code(200); 
+    echo json_encode($sviKorisnici);
 }
 /*
     Funkcija koja dohvaća određenog korisnika.
@@ -167,7 +167,8 @@ if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["user"])){
         $noviKorisnik = new Korisnik($redak);
         array_push($sviKorisnici,$noviKorisnik->dohvatiJson());
     }
-    $objekt = Korisnik::kreirajJsonObjekt("korisnik",$brojKorisnika,$sviKorisnici);
-    var_dump($objekt);
+    header('Content-type: application/json');
+    http_response_code(200); 
+    echo json_encode($sviKorisnici);
 }
 $baza->zatvoriDB();

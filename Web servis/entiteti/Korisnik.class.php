@@ -3,6 +3,7 @@
 class Korisnik{
 
     public $id;
+    public $google_id;
     public $ime;
     public $prezime;
     public $email;
@@ -16,9 +17,10 @@ class Korisnik{
 
     function __construct($json,$identifikator = false){
         if($identifikator){
-            $this->id = $json["id"];    
+            $this->id = (int)$json["id"];    
         }
         $this->ime = $json["ime"];
+        $this->google_id = $json["google_id"];
         $this->prezime = $json["prezime"];
         $this->email = $json["email"];
         $this->visina = (double)$json["visina"];
@@ -31,16 +33,14 @@ class Korisnik{
     }
     function dohvatiJson(){
         if($this->id != ""){
-            $jsonPodatak = array("id"=>$this->id,"ime" => $this->ime, "prezime" => $this->prezime,"email" => $this->email, "visina" => $this->visina,"datum_rodenja" => $this->datumRodenja,"razina_aktivnosti" => $this->razinaAktivnosti,"cilj_mase" => $this->ciljMase,"cilj_tjednog_mrsavljenja" => $this->ciljTjednogMrsavljenja,"spol" => $this->spol );    
+            $jsonPodatak = array("id"=>$this->id,"google_id"=>$this->google_id,"ime" => $this->ime, "prezime" => $this->prezime,"email" => $this->email, "visina" => $this->visina,"datum_rodenja" => $this->datumRodenja,"razina_aktivnosti" => $this->razinaAktivnosti,"cilj_mase" => $this->ciljMase,"cilj_tjednog_mrsavljenja" => $this->ciljTjednogMrsavljenja,"spol" => $this->spol );    
         }else{
-            $jsonPodatak = array("ime" => $this->ime, "prezime" => $this->prezime,"email" => $this->email, "visina" => $this->visina,"datum_rodenja" => $this->datumRodenja,"razina_aktivnosti" => $this->razinaAktivnosti,"cilj_mase" => $this->ciljMase,"cilj_tjednog_mrsavljenja" => $this->ciljTjednogMrsavljenja,"spol" => $this->spol );
+            $jsonPodatak = array("google_id"=>$this->google_id,"ime" => $this->ime, "prezime" => $this->prezime,"email" => $this->email, "visina" => $this->visina,"datum_rodenja" => $this->datumRodenja,"razina_aktivnosti" => $this->razinaAktivnosti,"cilj_mase" => $this->ciljMase,"cilj_tjednog_mrsavljenja" => $this->ciljTjednogMrsavljenja,"spol" => $this->spol );
         }
         return $jsonPodatak;
     }
     static function kreirajJsonObjekt($tablica = "korisnik", $brZapisa, $lista){
         $json = array();
-        array_push($json,$tablica);
-        array_push($json,$brZapisa);
         array_push($json,$lista);
         json_encode($json);
         return $json;

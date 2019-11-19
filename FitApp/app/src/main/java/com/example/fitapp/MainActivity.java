@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.registracija.Registracija;
+import com.example.webservice.JsonApi;
+import com.example.webservice.RetrofitInstance;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -14,9 +16,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import retrofit2.Retrofit;
+
 public class MainActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
-
     int RC_SIGN_IN = 0;
 
     @Override
@@ -34,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(GoogleSignIn.getLastSignedInAccount(this)==null){
             signIn();
+
         }else{
 
         }
-
     }
 
     private void signIn() {
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         // Check for existing Google Sign In account, if the user is already signed in
 // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
     }
 
     @Override
@@ -64,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-
             Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
             startActivity(intent);
         }

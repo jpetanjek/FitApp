@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
         if(GoogleSignIn.getLastSignedInAccount(this)==null){
             signIn();
         }else{
-            Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
-            startActivity(intent);
+
         }
 
     }
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
 
     @Override
@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
+
+            Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
+            startActivity(intent);
         }
     }
 

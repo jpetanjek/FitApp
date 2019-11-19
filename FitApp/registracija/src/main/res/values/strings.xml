@@ -1,19 +1,3 @@
 <resources>
-
-    <string name="inactive">Inactive</string>
-    <string name="s">S</string>
-    <string name="spintar1_gmail_com">spintar1@gmail.com</string>
-    <string name="user_information">User information</string>
-    <string name="female">Female</string>
-    <string name="_29_may_1996">29. may 1996</string>
-    <string name="_162_0_cm">162,0 cm</string>
-    <string name="_53_5_kg">53,5 kg</string>
-    <string name="user_goals">User goals</string>
-    <string name="_52_0_kg">52,0 kg</string>
-    <string name="_0_50_kg_week">0,50 kg/week</string>
-    <string name="daily_activity">Daily activity</string>
-    <string name="_1">1</string>
-    <string name="_2">2</string>
-    <string name="_3">3</string>
-    <string name="_4">4</string>
+    <string name="app_name">Registracija</string>
 </resources>

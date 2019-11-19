@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FitApp</string>
+    <string name="Signout">Signout</string>
 </resources>

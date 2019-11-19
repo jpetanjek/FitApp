@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
 
-            Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
+            //Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
+            Intent intent = new Intent(MainActivity.this, Registracija.class);
             startActivity(intent);
         }
     }

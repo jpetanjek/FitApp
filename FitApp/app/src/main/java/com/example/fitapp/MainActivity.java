@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
 
+import static com.example.database.MyDatabase.getInstance;
+
+import com.example.database.MyDatabase;
 import com.example.registracija.Registracija;
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
@@ -54,8 +57,15 @@ public class MainActivity extends AppCompatActivity {
 
             JsonApi jsonApi = retrofit.create(JsonApi.class);
 
-            //Call<RetroKorisnik> poziv = jsonApi.dohvatiKorisnika(account.getId());
-            Call<List<RetroKorisnik>> poziv = jsonApi.dohvatiSveKorisnike();
+            Call<RetroKorisnik> poziv = jsonApi.dohvatiKorisnika(account.getId());
+
+            MyDatabase myDatabase = getInstance(this);
+            //za napraviti parse iz RetroKorisnik u DaoKorisnik
+            //ovo je lokalno
+            myDatabase.getDAO().unosKorisnika();
+
+
+            /*Call<List<RetroKorisnik>> poziv = jsonApi.dohvatiSveKorisnike();
 
             poziv.enqueue(new Callback<List<RetroKorisnik>>() {
                 @Override
@@ -69,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailure(Call<List<RetroKorisnik>> call, Throwable t) {
                     System.out.println("Test2");
                 }
-            });
+            });*/
         }
     }
 

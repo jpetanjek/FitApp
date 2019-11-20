@@ -179,7 +179,7 @@ public class Registracija extends AppCompatActivity {
                     builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            weightGoalPicker.setText(""+weightGoalPick.getValue()+" cm");
+                            weightGoalPicker.setText(""+weightGoalPick.getValue()+" kg");
 
                         }
                     });
@@ -217,7 +217,7 @@ public class Registracija extends AppCompatActivity {
                     builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            lossGainPicker.setText(""+lossGainPick.getValue()+" cm");
+                            lossGainPicker.setText(""+lossGainPick.getValue()+" kg");
 
                         }
                     });
@@ -228,6 +228,18 @@ public class Registracija extends AppCompatActivity {
                         }
                     });
                     builder.show();
+                }
+
+            }
+        });
+
+        final Button register = (Button) findViewById(R.id.btnRgister);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.getId()==R.id.btnRgister) {
+
+
                 }
 
             }

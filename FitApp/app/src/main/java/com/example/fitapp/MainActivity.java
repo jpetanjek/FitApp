@@ -149,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("handleSignIn");
             System.out.println(account.getId());
 
+
+
             // Signed in successfully, show authenticated UI. Prvi put kada se instalira aplikacija
             // Ovdje provjeravamo da li je vec registriran (na web servisu  provjeri da li postoji neko sa istim google id)
 
@@ -163,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<RetroKorisnik> call, Response<RetroKorisnik> response) {
                     System.out.println("Response");
-                    if(response.body()!=null){
+                    if(response.body().getGoogle_id()!=null){
                         // dodaj korisnika u lokalnu bazu
                         Korisnik korisnik = new Korisnik();
                         korisnik.parseKorisnik(response);
@@ -177,9 +179,7 @@ public class MainActivity extends AppCompatActivity {
                         // ako nije posalji ga na registraciju
                         // ali prije ga dodaj u lokalnu bazu
 
-                        System.out.println("Nije registriran");
-                        Intent intent3 = new Intent(MainActivity.this, Registracija.class);
-                        startActivity(intent3);
+
                     }
                 }
 
@@ -187,7 +187,9 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailure(Call<RetroKorisnik> call, Throwable t) {
                     //ako poziv ne uspije znaci da je web servis mrtav
                     System.out.println("Fail");
-
+                    System.out.println("Nije registriran");
+                    Intent intent3 = new Intent(MainActivity.this, Registracija.class);
+                    startActivity(intent3);
                 }
             });
 

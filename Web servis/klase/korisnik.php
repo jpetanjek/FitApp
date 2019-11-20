@@ -146,8 +146,7 @@ if(isset($_GET["query"]) && $_GET["query"]=="delete" && isset($_POST["user"])){
 if(isset($_GET["query"]) && $_GET["query"] == "insert" && postojanostNuznihElemenataUnosa()){
     $korisnik = kreirajRjecnik();
     $noviKorisnikInsert = new Korisnik($korisnik);
-    $upit = "INSERT INTO korisnik (google_id,ime,prezime,email,visina,razina_aktivnosti,cilj_mase,cilj_tjednog_mrsavljenja,spol,datum_rodenja) 
-    VALUES ('$noviKorisnikInsert->google_id','$noviKorisnikInsert->ime','$noviKorisnikInsert->prezime','$noviKorisnikInsert->email',$noviKorisnikInsert->visina,$noviKorisnikInsert->razinaAktivnosti,$noviKorisnikInsert->ciljMase,$noviKorisnikInsert->ciljTjednogMrsavljenja,'$noviKorisnikInsert->spol','$noviKorisnikInsert->datumRodenja')";
+    $upit = "INSERT INTO korisnik(google_id,ime,prezime,email,visina,razina_aktivnosti,cilj_mase,cilj_tjednog_mrsavljenja,spol,datum_rodenja) VALUES(TRIM(BOTH '\"' FROM '$noviKorisnikInsert->google_id'), TRIM(BOTH '\"' FROM '$noviKorisnikInsert->ime'),TRIM(BOTH '\"' FROM '$noviKorisnikInsert->prezime'),TRIM(BOTH '\"' FROM '$noviKorisnikInsert->email'),$noviKorisnikInsert->visina,$noviKorisnikInsert->razinaAktivnosti,$noviKorisnikInsert->ciljMase,$noviKorisnikInsert->ciljTjednogMrsavljenja,TRIM(BOTH '\"' FROM '$noviKorisnikInsert->spol'),TRIM(BOTH '\"' FROM '$noviKorisnikInsert->datumRodenja'))";
     $rezultatObrade = $baza->updateDB($upit);
 }
 

@@ -78,6 +78,13 @@ function postojanostNuznihElemenataUnosa(){
         return false;
     }
 }
+function provjeriGoogleId(){
+    if(isset($_POST["google_id"])){
+        return true;
+    }else{
+        return false;
+    }
+}
 function kreirajRjecnik(){
     $korisnikovRjecnik;
     if(postojanostNuznihElemenataUnosa()){
@@ -86,6 +93,11 @@ function kreirajRjecnik(){
         $korisnikovRjecnik["email"] = $_POST["email"];
         $korisnikovRjecnik["visina"] = $_POST["visina"];
         $korisnikovRjecnik["razina_aktivnosti"] = $_POST["razina_aktivnosti"];
+    }
+    if(provjeriGoogleId()){
+        $korisnikovRjecnik["google_id"] = $_POST["google_id"];
+    }else{
+        $korisnikovRjecnik["google_id"] = "";
     }
     if(provjeriCiljMase()){
         $korisnikovRjecnik["cilj_mase"] = $_POST["cilj_mase"];
@@ -134,8 +146,8 @@ if(isset($_GET["query"]) && $_GET["query"]=="delete" && isset($_POST["user"])){
 if(isset($_GET["query"]) && $_GET["query"] == "insert" && postojanostNuznihElemenataUnosa()){
     $korisnik = kreirajRjecnik();
     $noviKorisnikInsert = new Korisnik($korisnik);
-    $upit = "INSERT INTO korisnik (ime,prezime,email,visina,razina_aktivnosti,cilj_mase,cilj_tjednog_mrsavljenja,spol,datum_rodenja) 
-    VALUES ('$noviKorisnikInsert->ime','$noviKorisnikInsert->prezime','$noviKorisnikInsert->email',$noviKorisnikInsert->visina,$noviKorisnikInsert->razinaAktivnosti,$noviKorisnikInsert->ciljMase,$noviKorisnikInsert->ciljTjednogMrsavljenja,'$noviKorisnikInsert->spol','$noviKorisnikInsert->datumRodenja')";
+    $upit = "INSERT INTO korisnik (google_id,ime,prezime,email,visina,razina_aktivnosti,cilj_mase,cilj_tjednog_mrsavljenja,spol,datum_rodenja) 
+    VALUES ('$noviKorisnikInsert->google_id','$noviKorisnikInsert->ime','$noviKorisnikInsert->prezime','$noviKorisnikInsert->email',$noviKorisnikInsert->visina,$noviKorisnikInsert->razinaAktivnosti,$noviKorisnikInsert->ciljMase,$noviKorisnikInsert->ciljTjednogMrsavljenja,'$noviKorisnikInsert->spol','$noviKorisnikInsert->datumRodenja')";
     $rezultatObrade = $baza->updateDB($upit);
 }
 
@@ -161,7 +173,7 @@ if(isset($_GET["query"]) && $_GET["query"]=="getAll"){
 if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["user"])){
     $korisnickiIdentifikator = $_GET["user"];
     $sviKorisnici = array();
-    $dohvatBaze = $baza->selectDB("SELECT * FROM korisnik WHERE id = $korisnickiIdentifikator");
+    $dohvatBaze = $baza->selectDB("SELECT * FROM korisnik WHERE google_id = '$korisnickiIdentifikator'");
     $brojKorisnika = mysqli_num_rows($dohvatBaze);
     while($redak = mysqli_fetch_array($dohvatBaze)){
         $noviKorisnik = new Korisnik($redak);

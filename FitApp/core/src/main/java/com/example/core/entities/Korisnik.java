@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "korisnik")
 public class Korisnik {
-
+    @PrimaryKey(autoGenerate = false)
     private int id;
 
     private String ime;

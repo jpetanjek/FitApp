@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             System.out.println("onActivityResult");
-            System.out.println(account.getId());
+           // System.out.println(account.getId());
         }
     }
 
@@ -143,23 +143,26 @@ public class MainActivity extends AppCompatActivity {
             Retrofit retrofit = RetrofitInstance.getInstance();
 
             JsonApi jsonApi = retrofit.create(JsonApi.class);
+            /*Call<RetroKorisnik> poziv = jsonApi.dohvatiKorisnika(account.getId());
 
-            Call<RetroKorisnik> poziv = jsonApi.dohvatiKorisnika(account.getId());
 
             poziv.enqueue(new Callback<RetroKorisnik>() {
                 @Override
                 public void onResponse(Call<RetroKorisnik> call, Response<RetroKorisnik> response) {
                     if(response.body()!=null){
                         // ako je posalji ga na glavni izbornik
-                        // dodaj ga u lokalnu bazu
+                        // dodaj ga u lokalnu bazu*/System.out.println(account.getId());
                         Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
-                        startActivity(intent);
-                    }else{
+                        startActivity(intent);/*
+                    }
+                    else{
                         // ako nije posalji ga na registraciju
                         // ali prije ga dodaj u lokalnu bazu
                         Intent intent = new Intent(MainActivity.this, Registracija.class);
                         startActivity(intent);
                     }
+
+
                 }
 
                 @Override
@@ -167,20 +170,12 @@ public class MainActivity extends AppCompatActivity {
                     //ako poziv ne uspije znaci da je web servis mrtav
                 }
             });
-
-
-
-
-
-
-
-
-
-
+*/
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
+         //   Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
+           // System.out.println(e.);
         }
     }
 

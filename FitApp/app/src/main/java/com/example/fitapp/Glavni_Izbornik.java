@@ -2,15 +2,21 @@ package com.example.fitapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
@@ -40,53 +46,50 @@ import retrofit2.Retrofit;
 
 public class Glavni_Izbornik extends AppCompatActivity {
 
-    GoogleApiClient mGoogleApiClient;
-    @Override
-    protected void onStart() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
 
-        mGoogleApiClient.connect();
-        super.onStart();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glavni__izbornik);
 
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        toolbar.findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    // ...
-                    case R.id.button:
-                        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                                new ResultCallback<Status>() {
-                                    @Override
-                                    public void onResult(@NonNull Status status) {
-                                        Intent intent = new Intent(Glavni_Izbornik.this, MainActivity.class);
-                                        startActivity(intent);
-                                    }
-                                }
-                        );
-                        break;
-                    // ...
+            public void onClick(View v){
+                try{
+                    Intent i = new Intent("com.Profil");
+                    startActivity(i);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
                 }
 
             }
-        });
 
+        });
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id=item.getItemId();
 
-
-
-
-
-
-
+         if(id==R.id.search){
+            Toast.makeText(getApplicationContext(), "You can click search", Toast.LENGTH_SHORT).show();
+        }
+        else if(id==R.id.settings){
+            Toast.makeText(getApplicationContext(), "You can click settings", Toast.LENGTH_SHORT).show();
+        }
+        return true;
+    }
 }

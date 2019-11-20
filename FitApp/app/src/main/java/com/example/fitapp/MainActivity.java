@@ -48,9 +48,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(GoogleSignIn.getLastSignedInAccount(this)==null){
+            //ako korisnik nije prijavljen pomocu googleSignIn
+            //obavi prijavu i registriraj ga ako ne postoji u bazi
             signIn();
 
         }else{
+            //ako je korisnik prijavljen pomocu googleSignIn
+            //prebaci ga na glavni izbornik
+
+            Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
+            startActivity(intent);
+
+
+            //ispod je samo ispis testnih podataka u logcat
             System.out.println("onCreate");
 
             Retrofit retrofit = RetrofitInstance.getInstance();
@@ -59,12 +69,16 @@ public class MainActivity extends AppCompatActivity {
 
             Call<RetroKorisnik> poziv = jsonApi.dohvatiKorisnika(account.getId());
 
-            MyDatabase myDatabase = getInstance(this);
+
+            //ovo je lokalna baza
+            //MyDatabase myDatabase = getInstance(this);
+
             //za napraviti parse iz RetroKorisnik u DaoKorisnik
-            //ovo je lokalno
-            myDatabase.getDAO().unosKorisnika();
 
+            //spremiti dohvacenog korisnika u lokalnu bazu
+            //myDatabase.getDAO().unosKorisnika();
 
+            //svi korisnici
             /*Call<List<RetroKorisnik>> poziv = jsonApi.dohvatiSveKorisnike();
 
             poziv.enqueue(new Callback<List<RetroKorisnik>>() {
@@ -84,16 +98,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signIn() {
+        //Ovo pokrece fragmente od GoogleSignIn integracije, kada se zavrsi pokrece se onActivityResult
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         // Check for existing Google Sign In account, if the user is already signed in
-// the GoogleSignInAccount will be non-null.
+        // the GoogleSignInAccount will be non-null.
         account = GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null) {
             System.out.println("onStart");
@@ -123,7 +137,43 @@ public class MainActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            // Signed in successfully, show authenticated UI. FOR THE FIRST TIME
+            // Signed in successfully, show authenticated UI. Prvi put kada se instalira aplikacija
+            // Ovdje provjeravamo da li je vec registriran (na web servisu  provjeri da li postoji neko sa istim google id)
+
+            Retrofit retrofit = RetrofitInstance.getInstance();
+
+            JsonApi jsonApi = retrofit.create(JsonApi.class);
+
+            Call<RetroKorisnik> poziv = jsonApi.dohvatiKorisnika(account.getId());
+
+            poziv.enqueue(new Callback<RetroKorisnik>() {
+                @Override
+                public void onResponse(Call<RetroKorisnik> call, Response<RetroKorisnik> response) {
+                    if(response.body()!=null){
+                        // ako je posalji ga na glavni izbornik
+                        // dodaj ga u lokalnu bazu
+                        Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
+                        startActivity(intent);
+                    }else{
+                        // ako nije posalji ga na registraciju
+                        // ali prije ga dodaj u lokalnu bazu
+                        Intent intent = new Intent(MainActivity.this, Registracija.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<RetroKorisnik> call, Throwable t) {
+                    //ako poziv ne uspije znaci da je web servis mrtav
+                }
+            });
+
+
+
+
+
+
+
 
 
 

@@ -165,9 +165,12 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("Response");
                     if(response.body()!=null){
                         // dodaj korisnika u lokalnu bazu
-                        Korisnik korisnik = new Korisnik();
-                        korisnik.parseKorisnik(response);
-                        long[] odgovor = getInstance(getApplicationContext()).getKorisnikDAO().unosKorisnika(korisnik);
+
+                        //ovo crasha pri login
+
+                        //Korisnik korisnik = new Korisnik();
+                        //korisnik.parseKorisnik(response);
+                        //long[] odgovor = getInstance(getApplicationContext()).getKorisnikDAO().unosKorisnika(korisnik);
 
                         // ako je posalji ga na glavni izbornik
                         System.out.println("Registriran je");

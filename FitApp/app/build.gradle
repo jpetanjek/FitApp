@@ -34,6 +34,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    //room database framework
+    def room_version = "2.2.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     implementation project(':registracija')
     implementation project(':database')

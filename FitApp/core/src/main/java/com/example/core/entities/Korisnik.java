@@ -4,6 +4,9 @@ import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import RetroEntities.RetroKorisnik;
+import retrofit2.Response;
+
 @Entity(tableName = "korisnik")
 public class Korisnik {
     @PrimaryKey(autoGenerate = false)
@@ -100,5 +103,22 @@ public class Korisnik {
 
     public float getCilj_tjednog_mrsavljenja() {
         return cilj_tjednog_mrsavljenja;
+    }
+
+    public Korisnik parseKorisnik(Response<RetroKorisnik> response){
+        Korisnik korisnik = new Korisnik();
+        korisnik.id = response.body().getId();
+        korisnik.ime = response.body().getIme();
+        korisnik.prezime = response.body().getPrezime();
+        korisnik.email = response.body().getEmail();
+        korisnik.spol = response.body().getSpol().charAt(0);
+        korisnik.visina = response.body().getVisina();
+        // TODO: Dodati masu (i getMasa) u RetroKorisnik
+        // korisnik.masa = response.body().getMasa();
+        korisnik.cilj_mase = response.body().getCiljMase();
+        korisnik.cilj_tjednog_mrsavljenja = response.body().getCiljTjednogMrsavljenja();
+        korisnik.cilj_tjednog_mrsavljenja = response.body().getCiljTjednogMrsavljenja();
+
+        return korisnik;
     }
 }

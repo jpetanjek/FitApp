@@ -30,6 +30,40 @@ public class Registracija extends AppCompatActivity {
             Uri personPhoto = acct.getPhotoUrl();
 
             email.setText(personEmail);
+        }
     }
-    }
+
+    //Po kliku gumba za registriranje, dodajemo novog korisnika sa
+    /*
+    Retrofit retrofit = RetrofitInstance.getInstance();
+    JsonApi jApi = retrofit.create(JsonApi.class);
+    RetroKorisnik noviKorisnik = new RetroKorisnik();
+            noviKorisnik.setIme("Matej");
+            noviKorisnik.setPrezime("Loncar");
+            noviKorisnik.setEmail("mloncar@foi.hr");
+            noviKorisnik.setVisina(Float.parseFloat("180.0"));
+            noviKorisnik.setRazinaAktivnosti(1);
+            noviKorisnik.setCiljMase(180);
+            noviKorisnik.setCiljTjednogMrsavljenja(Float.parseFloat("0.5"));
+            noviKorisnik.setSpol("M");
+            noviKorisnik.setDatumRodenja("01/12/1998");
+            Call<Void> poziv = jApi.unesiKorisnika(noviKorisnik.getIme(),noviKorisnik.getPrezime(),acct.getId(),noviKorisnik.getEmail(),
+                    noviKorisnik.getVisina(),noviKorisnik.getRazinaAktivnosti(),noviKorisnik.getCiljMase(),
+                    noviKorisnik.getCiljTjednogMrsavljenja(),noviKorisnik.getSpol(),noviKorisnik.getDatumRodenja());
+            poziv.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if(response.isSuccessful()){
+                        System.out.println("Zapisan");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    System.out.println("Ne radi");
+                }
+            });
+
+            //još ga nadodati u lokalnu bazu¸¸
+     */
 }

@@ -105,6 +105,7 @@
                         android:background="@drawable/btn2_background"
                         android:text="Gender" />
 
+
                     <Button
                         android:id="@+id/btnDateOfBirth"
                         android:layout_width="0dp"
@@ -114,6 +115,7 @@
                         android:textAllCaps="false"
                         android:background="@drawable/btn2_background"
                         android:text="Date Of Birth" />
+
                 </LinearLayout>
 
                 <LinearLayout

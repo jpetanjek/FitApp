@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.registracija.Registracija;
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
 import com.google.android.gms.auth.api.Auth;
@@ -70,6 +71,23 @@ public class Glavni_Izbornik extends AppCompatActivity {
 
             }
 
+        });
+
+        Button button = (Button) findViewById(R.id.registracija);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    // ...
+                    case R.id.registracija:
+                            Intent intent = new Intent(Glavni_Izbornik.this, Registracija.class);
+                            startActivity(intent);
+
+                        break;
+                    // ...
+                }
+
+            }
         });
 
     }

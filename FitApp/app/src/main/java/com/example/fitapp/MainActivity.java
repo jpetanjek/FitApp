@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             //ako je korisnik prijavljen pomocu googleSignIn
             //prebaci ga na glavni izbornik
+            account = GoogleSignIn.getLastSignedInAccount(this);
 
             Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
             startActivity(intent);
@@ -63,12 +64,14 @@ public class MainActivity extends AppCompatActivity {
             //ispod je samo ispis testnih podataka u logcat
             System.out.println("onCreate");
 
+
+            /*
             Retrofit retrofit = RetrofitInstance.getInstance();
 
             JsonApi jsonApi = retrofit.create(JsonApi.class);
 
             Call<RetroKorisnik> poziv = jsonApi.dohvatiKorisnika(account.getId());
-
+*/
 
             //ovo je lokalna baza
             //MyDatabase myDatabase = getInstance(this);
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         account = GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null) {
             System.out.println("onStart");
-            System.out.println(account.getId());
+           // System.out.println(account.getId());
         }
 
     }
@@ -127,9 +130,10 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
 
+            account = GoogleSignIn.getLastSignedInAccount(this);
 
             System.out.println("onActivityResult");
-            System.out.println(account.getId());
+            //System.out.println(account.getId());
         }
     }
 
@@ -137,9 +141,13 @@ public class MainActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
+            Intent intent = new Intent(MainActivity.this, Registracija.class);
+            startActivity(intent);
+
             // Signed in successfully, show authenticated UI. Prvi put kada se instalira aplikacija
             // Ovdje provjeravamo da li je vec registriran (na web servisu  provjeri da li postoji neko sa istim google id)
 
+/*
             Retrofit retrofit = RetrofitInstance.getInstance();
 
             JsonApi jsonApi = retrofit.create(JsonApi.class);
@@ -169,13 +177,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
 
-
-
-
-
-
-
-
+*/
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.

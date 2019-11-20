@@ -9,6 +9,8 @@ import android.util.Log;
 
 import static com.example.database.MyDatabase.getInstance;
 
+import com.example.core.entities.Korisnik;
+import com.example.database.KorisnikDAO;
 import com.example.database.MyDatabase;
 import com.example.registracija.Registracija;
 import com.example.webservice.JsonApi;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
+        System.out.println("onCreate");
         if(GoogleSignIn.getLastSignedInAccount(this)==null){
             //ako korisnik nije prijavljen pomocu googleSignIn
             //obavi prijavu i registriraj ga ako ne postoji u bazi
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             //ispod je samo ispis testnih podataka u logcat
-            System.out.println("onCreate");
+
 
 
             /*
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         //Ovo pokrece fragmente od GoogleSignIn integracije, kada se zavrsi pokrece se onActivityResult
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        System.out.println("signIn");
     }
 
     @Override
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
             account = GoogleSignIn.getLastSignedInAccount(this);
 
-            System.out.println("onActivityResult");
+            //System.out.println("onActivityResult");
             //System.out.println(account.getId());
         }
     }
@@ -141,13 +144,15 @@ public class MainActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            Intent intent = new Intent(MainActivity.this, Registracija.class);
-            startActivity(intent);
+            //Intent intent = new Intent(MainActivity.this, Registracija.class);
+            //startActivity(intent);
+            System.out.println("handleSignIn");
+            System.out.println(account.getId());
 
             // Signed in successfully, show authenticated UI. Prvi put kada se instalira aplikacija
             // Ovdje provjeravamo da li je vec registriran (na web servisu  provjeri da li postoji neko sa istim google id)
 
-/*
+
             Retrofit retrofit = RetrofitInstance.getInstance();
 
             JsonApi jsonApi = retrofit.create(JsonApi.class);
@@ -157,27 +162,40 @@ public class MainActivity extends AppCompatActivity {
             poziv.enqueue(new Callback<RetroKorisnik>() {
                 @Override
                 public void onResponse(Call<RetroKorisnik> call, Response<RetroKorisnik> response) {
+                    System.out.println("Response");
                     if(response.body()!=null){
+                        // dodaj korisnika u lokalnu bazu
+
+                        //ovo crasha pri login
+
+                        //Korisnik korisnik = new Korisnik();
+                        //korisnik.parseKorisnik(response);
+                        //long[] odgovor = getInstance(getApplicationContext()).getKorisnikDAO().unosKorisnika(korisnik);
+
                         // ako je posalji ga na glavni izbornik
-                        // dodaj ga u lokalnu bazu
-                        Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
-                        startActivity(intent);
+                        System.out.println("Registriran je");
+                        Intent intent2 = new Intent(MainActivity.this, Glavni_Izbornik.class);
+                        startActivity(intent2);
                     }else{
                         // ako nije posalji ga na registraciju
                         // ali prije ga dodaj u lokalnu bazu
-                        Intent intent = new Intent(MainActivity.this, Registracija.class);
-                        startActivity(intent);
+
+                        System.out.println("Nije registriran");
+                        Intent intent3 = new Intent(MainActivity.this, Registracija.class);
+                        startActivity(intent3);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<RetroKorisnik> call, Throwable t) {
                     //ako poziv ne uspije znaci da je web servis mrtav
+                    System.out.println("Fail");
+
                 }
             });
 
 
-*/
+
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.

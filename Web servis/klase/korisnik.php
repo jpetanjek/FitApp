@@ -173,14 +173,16 @@ if(isset($_GET["query"]) && $_GET["query"]=="getAll"){
 if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["user"])){
     $korisnickiIdentifikator = $_GET["user"];
     $sviKorisnici = array();
+    $dohvacenKorisnik;
     $dohvatBaze = $baza->selectDB("SELECT * FROM korisnik WHERE google_id = '$korisnickiIdentifikator'");
     $brojKorisnika = mysqli_num_rows($dohvatBaze);
     while($redak = mysqli_fetch_array($dohvatBaze)){
-        $noviKorisnik = new Korisnik($redak);
-        array_push($sviKorisnici,$noviKorisnik->dohvatiJson());
+        $noviKorisnik = new Korisnik($redak,true);
+        //array_push($sviKorisnici,$noviKorisnik->dohvatiJson());
+        $dohvacenKorisnik = $noviKorisnik->dohvatiJson();
     }
     header('Content-type: application/json');
     http_response_code(200); 
-    echo json_encode($sviKorisnici);
+    echo json_encode($dohvacenKorisnik);
 }
 $baza->zatvoriDB();

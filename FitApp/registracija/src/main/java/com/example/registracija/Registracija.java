@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -20,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.example.webservice.JsonApi;
+import com.example.webservice.RetrofitInstance;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,6 +30,12 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import java.util.Calendar;
+
+import RetroEntities.RetroKorisnik;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class Registracija extends AppCompatActivity {
 
@@ -238,6 +247,42 @@ public class Registracija extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(v.getId()==R.id.btnRgister) {
+                    //Po kliku gumba za registriranje, dodajemo novog korisnika sa
+
+                    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(Registracija.this);
+
+                    Retrofit retrofit = RetrofitInstance.getInstance();
+                    JsonApi jApi = retrofit.create(JsonApi.class);
+                    RetroKorisnik noviKorisnik = new RetroKorisnik();
+                            noviKorisnik.setIme("Matej");
+                            noviKorisnik.setPrezime("Loncar");
+                            noviKorisnik.setEmail("mloncar@foi.hr");
+                            noviKorisnik.setVisina(Float.parseFloat("180.0"));
+                            noviKorisnik.setRazinaAktivnosti(1);
+                            noviKorisnik.setCiljMase(180);
+                            noviKorisnik.setCiljTjednogMrsavljenja(Float.parseFloat("0.5"));
+                            noviKorisnik.setSpol("M");
+                            noviKorisnik.setDatumRodenja("01/12/1998");
+                            Call<Void> poziv = jApi.unesiKorisnika(account.getDisplayName(),account.getFamilyName(),account.getId(),account.getEmail(),
+                                    noviKorisnik.getVisina(),noviKorisnik.getRazinaAktivnosti(),noviKorisnik.getCiljMase(),
+                                    noviKorisnik.getCiljTjednogMrsavljenja(),noviKorisnik.getSpol(),noviKorisnik.getDatumRodenja());
+                            poziv.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if(response.isSuccessful()){
+                                        System.out.println("Zapisan");
+                                            finishActivity(0);
+                                            finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    System.out.println("Ne radi");
+                                }
+                            });
+
+                            //još ga nadodati u lokalnu bazu¸¸
 
 
                 }
@@ -276,39 +321,7 @@ public class Registracija extends AppCompatActivity {
         return builder.create();
     }
 
-    //Po kliku gumba za registriranje, dodajemo novog korisnika sa
-    /*
-    Retrofit retrofit = RetrofitInstance.getInstance();
-    JsonApi jApi = retrofit.create(JsonApi.class);
-    RetroKorisnik noviKorisnik = new RetroKorisnik();
-            noviKorisnik.setIme("Matej");
-            noviKorisnik.setPrezime("Loncar");
-            noviKorisnik.setEmail("mloncar@foi.hr");
-            noviKorisnik.setVisina(Float.parseFloat("180.0"));
-            noviKorisnik.setRazinaAktivnosti(1);
-            noviKorisnik.setCiljMase(180);
-            noviKorisnik.setCiljTjednogMrsavljenja(Float.parseFloat("0.5"));
-            noviKorisnik.setSpol("M");
-            noviKorisnik.setDatumRodenja("01/12/1998");
-            Call<Void> poziv = jApi.unesiKorisnika(noviKorisnik.getIme(),noviKorisnik.getPrezime(),acct.getId(),noviKorisnik.getEmail(),
-                    noviKorisnik.getVisina(),noviKorisnik.getRazinaAktivnosti(),noviKorisnik.getCiljMase(),
-                    noviKorisnik.getCiljTjednogMrsavljenja(),noviKorisnik.getSpol(),noviKorisnik.getDatumRodenja());
-            poziv.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if(response.isSuccessful()){
-                        System.out.println("Zapisan");
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    System.out.println("Ne radi");
-                }
-            });
-
-            //još ga nadodati u lokalnu bazu¸¸
-     */
 
 
 }

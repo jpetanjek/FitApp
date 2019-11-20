@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
 
+
+
             //ispod je samo ispis testnih podataka u logcat
 
 
@@ -118,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
         if(account!=null) {
             System.out.println("onStart");
            // System.out.println(account.getId());
+            Intent intent2 = new Intent(MainActivity.this, Glavni_Izbornik.class);
+            startActivity(intent2);
         }
 
     }
@@ -189,7 +193,10 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("Fail");
                     System.out.println("Nije registriran");
                     Intent intent3 = new Intent(MainActivity.this, Registracija.class);
-                    startActivity(intent3);
+                    startActivityForResult(intent3,0);
+
+                    //Intent intent4 = new Intent(MainActivity.this, Glavni_Izbornik.class);
+                    //startActivity(intent4);
                 }
             });
 

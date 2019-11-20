@@ -234,7 +234,7 @@ public class Registracija extends AppCompatActivity {
         });
 
         email = findViewById(R.id.tvMail);
-        imageView = findViewById(R.id.IvMail);
+        //imageView = findViewById(R.id.IvMail);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -297,5 +297,6 @@ public class Registracija extends AppCompatActivity {
 
             //još ga nadodati u lokalnu bazu¸¸
      */
+
 
 }

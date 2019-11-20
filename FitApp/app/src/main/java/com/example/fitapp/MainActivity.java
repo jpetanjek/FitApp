@@ -9,6 +9,8 @@ import android.util.Log;
 
 import static com.example.database.MyDatabase.getInstance;
 
+import com.example.core.entities.Korisnik;
+import com.example.database.KorisnikDAO;
 import com.example.database.MyDatabase;
 import com.example.registracija.Registracija;
 import com.example.webservice.JsonApi;
@@ -151,7 +153,13 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<RetroKorisnik> call, Response<RetroKorisnik> response) {
                     if(response.body()!=null){
                         // ako je posalji ga na glavni izbornik
-                        // dodaj ga u lokalnu bazu
+
+
+                        // dodaj korisnika u lokalnu bazu
+                        Korisnik korisnik = new Korisnik();
+                        korisnik.parseKorisnik(response);
+                        long[] odgovor = getInstance(getApplicationContext()).getKorisnikDAO().unosKorisnika(korisnik);
+
                         Intent intent = new Intent(MainActivity.this, Glavni_Izbornik.class);
                         startActivity(intent);
                     }else{

@@ -10,7 +10,7 @@ import androidx.room.Update;
 import com.example.core.entities.Korisnik;
 
 @Dao
-public interface DAO {
+public interface KorisnikDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] unosKorisnika(Korisnik... korisnici);
 

@@ -5,6 +5,9 @@ require '../entiteti/Namirnica.class.php';
 
 $baza = new Database();
 $baza->spojiDB();
+/*
+    Funkcija dohvaća sve namirnice iz baze podataka.
+*/
 if(isset($_GET["query"]) && $_GET["query"]=="getAll"){
     $sveNamirnice = array();
     $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica");
@@ -18,18 +21,21 @@ if(isset($_GET["query"]) && $_GET["query"]=="getAll"){
     echo json_encode($sveNamirnice);
     
 }
+/*
+    Funkcija dohvaća određenu namirnicu iz baze podataka prema primarnom ključu.
+*/
 if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["namirnica"])){
     $identifikatorNamirnica = $_GET["namirnica"];
-    $sveNamirnice = array();
+    $dohvacenaNamirnica;
     $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica WHERE id = $identifikatorNamirnica");
     $brojNamirnica = mysqli_num_rows($dohvatNamirnica);
     while($redak = mysqli_fetch_array($dohvatNamirnica)){
         $novaNamirnica = new Namirnica($redak,true);
-        array_push($sveNamirnice,$novaNamirnica->dohvatiJson());
+        $dohvacenaNamirnica = $novaNamirnica->dohvatiJson();
     }
     header('Content-type: application/json');
     http_response_code(200); 
-    echo json_encode($sveNamirnice);
+    echo json_encode($dohvacenaNamirnica);
 }
 /*
     Funkcija ažurira određenu namirnicu.
@@ -105,7 +111,7 @@ function populateObject(){
 if(isset($_GET["query"]) && $_GET["query"] == "insert" && provjeriPostVarijable()){
     $namirnica = populateObject();
     $novaNamirnicaInsert = new Namirnica($namirnica);
-    $upit = "INSERT INTO namirnica(naziv,broj_kalorija,tezina,isbn) VALUES ('$novaNamirnicaInsert->naziv',$novaNamirnicaInsert->brojKalorija,$novaNamirnicaInsert->tezina,'$novaNamirnicaInsert->isbn')";
+    $upit = "INSERT INTO namirnica(naziv,broj_kalorija,tezina,isbn) VALUES (TRIM(BOTH '\"' FROM '$novaNamirnicaInsert->naziv'),TRIM(BOTH '\"' FROM '$novaNamirnicaInsert->brojKalorija'),TRIM(BOTH '\"' FROM '$novaNamirnicaInsert->tezina'),TRIM(BOTH '\"' FROM '$novaNamirnicaInsert->isbn'))";
     $rezultatObrade = $baza->updateDB($upit);
 }
 $baza->zatvoriDB();

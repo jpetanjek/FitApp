@@ -1,4 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#232323">
+
+    <com.hamza.slidingsquaresloaderview.SlidingSquareLoaderView
+        android:id="@+id/loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="192dp"
+        app:sslv_duration="100"
+        app:sslv_square_length="50dp"
+        app:sslv_color="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/loader"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp"
+        android:text="FitApp"
+        android:textColor="#fff"
+        android:textSize="70sp"
+        android:textStyle="bold" />
+
+
+    <!--
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,3 +53,5 @@
         tools:text="Splash Screen" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+-->
+</RelativeLayout>

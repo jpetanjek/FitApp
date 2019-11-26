@@ -39,6 +39,12 @@ public class Registracija extends AppCompatActivity {
     ImageView imageView;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
+    Float height;
+    Float weight;
+    Integer weightGoal;
+    Float weightGainLossGoal;
+    String gender;
+    String datumRodenja;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +70,11 @@ public class Registracija extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 uiPickDate.setText(dayOfMonth+"."+(month+1)+"."+year);
+                datumRodenja = dayOfMonth+"/"+(month+1)+"/"+year;
             }
         };
 
-        Button uiPickGender = findViewById(R.id.btnGender);
+        final Button uiPickGender = findViewById(R.id.btnGender);
         uiPickGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,8 +84,8 @@ public class Registracija extends AppCompatActivity {
 
                         alertDialogBuilder.setTitle("Odabir spola").setItems(genderStrings, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Button tv1 = findViewById(R.id.btnGender);
-                                tv1.setText(genderStrings[which]);
+                                uiPickGender.setText(genderStrings[which]);
+                                gender=uiPickGender.getText().toString();
                             }
                         });
 
@@ -105,7 +112,7 @@ public class Registracija extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             uiPickCurrentWeight.setText(""+numberPicker.getValue()+" kg");
-
+                            weight= Float.valueOf(numberPicker.getValue());
                         }
                     });
 
@@ -149,7 +156,7 @@ public class Registracija extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             uiPickHeight.setText(""+numberPicker.getValue()+" cm");
-
+                            height=Float.valueOf(numberPicker.getValue());
                         }
                     });
 
@@ -192,7 +199,7 @@ public class Registracija extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             uiPickWeightGoal.setText(""+numberPicker.getValue()+" kg");
-
+                            weightGoal=Integer.valueOf(numberPicker.getValue());
                         }
                     });
 
@@ -222,13 +229,12 @@ public class Registracija extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(v.getId()==R.id.btnWeightLossOrGainGoal) {
-
+                    //TODO - popraviti unose
                     final NumberPicker lossGainPick = new NumberPicker(Registracija.this);
                     String[] inputValues = {"1","2","3","4","5","6","7","8","9","10","-1","-2","-3","-4","-5","-6","-7","-8","-9","-10"};
                     lossGainPick.setDisplayedValues(inputValues);
                     lossGainPick.setMaxValue(19);
                     lossGainPick.setMinValue(0);
-
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Registracija.this).setView(lossGainPick);
                     alertDialogBuilder.setTitle("Odabir Željene težine (KG)");
@@ -237,7 +243,7 @@ public class Registracija extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             uiPickLossGainGoal.setText(""+lossGainPick.getValue()+" kg");
-
+                            weightGainLossGoal=Float.valueOf(lossGainPick.getValue());
                         }
                     });
 
@@ -275,17 +281,18 @@ public class Registracija extends AppCompatActivity {
                     JsonApi jApi = retrofit.create(JsonApi.class);
                     RetroKorisnik noviKorisnik = new RetroKorisnik();
 
-                            noviKorisnik.setIme("Matej");
-                            noviKorisnik.setPrezime("Loncar");
-                            noviKorisnik.setEmail("mloncar@foi.hr");
-                            noviKorisnik.setVisina(Float.parseFloat("180.0"));
+                            noviKorisnik.setGoogle_id(account.getId());
+                            noviKorisnik.setIme(account.getDisplayName());
+                            noviKorisnik.setPrezime(account.getFamilyName());
+                            noviKorisnik.setEmail(account.getEmail());
+                            noviKorisnik.setVisina(height);
                             noviKorisnik.setRazinaAktivnosti(1);
-                            noviKorisnik.setCiljMase(180);
-                            noviKorisnik.setCiljTjednogMrsavljenja(Float.parseFloat("0.5"));
-                            noviKorisnik.setSpol("M");
-                            noviKorisnik.setDatumRodenja("01/12/1998");
+                            noviKorisnik.setCiljMase(weightGoal);
+                            noviKorisnik.setCiljTjednogMrsavljenja(weightGainLossGoal);
+                            noviKorisnik.setSpol(gender);
+                            noviKorisnik.setDatumRodenja(datumRodenja);
 
-                            Call<Void> poziv = jApi.unesiKorisnika(account.getDisplayName(),account.getFamilyName(),account.getId(),account.getEmail(),
+                            Call<Void> poziv = jApi.unesiKorisnika(noviKorisnik.getIme(),noviKorisnik.getPrezime(),noviKorisnik.getGoogle_id(),account.getEmail(),
                                     noviKorisnik.getVisina(),noviKorisnik.getRazinaAktivnosti(),noviKorisnik.getCiljMase(),
                                     noviKorisnik.getCiljTjednogMrsavljenja(),noviKorisnik.getSpol(),noviKorisnik.getDatumRodenja());
 

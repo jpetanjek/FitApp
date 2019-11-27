@@ -16,7 +16,8 @@ public interface KorisnikDAO {
 
     @Update public void azuriranjeKorisnika(Korisnik... korisnik);
 
-    @Delete public void brisanjeKorisnika(Korisnik... korisnik);
+    @Query("DELETE FROM korisnik")
+    public void brisanjeKorisnika();
 
     @Query("SELECT * FROM korisnik WHERE google_id=:googleId")
     public Korisnik dohvatiKorisnika(String googleId);

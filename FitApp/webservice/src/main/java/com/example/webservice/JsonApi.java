@@ -3,6 +3,7 @@ package com.example.webservice;
 import java.util.List;
 
 import RetroEntities.RetroKorisnik;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
@@ -19,8 +20,11 @@ public interface JsonApi {
     @GET("korisnik.php?query=getById")
     Call<RetroKorisnik> dohvatiKorisnika(@Query("user") String googleId);
 
+    @Multipart
     @POST("korisnik.php?query=update")
-    Call<RetroKorisnik> azurirajKorisnika(@Field("identifikator") int idKorisnika, @Field("atribut") String atribut, @Field("vrijednost") String vrijednost);
+    Call<String> azurirajKorisnika(@Part("identifikator") int idKorisnika,
+                                 @Part("atribut") RequestBody atribut,
+                                 @Part("vrijednost") RequestBody vrijednost);
 
     @Multipart
     @POST("korisnik.php?query=insert")
@@ -34,11 +38,5 @@ public interface JsonApi {
                                @Part("cilj_tjednog_mrsavljenja") Float ciljTjednogMrsavljenja,
                                @Part("spol") String spol,
                                @Part("datum_rodenja") String datumRodenja);
-
-    @Multipart
-    @POST("korisnik.php?query=update")
-    Call<Void> azuriranjeKorisnika(@Part("identifikator") Integer identifikator,
-                                   @Part("atribut") String atribut,
-                                   @Part("vrijednost") String vrijednost);
 
 }

@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application>
-        <activity android:name=".Profil"></activity>
         <activity android:name=".Registracija" />
     </application>
 

@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Profil"></activity>
         <activity android:name=".Glavni_Izbornik"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -20,14 +21,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".Profil"
-            android:label="Preferences" >
-            <intent-filter>
-                <action android:name="com.Profil" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

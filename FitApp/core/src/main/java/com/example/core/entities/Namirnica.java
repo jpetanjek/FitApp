@@ -11,7 +11,7 @@ import retrofit2.Response;
 public class Namirnica {
     @PrimaryKey
     private int id;
-    
+
     private String naziv;
     private int brojKalorija;
     private int tezina;

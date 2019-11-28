@@ -1,68 +1,35 @@
 package com.example.fitapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.fragment.app.FragmentActivity;
-
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.registracija.Registracija;
-import com.example.webservice.JsonApi;
-import com.example.webservice.RetrofitInstance;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.Api;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.concurrent.TimeUnit;
-
-import RetroEntities.RetroKorisnik;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class Glavni_Izbornik extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glavni__izbornik);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         toolbar.findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 try{
-                    Intent i = new Intent("com.Profil");
+                    Intent i = new Intent(Glavni_Izbornik.this, Profil.class);
                     startActivity(i);
                 }
                 catch (Exception e){
@@ -70,18 +37,18 @@ public class Glavni_Izbornik extends AppCompatActivity {
                 }
 
             }
-
         });
 
         Button button = (Button) findViewById(R.id.registracija);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     // ...
                     case R.id.registracija:
-                            Intent intent = new Intent(Glavni_Izbornik.this, Registracija.class);
-                            startActivity(intent);
+                        Intent intent = new Intent(Glavni_Izbornik.this, Registracija.class);
+                        startActivity(intent);
 
                         break;
                     // ...
@@ -89,7 +56,6 @@ public class Glavni_Izbornik extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override

@@ -34,7 +34,7 @@ public interface JsonApi {
                                @Part("google_id") String googleId,
                                @Part("email") String email,
                                @Part("visina") Float visina,
-                               @Part("razina_aktivnosti") Integer razina_aktivnosti,
+                               @Part("masa") Float masa,
                                @Part("cilj_mase") Integer ciljMase,
                                @Part("cilj_tjednog_mrsavljenja") Float ciljTjednogMrsavljenja,
                                @Part("spol") String spol,

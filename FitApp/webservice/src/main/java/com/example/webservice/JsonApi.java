@@ -3,6 +3,7 @@ package com.example.webservice;
 import java.util.List;
 
 import RetroEntities.RetroKorisnik;
+import RetroEntities.RetroNamirnica;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -38,5 +39,33 @@ public interface JsonApi {
                                @Part("cilj_tjednog_mrsavljenja") Float ciljTjednogMrsavljenja,
                                @Part("spol") String spol,
                                @Part("datum_rodenja") String datumRodenja);
+
+    @Multipart
+    @POST("namirnica.php?query=update")
+    Call<String> azurirajNamirnicu(
+            @Part("identifikator") Integer namirnica,
+            @Part("atribut") RequestBody atribut,
+            @Part("vrijednost") RequestBody vrijednost
+    );
+    @Multipart
+    @POST("namirnica.php?query=delete")
+    Call<Void> izbrisiNamirnicu(
+            @Part("identifikator") Integer idNamirnice
+    );
+
+    @GET("namirnica.php?query=getAll")
+    Call<List<RetroNamirnica>> dohvatiSveNamirnice();
+
+    @GET("namirnica.php?query=getById")
+    Call<RetroNamirnica> dohvatiNamirnicu(@Query("namirnica") String idNamirnice);
+
+    @Multipart
+    @POST("namirnica.php?query=insert")
+    Call<Void> unesiNamirnicu(
+            @Part("naziv") String naziv,
+            @Part("broj_kalorija") Integer brojKalorija,
+            @Part("tezina") Integer tezina,
+            @Part("isbn") String isbn
+    );
 
 }

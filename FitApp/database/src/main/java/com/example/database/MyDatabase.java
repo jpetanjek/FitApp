@@ -7,8 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.core.entities.Korisnik;
+import com.example.core.entities.Namirnica;
 
-@Database(version = MyDatabase.VERSION,entities = {Korisnik.class},exportSchema = false)
+@Database(version = MyDatabase.VERSION,entities = {Korisnik.class, Namirnica.class},exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
     public static final String NAME = "FitAppBaza";
     public static final int VERSION = 1;

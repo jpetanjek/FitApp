@@ -40,6 +40,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
+        /*
         Button button = findViewById(R.id.registracija);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +56,8 @@ public class Glavni_Izbornik extends AppCompatActivity {
 
             }
         });
+
+         */
     }
 
     public static View getToolbarLogoView(Toolbar toolbar){

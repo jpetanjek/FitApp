@@ -3,6 +3,7 @@ package com.example.fitapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.Group;
 
 import static com.example.database.MyDatabase.getInstance;
 
@@ -22,6 +23,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+
+import java.util.ArrayList;
 
 
 public class Profil extends AppCompatActivity {
@@ -43,10 +46,24 @@ public class Profil extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_profile);
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+            Toolbar toolbar = findViewById(R.id.toolbar1);
             setSupportActionBar(toolbar);
 
-            Button button = (Button) findViewById(R.id.button1);
+            View logoView = getToolbarLogoView(toolbar);
+            logoView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                        Intent i = new Intent(Profil.this, Glavni_Izbornik.class);
+                        startActivity(i);
+                    }
+                    catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+            });
+
+            Button button = findViewById(R.id.button1);
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,12 +93,31 @@ public class Profil extends AppCompatActivity {
         }
 
     }
+
+    public static View getToolbarLogoView(Toolbar toolbar){
+        boolean hadContentDescription = android.text.TextUtils.isEmpty(toolbar.getLogoDescription());
+        String contentDescription = String.valueOf(!hadContentDescription ? toolbar.getLogoDescription() : "logoContentDescription");
+        toolbar.setLogoDescription(contentDescription);
+        ArrayList<View> potentialViews = new ArrayList<View>();
+        toolbar.findViewsWithText(potentialViews,contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        View logoIcon = null;
+
+        if(potentialViews.size() > 0){
+            logoIcon = potentialViews.get(0);
+        }
+
+        if(hadContentDescription)
+            toolbar.setLogoDescription(null);
+
+        return logoIcon;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -94,4 +130,6 @@ public class Profil extends AppCompatActivity {
         }
         return true;
     }
+
+ */
 }

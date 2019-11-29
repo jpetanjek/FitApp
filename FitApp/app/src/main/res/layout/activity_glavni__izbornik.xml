@@ -16,7 +16,7 @@
         android:background="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:logo="@drawable/ic_menu_black_24dp"
+        app:logo="@drawable/ic_person_black_24dp"
         app:titleMarginStart="30dp"
         app:title="Glavni izbornik"
         app:titleTextColor="@color/black"/>
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Registracija"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="670dp"
         android:layout_centerHorizontal="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.492"

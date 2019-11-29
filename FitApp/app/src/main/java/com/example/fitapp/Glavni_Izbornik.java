@@ -14,6 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.registracija.Registracija;
 
+import java.util.ArrayList;
+
 public class Glavni_Izbornik extends AppCompatActivity {
 
     @Override
@@ -21,13 +23,13 @@ public class Glavni_Izbornik extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glavni__izbornik);
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        toolbar.findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener(){
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 try{
                     Intent i = new Intent(Glavni_Izbornik.this, Profil.class);
                     startActivity(i);
@@ -35,27 +37,42 @@ public class Glavni_Izbornik extends AppCompatActivity {
                 catch (Exception e){
                     System.out.println(e.getMessage());
                 }
-
             }
         });
 
-        Button button = (Button) findViewById(R.id.registracija);
+        Button button = findViewById(R.id.registracija);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    // ...
                     case R.id.registracija:
+
                         Intent intent = new Intent(Glavni_Izbornik.this, Registracija.class);
                         startActivity(intent);
-
                         break;
-                    // ...
                 }
 
             }
         });
+    }
+
+    public static View getToolbarLogoView(Toolbar toolbar){
+        boolean hadContentDescription = android.text.TextUtils.isEmpty(toolbar.getLogoDescription());
+        String contentDescription = String.valueOf(!hadContentDescription ? toolbar.getLogoDescription() : "logoContentDescription");
+        toolbar.setLogoDescription(contentDescription);
+        ArrayList<View> potentialViews = new ArrayList<View>();
+        toolbar.findViewsWithText(potentialViews,contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        View logoIcon = null;
+
+        if(potentialViews.size() > 0){
+            logoIcon = potentialViews.get(0);
+        }
+
+        if(hadContentDescription)
+            toolbar.setLogoDescription(null);
+
+        return logoIcon;
     }
 
     @Override
@@ -63,7 +80,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
-
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
@@ -76,4 +93,5 @@ public class Glavni_Izbornik extends AppCompatActivity {
         }
         return true;
     }
+     */
 }

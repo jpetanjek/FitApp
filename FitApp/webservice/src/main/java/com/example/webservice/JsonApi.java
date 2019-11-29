@@ -42,8 +42,8 @@ public interface JsonApi {
 
     @Multipart
     @POST("namirnica.php?query=update")
-    Call<String> azurirajNamirnicu(
-            @Part("identifikator") Integer namirnica,
+    Call<Void> azurirajNamirnicu(
+            @Part("identifikator") Integer IdNamirnica,
             @Part("atribut") RequestBody atribut,
             @Part("vrijednost") RequestBody vrijednost
     );
@@ -57,7 +57,7 @@ public interface JsonApi {
     Call<List<RetroNamirnica>> dohvatiSveNamirnice();
 
     @GET("namirnica.php?query=getById")
-    Call<RetroNamirnica> dohvatiNamirnicu(@Query("namirnica") String idNamirnice);
+    Call<RetroNamirnica> dohvatiNamirnicu(@Query("namirnica") Integer idNamirnice);
 
     @Multipart
     @POST("namirnica.php?query=insert")

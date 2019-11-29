@@ -107,6 +107,7 @@ public class Korisnik {
 
     public Korisnik parseKorisnik(Response<RetroKorisnik> response){
         Korisnik korisnik = new Korisnik();
+
         korisnik.id = response.body().getId();
         korisnik.ime = response.body().getIme();
         korisnik.prezime = response.body().getPrezime();
@@ -114,9 +115,8 @@ public class Korisnik {
         korisnik.spol = response.body().getSpol().charAt(0);
         korisnik.visina = response.body().getVisina();
         // TODO: Dodati masu (i getMasa) u RetroKorisnik
-        // korisnik.masa = response.body().getMasa();
+        korisnik.masa = response.body().getMasa();
         korisnik.cilj_mase = response.body().getCiljMase();
-        korisnik.cilj_tjednog_mrsavljenja = response.body().getCiljTjednogMrsavljenja();
         korisnik.cilj_tjednog_mrsavljenja = response.body().getCiljTjednogMrsavljenja();
 
         return korisnik;

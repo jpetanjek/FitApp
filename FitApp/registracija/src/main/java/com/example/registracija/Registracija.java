@@ -287,13 +287,13 @@ public class Registracija extends AppCompatActivity {
                             noviKorisnik.setEmail(account.getEmail());
                             noviKorisnik.setVisina(height);
                             noviKorisnik.setDatumRodenja(datumRodenja);
-                            noviKorisnik.setRazinaAktivnosti(1);
+                            noviKorisnik.setMasa(weight);
                             noviKorisnik.setCiljMase(weightGoal);
                             noviKorisnik.setCiljTjednogMrsavljenja(weightGainLossGoal);
                             noviKorisnik.setSpol(gender);
 
                             Call<Void> poziv = jApi.unesiKorisnika(noviKorisnik.getIme(),noviKorisnik.getPrezime(),noviKorisnik.getGoogle_id(),account.getEmail(),
-                                    noviKorisnik.getVisina(),noviKorisnik.getRazinaAktivnosti(),noviKorisnik.getCiljMase(),
+                                    noviKorisnik.getVisina(),noviKorisnik.getMasa(),noviKorisnik.getCiljMase(),
                                     noviKorisnik.getCiljTjednogMrsavljenja(),noviKorisnik.getSpol(),noviKorisnik.getDatumRodenja());
 
                             poziv.enqueue(new Callback<Void>() {

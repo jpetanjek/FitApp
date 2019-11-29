@@ -75,8 +75,8 @@ public class Profil extends AppCompatActivity {
                                     @Override
                                     // Odjava iz aplikacije
                                     public void onResult(@NonNull Status status) {
-                                        //MyDatabase myDatabase = getInstance(Profil.this);
-                                        //myDatabase.getKorisnikDAO().brisanjeKorisnika();
+                                        MyDatabase myDatabase = getInstance(Profil.this);
+                                        myDatabase.getKorisnikDAO().brisanjeKorisnika();
                                         Intent intent = new Intent(Profil.this, MainActivity.class);
                                         startActivity(intent);
                                     }

@@ -125,12 +125,15 @@ public class MainActivity extends AppCompatActivity {
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        account = GoogleSignIn.getLastSignedInAccount(this);
+        try {
+            account = GoogleSignIn.getLastSignedInAccount(this);
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
         System.out.println("onStart - MainActivity");
         if(account!=null) {
             System.out.println("onStart - account!=null");
-            System.out.println(account.getId());
+            //System.out.println(account.getId());
             WebServisProvjera();
         }else {
             signIn();
@@ -146,11 +149,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
+            account = GoogleSignIn.getLastSignedInAccount(this);
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-
-            account = GoogleSignIn.getLastSignedInAccount(this);
-
             //System.out.println("onActivityResult");
             //System.out.println(account.getId());
         }
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             //Intent intent = new Intent(MainActivity.this, Registracija.class);
             //startActivity(intent);
             System.out.println("handleSignIn");
-            System.out.println(account.getId());
+            //System.out.println(account.getId());
 
             // Signed in successfully, show authenticated UI. Prvi put kada se instalira aplikacija
             WebServisProvjera();
@@ -197,9 +198,9 @@ public class MainActivity extends AppCompatActivity {
                 if(response.body().getGoogle_id()!=null){
                     // dodaj korisnika u lokalnu bazu
 
-                    //Korisnik korisnik = new Korisnik();
-                    //korisnik = korisnik.parseKorisnik(response);
-                    //long[] odgovor = getInstance(MainActivity.this).getKorisnikDAO().unosKorisnika(korisnik);
+                    Korisnik korisnik = new Korisnik();
+                    korisnik = korisnik.parseKorisnik(response);
+                    long[] odgovor = getInstance(MainActivity.this).getKorisnikDAO().unosKorisnika(korisnik);
 
                     // ako je posalji ga na glavni izbornik
                     System.out.println("Registriran je");

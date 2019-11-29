@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/tvMail"
-            android:layout_width="181dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnMail"
             android:text=""
@@ -216,14 +216,14 @@
     <LinearLayout
         android:id="@+id/linear4"
         android:layout_width="match_parent"
-        android:layout_height="192dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/linear2"
         android:gravity="center"
 
         android:layout_marginStart="42dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="42dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginBottom="30dp"
         android:orientation="horizontal">
 
         <Button

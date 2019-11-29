@@ -63,13 +63,13 @@ public class Profil extends AppCompatActivity {
                 }
             });
 
-            Button button = findViewById(R.id.button1);
+            Button button = findViewById(R.id.btnSignout);
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // ...
-                    if (v.getId() == R.id.button1) {
+                    if (v.getId() == R.id.btnSignout) {
                         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                                 new ResultCallback<Status>() {
                                     @Override

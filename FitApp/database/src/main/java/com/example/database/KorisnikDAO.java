@@ -20,5 +20,8 @@ public interface KorisnikDAO {
     public void brisanjeKorisnika();
 
     @Query("SELECT * FROM korisnik WHERE google_id=:googleId")
-    public Korisnik dohvatiKorisnika(String googleId);
+    public Korisnik dohvatiKorisnikaPoGoogleId(String googleId);
+
+    @Query("SELECT * FROM korisnik")
+    public Korisnik dohvatiKorisnika();
 }

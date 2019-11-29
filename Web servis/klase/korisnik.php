@@ -29,8 +29,8 @@ function provjeriEmail(){
         return false;
     }
 }
-function provjeriRazinuAktivnosti(){
-    if(isset($_POST["razina_aktivnosti"])){
+function provjeriMasu(){
+    if(isset($_POST["masa"])){
         return true;
     }else{
         return false;
@@ -72,7 +72,7 @@ function provjeriVisinu(){
     }
 }
 function postojanostNuznihElemenataUnosa(){
-    if(provjeriIme() && provjeriPrezime() && provjeriEmail() && provjeriVisinu() && provjeriRazinuAktivnosti()){
+    if(provjeriIme() && provjeriPrezime() && provjeriEmail() && provjeriVisinu() && provjeriMasu()){
         return true;
     }else{
         return false;
@@ -92,7 +92,7 @@ function kreirajRjecnik(){
         $korisnikovRjecnik["prezime"] = $_POST["prezime"];
         $korisnikovRjecnik["email"] = $_POST["email"];
         $korisnikovRjecnik["visina"] = $_POST["visina"];
-        $korisnikovRjecnik["razina_aktivnosti"] = $_POST["razina_aktivnosti"];
+        $korisnikovRjecnik["masa"] = $_POST["masa"];
     }
     if(provjeriGoogleId()){
         $korisnikovRjecnik["google_id"] = $_POST["google_id"];

@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        /*
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        System.out.println("onCreate");
+        System.out.println("onCreate - MainActivity");
         if(GoogleSignIn.getLastSignedInAccount(this)==null){
             //ako korisnik nije prijavljen pomocu googleSignIn
             //obavi prijavu i registriraj ga ako ne postoji u bazi
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            /*
+
             Retrofit retrofit = RetrofitInstance.getInstance();
 
             JsonApi jsonApi = retrofit.create(JsonApi.class);
@@ -101,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailure(Call<List<RetroKorisnik>> call, Throwable t) {
                     System.out.println("Test2");
                 }
-            });*/
-        }
+            });
+        }*/
     }
 
     private void signIn() {
@@ -117,12 +119,24 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-        account = GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        try {
+            account = GoogleSignIn.getLastSignedInAccount(this);
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+        System.out.println("onStart - MainActivity");
         if(account!=null) {
-            System.out.println("onStart");
-           // System.out.println(account.getId());
-            Intent intent2 = new Intent(MainActivity.this, Glavni_Izbornik.class);
-            startActivity(intent2);
+            System.out.println("onStart - account!=null");
+            //System.out.println(account.getId());
+            WebServisProvjera();
+        }else {
+            signIn();
         }
 
     }
@@ -135,11 +149,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
+            account = GoogleSignIn.getLastSignedInAccount(this);
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-
-            account = GoogleSignIn.getLastSignedInAccount(this);
-
             //System.out.println("onActivityResult");
             //System.out.println(account.getId());
         }
@@ -152,64 +164,62 @@ public class MainActivity extends AppCompatActivity {
             //Intent intent = new Intent(MainActivity.this, Registracija.class);
             //startActivity(intent);
             System.out.println("handleSignIn");
-            System.out.println(account.getId());
-
-
+            //System.out.println(account.getId());
 
             // Signed in successfully, show authenticated UI. Prvi put kada se instalira aplikacija
-            // Ovdje provjeravamo da li je vec registriran (na web servisu  provjeri da li postoji neko sa istim google id)
-
-
-            Retrofit retrofit = RetrofitInstance.getInstance();
-
-            JsonApi jsonApi = retrofit.create(JsonApi.class);
-
-            Call<RetroKorisnik> poziv = jsonApi.dohvatiKorisnika(account.getId());
-
-            poziv.enqueue(new Callback<RetroKorisnik>() {
-                @Override
-                public void onResponse(Call<RetroKorisnik> call, Response<RetroKorisnik> response) {
-                    System.out.println("Response");
-                    if(response.body().getGoogle_id()!=null){
-                        // dodaj korisnika u lokalnu bazu
-                        Korisnik korisnik = new Korisnik();
-                        korisnik.parseKorisnik(response);
-                        long[] odgovor = getInstance(MainActivity.this).getKorisnikDAO().unosKorisnika(korisnik);
-
-                        // ako je posalji ga na glavni izbornik
-                        System.out.println("Registriran je");
-                        Intent intent2 = new Intent(MainActivity.this, Glavni_Izbornik.class);
-                        startActivity(intent2);
-                    }else{
-                        // ako nije posalji ga na registraciju
-                        // ali prije ga dodaj u lokalnu bazu
-
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<RetroKorisnik> call, Throwable t) {
-                    //ako poziv ne uspije znaci da je web servis mrtav
-                    System.out.println("Fail");
-                    System.out.println("Nije registriran");
-                    Intent intent3 = new Intent(MainActivity.this, Registracija.class);
-                    startActivityForResult(intent3,0);
-
-                    //Intent intent4 = new Intent(MainActivity.this, Glavni_Izbornik.class);
-                    //startActivity(intent4);
-                }
-            });
-
-
-
+            WebServisProvjera();
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
+            System.out.println("Fail sign in");
+            signIn();
         }
     }
+
+    private void WebServisProvjera(){
+        // Ovdje provjeravamo da li je vec registriran (na web servisu  provjeri da li postoji neko sa istim google id)
+
+        System.out.println("WebServisProvjera");
+
+        Retrofit retrofit = RetrofitInstance.getInstance();
+
+        JsonApi jsonApi = retrofit.create(JsonApi.class);
+
+        Call<RetroKorisnik> poziv = jsonApi.dohvatiKorisnika(account.getId());
+
+        System.out.println(account.getId());
+
+        poziv.enqueue(new Callback<RetroKorisnik>() {
+            @Override
+            public void onResponse(Call<RetroKorisnik> call, Response<RetroKorisnik> response) {
+                System.out.println("Response");
+                if(response.body().getGoogle_id()!=null){
+                    // dodaj korisnika u lokalnu bazu
+
+                    Korisnik korisnik = new Korisnik();
+                    korisnik = korisnik.parseKorisnik(response);
+                    long[] odgovor = getInstance(MainActivity.this).getKorisnikDAO().unosKorisnika(korisnik);
+
+                    // ako je posalji ga na glavni izbornik
+                    System.out.println("Registriran je");
+                    Intent intent2 = new Intent(MainActivity.this, Glavni_Izbornik.class);
+                    startActivity(intent2);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RetroKorisnik> call, Throwable t) {
+                System.out.println("Fail");
+                System.out.println("Nije registriran");
+                Intent intent3 = new Intent(MainActivity.this, Registracija.class);
+                startActivityForResult(intent3,0);
+            }
+        });
+    }
+
+
 
 }
 

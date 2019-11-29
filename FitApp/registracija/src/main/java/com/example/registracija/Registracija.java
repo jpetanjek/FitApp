@@ -231,9 +231,9 @@ public class Registracija extends AppCompatActivity {
                 if(v.getId()==R.id.btnWeightLossOrGainGoal) {
                     //TODO - popraviti unose
                     final NumberPicker lossGainPick = new NumberPicker(Registracija.this);
-                    final String[] inputValues = {"0.5","1.0","1.5","2.0","2.5","3.0","3.5","4.0","4.5","5.0","-0.5","-1.0","-1.5","-2.0","-2.5","-3.0","-3.5","-4.0","-4.5","-5.0"};
+                    final String[] inputValues = {"-0.25","-0.5","-1.0","1.0","0.5","0.25"};
                     lossGainPick.setDisplayedValues(inputValues);
-                    lossGainPick.setMaxValue(19);
+                    lossGainPick.setMaxValue(5);
                     lossGainPick.setMinValue(0);
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Registracija.this).setView(lossGainPick);
@@ -286,14 +286,14 @@ public class Registracija extends AppCompatActivity {
                             noviKorisnik.setPrezime(account.getFamilyName());
                             noviKorisnik.setEmail(account.getEmail());
                             noviKorisnik.setVisina(height);
-                            noviKorisnik.setRazinaAktivnosti(1);
+                            noviKorisnik.setDatumRodenja(datumRodenja);
+                            noviKorisnik.setMasa(weight);
                             noviKorisnik.setCiljMase(weightGoal);
                             noviKorisnik.setCiljTjednogMrsavljenja(weightGainLossGoal);
                             noviKorisnik.setSpol(gender);
-                            noviKorisnik.setDatumRodenja(datumRodenja);
-/*
+
                             Call<Void> poziv = jApi.unesiKorisnika(noviKorisnik.getIme(),noviKorisnik.getPrezime(),noviKorisnik.getGoogle_id(),account.getEmail(),
-                                    noviKorisnik.getVisina(),noviKorisnik.getRazinaAktivnosti(),noviKorisnik.getCiljMase(),
+                                    noviKorisnik.getVisina(),noviKorisnik.getMasa(),noviKorisnik.getCiljMase(),
                                     noviKorisnik.getCiljTjednogMrsavljenja(),noviKorisnik.getSpol(),noviKorisnik.getDatumRodenja());
 
                             poziv.enqueue(new Callback<Void>() {
@@ -311,7 +311,7 @@ public class Registracija extends AppCompatActivity {
                                     System.out.println("Ne radi");
                                 }
                             });
-*/
+
                             //još ga nadodati u lokalnu bazu¸¸
 
 

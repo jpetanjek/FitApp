@@ -14,8 +14,8 @@ public class RetroKorisnik {
     @SerializedName("datum_rodenja")
     private String datumRodenja;
 
-    @SerializedName("razina_aktivnosti")
-    private Integer razinaAktivnosti;
+    @SerializedName("masa")
+    private Float masa;
 
     @SerializedName("cilj_mase")
     private Integer ciljMase;
@@ -87,12 +87,12 @@ public class RetroKorisnik {
         this.datumRodenja = datumRodenja;
     }
 
-    public Integer getRazinaAktivnosti() {
-        return razinaAktivnosti;
+    public Float getMasa() {
+        return masa;
     }
 
-    public void setRazinaAktivnosti(Integer razinaAktivnosti) {
-        this.razinaAktivnosti = razinaAktivnosti;
+    public void setMasa(Float novaMasa) {
+        this.masa = novaMasa;
     }
 
     public Integer getCiljMase() {

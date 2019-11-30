@@ -11,10 +11,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -272,7 +274,7 @@ public class Registracija extends AppCompatActivity {
         uiRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.getId()==R.id.btnRegister) {
+                if(v.getId()==R.id.btnRegister && height!=null && datumRodenja!=null && weight!=null && weightGoal!=null && weightGainLossGoal!=null && gender!=null) {
                     //Po kliku gumba za registriranje, dodajemo novog korisnika sa
 
                     GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(Registracija.this);
@@ -316,6 +318,30 @@ public class Registracija extends AppCompatActivity {
 
 
                 }
+                else{
+                    System.out.println("error");
+                    AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(Registracija.this);
+                    alertDialogBuilder.setMessage("Please fill out necessary information").setTitle("Registration alert");
+                    alertDialogBuilder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    AlertDialog dialog = alertDialogBuilder.create();
+                    dialog.show();
+
+                    final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                    LinearLayout.LayoutParams positiveButtonLL = (LinearLayout.LayoutParams) neutralButton.getLayoutParams();
+                    positiveButtonLL.weight=10;
+                    positiveButtonLL.gravity = Gravity.CENTER;
+                    neutralButton.setLayoutParams(positiveButtonLL);
+
+
+
+
+                }
+
 
             }
         });

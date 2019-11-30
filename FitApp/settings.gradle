@@ -1,2 +1,2 @@
-include ':app', ':registracija', ':core', ':database', ':webservice'
+include ':app', ':registracija', ':core', ':database', ':webservice', ':repository'
 rootProject.name='FitApp'

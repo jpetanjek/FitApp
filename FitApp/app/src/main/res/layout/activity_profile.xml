@@ -7,6 +7,7 @@
     tools:context=".Profil"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:background="@color/white"
     >
 
 
@@ -15,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="675dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:logo="@drawable/ic_arrow_back_black_24dp"

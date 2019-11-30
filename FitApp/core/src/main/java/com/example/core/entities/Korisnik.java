@@ -15,9 +15,11 @@ public class Korisnik {
     private String ime;
     private String prezime;
     private String email;
-    private char spol;
+    private String spol;
     private float visina;
     private float masa;
+
+    private String datumRodenja;
     @Nullable
     private String google_id;
     @Nullable
@@ -37,7 +39,7 @@ public class Korisnik {
         this.email = email;
     }
 
-    public void setSpol(char spol) {
+    public void setSpol(String spol) {
         this.spol = spol;
     }
 
@@ -81,7 +83,7 @@ public class Korisnik {
         return email;
     }
 
-    public char getSpol() {
+    public String getSpol() {
         return spol;
     }
 
@@ -105,6 +107,14 @@ public class Korisnik {
         return cilj_tjednog_mrsavljenja;
     }
 
+    public String getDatumRodenja() {
+        return datumRodenja;
+    }
+
+    public void setDatumRodenja(String datumRodenja) {
+        this.datumRodenja = datumRodenja;
+    }
+
     public Korisnik parseKorisnik(Response<RetroKorisnik> response){
         Korisnik korisnik = new Korisnik();
 
@@ -112,12 +122,13 @@ public class Korisnik {
         korisnik.ime = response.body().getIme();
         korisnik.prezime = response.body().getPrezime();
         korisnik.email = response.body().getEmail();
-        korisnik.spol = response.body().getSpol().charAt(0);
+        korisnik.spol = response.body().getSpol();
         korisnik.visina = response.body().getVisina();
         // TODO: Dodati masu (i getMasa) u RetroKorisnik
         korisnik.masa = response.body().getMasa();
         korisnik.cilj_mase = response.body().getCiljMase();
         korisnik.cilj_tjednog_mrsavljenja = response.body().getCiljTjednogMrsavljenja();
+        korisnik.datumRodenja = response.body().getDatumRodenja();
 
         return korisnik;
     }

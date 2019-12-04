@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.core.entities.Korisnik;
 import com.example.database.MyDatabase;
 import com.example.registracija.Registracija;
+import com.example.repository.KorisnikDAL;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -139,6 +140,8 @@ public class Profil extends AppCompatActivity {
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     uiPickDate.setText(dayOfMonth+"."+(month+1)+"."+year);
                     datumRodenja = dayOfMonth+"/"+(month+1)+"/"+year;
+
+                    KorisnikDAL.Azuriraj(getApplicationContext(),"datum_rodenja",datumRodenja);
 
                     /*
                     MyDatabase myDatabase = getInstance(Profil.this);

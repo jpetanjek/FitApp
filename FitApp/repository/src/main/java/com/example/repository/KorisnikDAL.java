@@ -8,6 +8,7 @@ import com.example.database.MyDatabase;
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
 
+import RetroEntities.RetroKorisnik;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -21,10 +22,12 @@ public class KorisnikDAL {
 
       Korisnik returnme = new Korisnik();
       returnme = myDatabase.getKorisnikDAO().dohvatiKorisnika();
+
+        System.out.println(returnme);
+
       return returnme;
     };
     public static void Azuriraj(Context context,String atribut, String vrijednost){
-
 
         Retrofit retrofit = RetrofitInstance.getInstance();
         JsonApi jsonApi = retrofit.create(JsonApi.class);
@@ -46,6 +49,26 @@ public class KorisnikDAL {
                       }
                   }
         );
+/*
+        Korisnik korisnik = Trenutni(context);
+        switch(atribut){
+            case "datum_rodenja":
+                korisnik.setDatumRodenja(vrijednost);
+            case "visina":
+                korisnik.setVisina(Float.parseFloat(vrijednost));
+            case "masa":
+                korisnik.setMasa(Float.parseFloat(vrijednost));
+            case "cilj_mase":
+                korisnik.setCilj_mase(Float.parseFloat(vrijednost));
+            case "cilj_tjednog_mrsavljenja":
+                korisnik.setCilj_tjednog_mrsavljenja(Float.parseFloat(vrijednost));
+            case "spol":
+                korisnik.setSpol(vrijednost);
+        }
+
+        MyDatabase myDatabase = MyDatabase.getInstance(context);
+        myDatabase.getKorisnikDAO().azuriranjeKorisnika(korisnik);
+*/
     }
     public static void Kreiraj(Korisnik korisnik){
         Retrofit retrofit = RetrofitInstance.getInstance();

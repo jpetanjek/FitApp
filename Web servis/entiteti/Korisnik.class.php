@@ -24,8 +24,7 @@ class Korisnik{
         $this->prezime = $json["prezime"];
         $this->email = $json["email"];
         $this->visina = (double)$json["visina"];
-        $vrijemeUSekundama = strtotime($json["datum_rodenja"]);
-        $this->datumRodenja = date('d/M/Y', $vrijemeUSekundama);
+        $this->datumRodenja = $json["datum_rodenja"];
         $this->masa = (double)$json["masa"];
         $this->ciljMase = (int)$json["cilj_mase"];
         $this->ciljTjednogMrsavljenja = (double)$json["cilj_tjednog_mrsavljenja"];

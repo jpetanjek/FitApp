@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="675dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,20 +20,28 @@
         app:titleMarginStart="30dp"
         app:title="Glavni izbornik"
         app:titleTextColor="@color/black"/>
-<!--
+
     <Button
-        android:id="@+id/registracija"
+        android:id="@+id/btnFoodDiary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Registracija"
-        android:layout_marginTop="670dp"
-        android:layout_centerHorizontal="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292" />
--->
+        android:text="Food Diary"
+        android:layout_below="@id/toolbar"/>
+
+    <!--
+        <Button
+            android:id="@+id/registracija"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Registracija"
+            android:layout_marginTop="670dp"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.292" />
+    -->
 
 </RelativeLayout>

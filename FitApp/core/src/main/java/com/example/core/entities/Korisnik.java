@@ -114,7 +114,6 @@ public class Korisnik {
         korisnik.email = response.body().getEmail();
         korisnik.spol = response.body().getSpol().charAt(0);
         korisnik.visina = response.body().getVisina();
-        // TODO: Dodati masu (i getMasa) u RetroKorisnik
         korisnik.masa = response.body().getMasa();
         korisnik.cilj_mase = response.body().getCiljMase();
         korisnik.cilj_tjednog_mrsavljenja = response.body().getCiljTjednogMrsavljenja();

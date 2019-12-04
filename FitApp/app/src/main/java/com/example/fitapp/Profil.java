@@ -143,12 +143,6 @@ public class Profil extends AppCompatActivity {
 
                     KorisnikDAL.Azuriraj(getApplicationContext(),"datum_rodenja",datumRodenja);
 
-                    /*
-                    MyDatabase myDatabase = getInstance(Profil.this);
-                    Korisnik korisnik = myDatabase.getKorisnikDAO().dohvatiKorisnika();
-                    Profil_BLL.AzurirajKorisnika(korisnik.getId(),"datum_rodenja",datumRodenja);
-                    */
-
                 }
             };
 
@@ -164,6 +158,8 @@ public class Profil extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 uiPickGender.setText(genderStrings[which]);
                                 gender=uiPickGender.getText().toString();
+
+                                KorisnikDAL.Azuriraj(getApplicationContext(),"spol",gender);
                             }
                         });
 
@@ -191,6 +187,8 @@ public class Profil extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 uiPickCurrentWeight.setText(""+numberPicker.getValue()+" kg");
                                 weight= Float.valueOf(numberPicker.getValue());
+
+                                KorisnikDAL.Azuriraj(getApplicationContext(),"masa",weight.toString());
                             }
                         });
 
@@ -235,6 +233,9 @@ public class Profil extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 uiPickHeight.setText(""+numberPicker.getValue()+" cm");
                                 height=Float.valueOf(numberPicker.getValue());
+
+                                KorisnikDAL.Azuriraj(getApplicationContext(),"visina",height.toString());
+
                             }
                         });
 
@@ -278,6 +279,9 @@ public class Profil extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 uiPickWeightGoal.setText(""+numberPicker.getValue()+" kg");
                                 weightGoal=Integer.valueOf(numberPicker.getValue());
+
+                                KorisnikDAL.Azuriraj(getApplicationContext(),"cilj_mase",weightGoal.toString());
+
                             }
                         });
 
@@ -322,6 +326,9 @@ public class Profil extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 uiPickLossGainGoal.setText(""+inputValues[lossGainPick.getValue()]+" kg");
                                 weightGainLossGoal=Float.valueOf(inputValues[lossGainPick.getValue()]);
+
+                                KorisnikDAL.Azuriraj(getApplicationContext(),"cilj_tjednog_mrsavljenja",weightGainLossGoal.toString());
+
                             }
                         });
 

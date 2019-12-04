@@ -38,37 +38,43 @@ public class KorisnikDAL {
                 //31,
                 //RequestBody.create(MediaType.parse("text/plain"), "prezime"),
                 //RequestBody.create(MediaType.parse("text/plain"), "Bajk333")
-        ).enqueue(new Callback<String>()
-                  {
-                      @Override
-                      public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                      }
+        ).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
 
-                      @Override
-                      public void onFailure(Call<String> call, Throwable t) {
-                      }
-                  }
-        );
-/*
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+
         Korisnik korisnik = Trenutni(context);
         switch(atribut){
             case "datum_rodenja":
                 korisnik.setDatumRodenja(vrijednost);
+                break;
             case "visina":
                 korisnik.setVisina(Float.parseFloat(vrijednost));
+                break;
             case "masa":
                 korisnik.setMasa(Float.parseFloat(vrijednost));
+                break;
             case "cilj_mase":
                 korisnik.setCilj_mase(Float.parseFloat(vrijednost));
+                break;
             case "cilj_tjednog_mrsavljenja":
                 korisnik.setCilj_tjednog_mrsavljenja(Float.parseFloat(vrijednost));
+                break;
             case "spol":
                 korisnik.setSpol(vrijednost);
+                break;
         }
 
         MyDatabase myDatabase = MyDatabase.getInstance(context);
         myDatabase.getKorisnikDAO().azuriranjeKorisnika(korisnik);
-*/
+
     }
     public static void Kreiraj(Korisnik korisnik){
         Retrofit retrofit = RetrofitInstance.getInstance();

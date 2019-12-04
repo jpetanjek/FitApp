@@ -43,7 +43,7 @@ public class Registracija extends AppCompatActivity {
 
     Float height;
     Float weight;
-    Integer weightGoal;
+    Float weightGoal;
     Float weightGainLossGoal;
     String gender;
     String datumRodenja;
@@ -201,7 +201,7 @@ public class Registracija extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             uiPickWeightGoal.setText(""+numberPicker.getValue()+" kg");
-                            weightGoal=Integer.valueOf(numberPicker.getValue());
+                            weightGoal=Float.valueOf(numberPicker.getValue());
                         }
                     });
 

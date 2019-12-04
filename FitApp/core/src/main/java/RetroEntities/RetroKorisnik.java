@@ -18,7 +18,7 @@ public class RetroKorisnik {
     private Float masa;
 
     @SerializedName("cilj_mase")
-    private Integer ciljMase;
+    private Float ciljMase;
 
     @SerializedName("cilj_tjednog_mrsavljenja")
     private Float ciljTjednogMrsavljenja;
@@ -95,11 +95,11 @@ public class RetroKorisnik {
         this.masa = novaMasa;
     }
 
-    public Integer getCiljMase() {
+    public Float getCiljMase() {
         return ciljMase;
     }
 
-    public void setCiljMase(Integer ciljMase) {
+    public void setCiljMase(Float ciljMase) {
         this.ciljMase = ciljMase;
     }
 

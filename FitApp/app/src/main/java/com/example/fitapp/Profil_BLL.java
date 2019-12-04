@@ -7,6 +7,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class Profil_BLL {
@@ -23,17 +24,17 @@ public class Profil_BLL {
                 //31,
                 //RequestBody.create(MediaType.parse("text/plain"), "prezime"),
                 //RequestBody.create(MediaType.parse("text/plain"), "Bajk333")
-        ).enqueue(new Callback<String>()
-                  {
-                      @Override
-                      public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                      }
+        ).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
 
-                      @Override
-                      public void onFailure(Call<String> call, Throwable t) {
-                      }
-                  }
-        );
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 
 }

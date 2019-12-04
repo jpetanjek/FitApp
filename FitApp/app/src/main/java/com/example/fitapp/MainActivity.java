@@ -10,6 +10,7 @@ import android.util.Log;
 import static com.example.database.MyDatabase.getInstance;
 
 import com.example.core.entities.Korisnik;
+import com.example.core.entities.Namirnica;
 import com.example.database.KorisnikDAO;
 import com.example.database.MyDatabase;
 import com.example.registracija.Registracija;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import RetroEntities.RetroKorisnik;
+import RetroEntities.RetroNamirnica;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        dohvatiSveNamirnice();
 
         /*
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -219,6 +223,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    public void dohvatiSveNamirnice(){
+
+        Retrofit retrofit = RetrofitInstance.getInstance();
+        JsonApi jsonApi = retrofit.create(JsonApi.class);
+        Call<List<RetroNamirnica>> poziv = jsonApi.dohvatiSveNamirnice();
+
+        poziv.enqueue(new Callback<List<RetroNamirnica>>() {
+            @Override
+            public void onResponse(Call<List<RetroNamirnica>> call, Response<List<RetroNamirnica>> response) {
+                for(RetroNamirnica r: response.body()){
+                    Namirnica namirnica = new Namirnica();
+                    namirnica = namirnica.parseNamirnica(r);
+
+                    MyDatabase.getInstance(MainActivity.this).getNamirnicaDAO().unosNamirnica(namirnica);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RetroNamirnica>> call, Throwable t) {
+            }
+        });
+
+    }
 
 
 }

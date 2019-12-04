@@ -27,6 +27,12 @@ public class Korisnik {
     @Nullable
     private float cilj_tjednog_mrsavljenja;
 
+    @Override
+    public String toString(){
+        return String.format(ime + " " + prezime + " " + email+ " " + spol+ " " + visina+ " " + masa+ " " + datumRodenja+ " " + google_id
+                + " " +cilj_mase+ " " + cilj_tjednog_mrsavljenja);
+    }
+
     public void setIme(String ime) {
         this.ime = ime;
     }
@@ -129,6 +135,7 @@ public class Korisnik {
         korisnik.cilj_mase = response.body().getCiljMase();
         korisnik.cilj_tjednog_mrsavljenja = response.body().getCiljTjednogMrsavljenja();
         korisnik.datumRodenja = response.body().getDatumRodenja();
+        korisnik.google_id= response.body().getGoogle_id();
 
         return korisnik;
     }

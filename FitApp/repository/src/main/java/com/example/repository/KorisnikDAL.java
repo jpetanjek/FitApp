@@ -8,6 +8,7 @@ import com.example.database.MyDatabase;
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
 
+import RetroEntities.RetroKorisnik;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -21,10 +22,12 @@ public class KorisnikDAL {
 
       Korisnik returnme = new Korisnik();
       returnme = myDatabase.getKorisnikDAO().dohvatiKorisnika();
+
+        System.out.println(returnme);
+
       return returnme;
     };
     public static void Azuriraj(Context context,String atribut, String vrijednost){
-
 
         Retrofit retrofit = RetrofitInstance.getInstance();
         JsonApi jsonApi = retrofit.create(JsonApi.class);
@@ -35,17 +38,43 @@ public class KorisnikDAL {
                 //31,
                 //RequestBody.create(MediaType.parse("text/plain"), "prezime"),
                 //RequestBody.create(MediaType.parse("text/plain"), "Bajk333")
-        ).enqueue(new Callback<String>()
-                  {
-                      @Override
-                      public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                      }
+        ).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
 
-                      @Override
-                      public void onFailure(Call<String> call, Throwable t) {
-                      }
-                  }
-        );
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+
+        Korisnik korisnik = Trenutni(context);
+        switch(atribut){
+            case "datum_rodenja":
+                korisnik.setDatumRodenja(vrijednost);
+                break;
+            case "visina":
+                korisnik.setVisina(Float.parseFloat(vrijednost));
+                break;
+            case "masa":
+                korisnik.setMasa(Float.parseFloat(vrijednost));
+                break;
+            case "cilj_mase":
+                korisnik.setCilj_mase(Float.parseFloat(vrijednost));
+                break;
+            case "cilj_tjednog_mrsavljenja":
+                korisnik.setCilj_tjednog_mrsavljenja(Float.parseFloat(vrijednost));
+                break;
+            case "spol":
+                korisnik.setSpol(vrijednost);
+                break;
+        }
+
+        MyDatabase myDatabase = MyDatabase.getInstance(context);
+        myDatabase.getKorisnikDAO().azuriranjeKorisnika(korisnik);
+
     }
     public static void Kreiraj(Korisnik korisnik){
         Retrofit retrofit = RetrofitInstance.getInstance();

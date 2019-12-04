@@ -23,7 +23,7 @@ public interface JsonApi {
 
     @Multipart
     @POST("korisnik.php?query=update")
-    Call<String> azurirajKorisnika(@Part("identifikator") int idKorisnika,
+    Call<Void> azurirajKorisnika(@Part("identifikator") int idKorisnika,
                                  @Part("atribut") RequestBody atribut,
                                  @Part("vrijednost") RequestBody vrijednost);
 

@@ -355,7 +355,7 @@ public class Profil extends AppCompatActivity {
             });
 
             email = findViewById(R.id.tvMail);
-            ImageView image = findViewById(R.id.profile_image);
+            imageView = findViewById(R.id.profile_image);
 
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
             if (acct != null) {

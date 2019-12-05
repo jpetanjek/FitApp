@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.fitapp.fragments.BarcodeFragment;
 import com.example.registracija.Registracija;
 
 import java.util.ArrayList;
@@ -39,7 +42,24 @@ public class Glavni_Izbornik extends AppCompatActivity {
                 }
             }
         });
+        Button btnPokreniSkener = findViewById(R.id.btnBarkodSkener);
+        btnPokreniSkener.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btnBarkodSkener:
+                        try{
+                            System.out.println("Pokrenul activity barkoda!");
+                            startActivity(new Intent(v.getContext(),BarkodSkenerActivity.class));
 
+                        }
+                        catch (Exception e){
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                }
+            }
+        });
 /*
         Button button = (Button) findViewById(R.id.registracija);
 

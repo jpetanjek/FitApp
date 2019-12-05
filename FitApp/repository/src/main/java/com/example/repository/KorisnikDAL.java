@@ -17,6 +17,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class KorisnikDAL {
+
     public static Korisnik Trenutni(Context context){
       MyDatabase myDatabase = MyDatabase.getInstance(context);
 
@@ -27,6 +28,7 @@ public class KorisnikDAL {
 
       return returnme;
     };
+
     public static void Azuriraj(Context context,String atribut, String vrijednost){
 
         Retrofit retrofit = RetrofitInstance.getInstance();
@@ -76,7 +78,7 @@ public class KorisnikDAL {
         myDatabase.getKorisnikDAO().azuriranjeKorisnika(korisnik);
 
     }
-    public static void Kreiraj(Korisnik korisnik){
+    public static void Kreiraj(Korisnik korisnik,Context context){
         Retrofit retrofit = RetrofitInstance.getInstance();
         JsonApi jsonApi = retrofit.create(JsonApi.class);
         jsonApi.unesiKorisnika(
@@ -101,6 +103,9 @@ public class KorisnikDAL {
 
             }
         });
+
+        MyDatabase myDatabase = MyDatabase.getInstance(context);
+        myDatabase.getKorisnikDAO().unosKorisnika(korisnik);
     }
     public static void IzbrisiKorisnikaLokalno(Context context){
         getInstance(context).getKorisnikDAO().brisanjeKorisnika();

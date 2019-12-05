@@ -5,19 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.example.fitapp.fragments.BarcodeFragment;
-import com.example.registracija.Registracija;
 
 import java.util.ArrayList;
+
+
 
 public class Glavni_Izbornik extends AppCompatActivity {
 
@@ -42,24 +37,23 @@ public class Glavni_Izbornik extends AppCompatActivity {
                 }
             }
         });
-        Button btnPokreniSkener = findViewById(R.id.btnBarkodSkener);
-        btnPokreniSkener.setOnClickListener(new View.OnClickListener() {
+
+
+        Button btnFoodDiary = findViewById(R.id.btnFoodDiary);
+        btnFoodDiary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.btnBarkodSkener:
-                        try{
-                            System.out.println("Pokrenul activity barkoda!");
-                            startActivity(new Intent(v.getContext(),BarkodSkenerActivity.class));
+                Intent intent = new Intent(Glavni_Izbornik.this, FoodDiary.class);
+                startActivity(intent);
 
-                        }
-                        catch (Exception e){
-                            System.out.println(e.getMessage());
-                        }
-                        break;
-                }
             }
         });
+
+
+
+        /*
+        Button button = findViewById(R.id.registracija);
+
 /*
         Button button = (Button) findViewById(R.id.registracija);
 

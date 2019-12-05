@@ -1,6 +1,8 @@
 package com.example.core.entities;
 
 import androidx.annotation.InspectableProperty;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -22,6 +24,8 @@ public class NamirniceObroka {
 
     //private Date datum;
     private boolean planirano;
+
+    @Nullable
     private float masa;
 
     public int getId() {

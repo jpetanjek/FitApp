@@ -3,6 +3,9 @@
     package="com.example.fitapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".fragments.BarcodeFragmentTestActivity"></activity>
+        <activity android:name=".BarkodSkenerActivity" />
         <activity android:name=".FoodDiary"></activity>
         <activity android:name=".Profil" />
         <activity android:name=".Glavni_Izbornik" />

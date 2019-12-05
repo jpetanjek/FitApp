@@ -22,7 +22,8 @@ import retrofit2.Retrofit;
 import static com.example.database.MyDatabase.getInstance;
 
 public class NamirnicaDAL {
-    public static Namirnica Dohvati(Integer identifikator){
+
+    public static Namirnica DohvatiWeb(Integer identifikator){
         final Namirnica[] returnme = {new Namirnica()};
 
         Retrofit retrofit = RetrofitInstance.getInstance();
@@ -41,6 +42,34 @@ public class NamirnicaDAL {
         });
 
         return returnme[0];
+    }
+
+    public static Namirnica DohvatiLokalno(Integer identifikator, Context context){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirnicu(identifikator);
+    }
+
+    public static Namirnica DohvatiPoISBNWeb(String isbn){
+        final Namirnica[] returnme = {new Namirnica()};
+
+        Retrofit retrofit = RetrofitInstance.getInstance();
+        JsonApi jsonApi = retrofit.create(JsonApi.class);
+        jsonApi.dohvatiNamirnicuPoISBN(isbn).enqueue(new Callback<RetroNamirnica>() {
+            @Override
+            public void onResponse(Call<RetroNamirnica> call, Response<RetroNamirnica> response) {
+                returnme[0] = returnme[0].parseNamirnica(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<RetroNamirnica> call, Throwable t) {
+
+            }
+        });
+
+        return returnme[0];
+    }
+
+    public static Namirnica DohvatiPoISBNLokalno(String isbn, Context context){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirnicuPoISBN(isbn);
     }
 
     public static void DohvatiSveWebULokalnu(final Context context){
@@ -119,7 +148,7 @@ public class NamirnicaDAL {
             }
         });
 
-        Namirnica namirnica = Dohvati(identifikator);
+        Namirnica namirnica = DohvatiLokalno(identifikator,context);
         switch(atribut){
             case "id":
                 namirnica.setId(Integer.parseInt(vrijednost));
@@ -158,6 +187,11 @@ public class NamirnicaDAL {
             }
         });
 
+        MyDatabase myDatabase = MyDatabase.getInstance(context);
+        myDatabase.getNamirnicaDAO().unosNamirnica(namirnica);
+    }
+
+    public static void KreirajLokalno(Namirnica namirnica,Context context){
         MyDatabase myDatabase = MyDatabase.getInstance(context);
         myDatabase.getNamirnicaDAO().unosNamirnica(namirnica);
     }

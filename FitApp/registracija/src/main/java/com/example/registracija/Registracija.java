@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -51,7 +52,9 @@ public class Registracija extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registracija);
 
-        final Button uiPickDate = findViewById(R.id.btnDateOfBirth);
+
+        final Button uiPickDate = (Button) findViewById(R.id.btnDateOfBirth);
+
 
         uiPickDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -321,8 +324,9 @@ public class Registracija extends AppCompatActivity {
         });
 
         email = findViewById(R.id.tvMail);
-        ImageView image = findViewById(R.id.profile_image);
-        //imageView = findViewById(R.id.IvMail);
+
+        imageView = findViewById(R.id.profile_image);
+
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -331,9 +335,13 @@ public class Registracija extends AppCompatActivity {
             //TODO - acct.getPhotoUrl() vraca null, testano bez slike na profilu i sa slikom na profilu
             email.setText(personEmail);
 
+            Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
         }
 
-    }
+
+        }
+
+
 
     public static Drawable LoadImageFromUrl (String url){
         try{

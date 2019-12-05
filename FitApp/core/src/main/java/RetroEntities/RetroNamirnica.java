@@ -6,7 +6,7 @@ public class RetroNamirnica {
     private int id;
     private String naziv;
 
-    @SerializedName("broj_kalorija")
+    //@SerializedName("broj_kalorija")
     private int brojKalorija;
 
     private int tezina;

@@ -53,7 +53,7 @@ public class Registracija extends AppCompatActivity {
         setContentView(R.layout.activity_registracija);
 
 
-        final Button date = (Button) findViewById(R.id.btnDateOfBirth);
+        final Button uiPickDate = (Button) findViewById(R.id.btnDateOfBirth);
 
 
         uiPickDate.setOnClickListener(new View.OnClickListener() {
@@ -341,7 +341,7 @@ public class Registracija extends AppCompatActivity {
 
         }
 
-    }
+
 
     public static Drawable LoadImageFromUrl (String url){
         try{

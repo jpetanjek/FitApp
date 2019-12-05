@@ -27,6 +27,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.core.entities.Korisnik;
 import com.example.database.MyDatabase;
 import com.example.registracija.Registracija;
@@ -353,9 +354,8 @@ public class Profil extends AppCompatActivity {
                 }
             });
 
-            email = findViewById(com.example.registracija.R.id.tvMail);
-            ImageView image = findViewById(com.example.registracija.R.id.profile_image);
-            //imageView = findViewById(R.id.IvMail);
+            email = findViewById(R.id.tvMail);
+            ImageView image = findViewById(R.id.profile_image);
 
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
             if (acct != null) {
@@ -363,6 +363,7 @@ public class Profil extends AppCompatActivity {
                 Uri personPhoto = acct.getPhotoUrl();
                 //TODO - acct.getPhotoUrl() vraca null, testano bez slike na profilu i sa slikom na profilu
                 email.setText(personEmail);
+                Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
 
             }
 

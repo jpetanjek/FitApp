@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
 import com.google.android.gms.auth.api.Auth;
@@ -48,6 +49,7 @@ public class Registracija extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registracija);
+
 
         final Button date = (Button) findViewById(R.id.btnDateOfBirth);
 
@@ -291,7 +293,7 @@ public class Registracija extends AppCompatActivity {
         });
 
         email = findViewById(R.id.tvMail);
-        //imageView = findViewById(R.id.IvMail);
+        imageView = findViewById(R.id.profile_image);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -299,6 +301,7 @@ public class Registracija extends AppCompatActivity {
             Uri personPhoto = acct.getPhotoUrl();
 
             email.setText(personEmail);
+            Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
         }
 
 

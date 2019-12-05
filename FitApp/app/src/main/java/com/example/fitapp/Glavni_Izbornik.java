@@ -72,7 +72,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
 
         });
-
+/*
         Button button = (Button) findViewById(R.id.registracija);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +89,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
 
             }
         });
-
+*/
     }
 
     @Override

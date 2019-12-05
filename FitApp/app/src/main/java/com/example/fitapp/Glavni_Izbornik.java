@@ -38,6 +38,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
+
         Button btnFoodDiary = findViewById(R.id.btnFoodDiary);
         btnFoodDiary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +53,9 @@ public class Glavni_Izbornik extends AppCompatActivity {
 
         /*
         Button button = findViewById(R.id.registracija);
+
+/*
+        Button button = (Button) findViewById(R.id.registracija);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +90,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
             toolbar.setLogoDescription(null);
 
         return logoIcon;
+
     }
 
     @Override

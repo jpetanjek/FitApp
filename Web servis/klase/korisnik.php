@@ -29,8 +29,8 @@ function provjeriEmail(){
         return false;
     }
 }
-function provjeriRazinuAktivnosti(){
-    if(isset($_POST["razina_aktivnosti"])){
+function provjeriMasu(){
+    if(isset($_POST["masa"])){
         return true;
     }else{
         return false;
@@ -72,7 +72,7 @@ function provjeriVisinu(){
     }
 }
 function postojanostNuznihElemenataUnosa(){
-    if(provjeriIme() && provjeriPrezime() && provjeriEmail() && provjeriVisinu() && provjeriRazinuAktivnosti()){
+    if(provjeriIme() && provjeriPrezime() && provjeriEmail() && provjeriVisinu() && provjeriMasu()){
         return true;
     }else{
         return false;
@@ -92,7 +92,7 @@ function kreirajRjecnik(){
         $korisnikovRjecnik["prezime"] = $_POST["prezime"];
         $korisnikovRjecnik["email"] = $_POST["email"];
         $korisnikovRjecnik["visina"] = $_POST["visina"];
-        $korisnikovRjecnik["razina_aktivnosti"] = $_POST["razina_aktivnosti"];
+        $korisnikovRjecnik["masa"] = $_POST["masa"];
     }
     if(provjeriGoogleId()){
         $korisnikovRjecnik["google_id"] = $_POST["google_id"];
@@ -146,7 +146,7 @@ if(isset($_GET["query"]) && $_GET["query"]=="delete" && isset($_POST["user"])){
 if(isset($_GET["query"]) && $_GET["query"] == "insert" && postojanostNuznihElemenataUnosa()){
     $korisnik = kreirajRjecnik();
     $noviKorisnikInsert = new Korisnik($korisnik);
-    $upit = "INSERT INTO korisnik(google_id,ime,prezime,email,visina,razina_aktivnosti,cilj_mase,cilj_tjednog_mrsavljenja,spol,datum_rodenja) VALUES(TRIM(BOTH '\"' FROM '$noviKorisnikInsert->google_id'), TRIM(BOTH '\"' FROM '$noviKorisnikInsert->ime'),TRIM(BOTH '\"' FROM '$noviKorisnikInsert->prezime'),TRIM(BOTH '\"' FROM '$noviKorisnikInsert->email'),$noviKorisnikInsert->visina,$noviKorisnikInsert->razinaAktivnosti,$noviKorisnikInsert->ciljMase,$noviKorisnikInsert->ciljTjednogMrsavljenja,TRIM(BOTH '\"' FROM '$noviKorisnikInsert->spol'),TRIM(BOTH '\"' FROM '$noviKorisnikInsert->datumRodenja'))";
+    $upit = "INSERT INTO korisnik(google_id,ime,prezime,email,visina,masa,cilj_mase,cilj_tjednog_mrsavljenja,spol,datum_rodenja) VALUES(TRIM(BOTH '\"' FROM '$noviKorisnikInsert->google_id'), TRIM(BOTH '\"' FROM '$noviKorisnikInsert->ime'),TRIM(BOTH '\"' FROM '$noviKorisnikInsert->prezime'),TRIM(BOTH '\"' FROM '$noviKorisnikInsert->email'),$noviKorisnikInsert->visina,$noviKorisnikInsert->masa,$noviKorisnikInsert->ciljMase,$noviKorisnikInsert->ciljTjednogMrsavljenja,TRIM(BOTH '\"' FROM '$noviKorisnikInsert->spol'),TRIM(BOTH '\"' FROM '$noviKorisnikInsert->datumRodenja'))";
     $rezultatObrade = $baza->updateDB($upit);
 }
 
@@ -177,7 +177,6 @@ if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["user"])){
     $brojKorisnika = mysqli_num_rows($dohvatBaze);
     while($redak = mysqli_fetch_array($dohvatBaze)){
         $noviKorisnik = new Korisnik($redak,true);
-        //array_push($sviKorisnici,$noviKorisnik->dohvatiJson());
         $dohvacenKorisnik = $noviKorisnik->dohvatiJson();
     }
     header('Content-type: application/json');

@@ -37,6 +37,18 @@ if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["namirnica"
     http_response_code(200); 
     echo json_encode($dohvacenaNamirnica);
 }
+if(isset($_GET["query"]) && $_GET["query"]=="getByGoogleId" && isset($_GET["namirnica"])){
+    $identifikatorNamirnica = $_GET["namirnica"];
+    $dohvacenaNamirnica;
+    $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica WHERE isbn = $identifikatorNamirnica");
+    while($redak = mysqli_fetch_array($dohvatNamirnica)){
+        $novaNamirnica = new Namirnica($redak,true);
+        $dohvacenaNamirnica = $novaNamirnica->dohvatiJson();
+    }
+    header('Content-type: application/json');
+    http_response_code(200); 
+    echo json_encode($dohvacenaNamirnica);
+}
 /*
     Funkcija ažurira određenu namirnicu.
 */

@@ -58,6 +58,8 @@ public class Namirnica {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
+
     public Namirnica parseNamirnica(RetroNamirnica response){
         Namirnica novaNamirnica = new Namirnica();
         novaNamirnica.setId(response.getId());
@@ -67,4 +69,5 @@ public class Namirnica {
         novaNamirnica.setIsbn(response.getIsbn());
         return novaNamirnica;
     }
+
 }

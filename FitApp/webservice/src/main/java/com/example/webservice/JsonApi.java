@@ -68,4 +68,9 @@ public interface JsonApi {
             @Part("isbn") String isbn
     );
 
+    @GET("namirnica.php?query=getByGoogleId")
+    Call<RetroNamirnica> dohvatiNamirnicuPoISBN(@Query("namirnica") String isbn);
+
+    @GET("namirnica.php?query=getByName")
+    Call<List<RetroNamirnica>> dohvatiNamirnicePoImenu(@Query("naziv") String nazivNamirnice);
 }

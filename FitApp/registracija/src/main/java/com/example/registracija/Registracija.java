@@ -11,13 +11,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -51,7 +54,9 @@ public class Registracija extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registracija);
 
-        final Button uiPickDate = findViewById(R.id.btnDateOfBirth);
+
+        final Button uiPickDate = (Button) findViewById(R.id.btnDateOfBirth);
+
 
         uiPickDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,7 +277,7 @@ public class Registracija extends AppCompatActivity {
         uiRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.getId()==R.id.btnRegister) {
+                if(v.getId()==R.id.btnRegister && height!=null && datumRodenja!=null && weight!=null && weightGoal!=null && weightGainLossGoal!=null && gender!=null) {
                     //Po kliku gumba za registriranje, dodajemo novog korisnika sa
 
                     GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(Registracija.this);
@@ -316,13 +321,38 @@ public class Registracija extends AppCompatActivity {
 
 
                 }
+                else{
+                    System.out.println("error");
+                    AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(Registracija.this);
+                    alertDialogBuilder.setMessage("Please fill out necessary information").setTitle("Registration alert");
+                    alertDialogBuilder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    AlertDialog dialog = alertDialogBuilder.create();
+                    dialog.show();
+
+                    final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                    LinearLayout.LayoutParams positiveButtonLL = (LinearLayout.LayoutParams) neutralButton.getLayoutParams();
+                    positiveButtonLL.weight=10;
+                    positiveButtonLL.gravity = Gravity.CENTER;
+                    neutralButton.setLayoutParams(positiveButtonLL);
+
+
+
+
+                }
+
 
             }
         });
 
         email = findViewById(R.id.tvMail);
-        ImageView image = findViewById(R.id.profile_image);
-        //imageView = findViewById(R.id.IvMail);
+
+        imageView = findViewById(R.id.profile_image);
+
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -331,9 +361,13 @@ public class Registracija extends AppCompatActivity {
             //TODO - acct.getPhotoUrl() vraca null, testano bez slike na profilu i sa slikom na profilu
             email.setText(personEmail);
 
+            Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
         }
 
-    }
+
+        }
+
+
 
     public static Drawable LoadImageFromUrl (String url){
         try{

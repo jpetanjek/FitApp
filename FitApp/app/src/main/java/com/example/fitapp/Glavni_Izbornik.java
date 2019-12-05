@@ -5,16 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.registracija.Registracija;
-
 import java.util.ArrayList;
+
+
 
 public class Glavni_Izbornik extends AppCompatActivity {
 
@@ -40,8 +38,24 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
+
+        Button btnFoodDiary = findViewById(R.id.btnFoodDiary);
+        btnFoodDiary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Glavni_Izbornik.this, FoodDiary.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+
         /*
         Button button = findViewById(R.id.registracija);
+
+/*
+        Button button = (Button) findViewById(R.id.registracija);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +90,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
             toolbar.setLogoDescription(null);
 
         return logoIcon;
+
     }
 
     @Override

@@ -58,13 +58,13 @@ public class Namirnica {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-    public Namirnica parseNamirnica(Response<RetroNamirnica> response){
+    public Namirnica parseNamirnica(RetroNamirnica response){
         Namirnica novaNamirnica = new Namirnica();
-        novaNamirnica.setId(response.body().getId());
-        novaNamirnica.setNaziv(response.body().getNaziv());
-        novaNamirnica.setTezina(response.body().getTezina());
-        novaNamirnica.setBrojKalorija(response.body().getBrojKalorija());
-        novaNamirnica.setIsbn(response.body().getIsbn());
+        novaNamirnica.setId(response.getId());
+        novaNamirnica.setNaziv(response.getNaziv());
+        novaNamirnica.setTezina(response.getTezina());
+        novaNamirnica.setBrojKalorija(response.getBrojKalorija());
+        novaNamirnica.setIsbn(response.getIsbn());
         return novaNamirnica;
     }
 }

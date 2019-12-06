@@ -1,6 +1,7 @@
 package com.example.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -29,18 +30,25 @@ public interface NamirnicaDAO {
     @Query("SELECT * FROM namirnica")
     public List<Namirnica> dohvatiSveNamirnice();
 
+    @Query("SELECT * FROM namirnica n JOIN namirnice_u_obroku nuo ON n.id = nuo.idNamirnica WHERE nuo.obrok = :vrstaObroka ")
+    public List<Namirnica> dohvatiNamirniceIzObroka(String vrstaObroka);
+
     @Query("SELECT * FROM namirnica WHERE naziv  LIKE '%' || :unos || '%'")
     public List<Namirnica> dohvatiNamirnicePoImenu(String unos);
 
     @Query("SELECT * FROM namirnica WHERE isbn = :unos")
     public Namirnica dohvatiNamirnicuPoISBN(String unos);
 
+  
     //CRUD nad namirnice_u_obroku
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] unosKorisnikovogObroka(NamirniceObroka... namirniceObroka);
 
     @Update
     public void azuriranjeKorisnikovogObroka(NamirniceObroka... namirniceObroka);
+
+    @Delete
+    public void brisanjeKorisnikovogObroka(NamirniceObroka... namirniceObroka);
 
     @Query("SELECT * FROM namirnice_u_obroku")
     public List<NamirniceObroka> dohvatiSveKorisnikoveObroke();
@@ -49,5 +57,5 @@ public interface NamirnicaDAO {
     public void brisanjeKorisnikovogObroka(int idNamirniceObroka);
 
     @Query("SELECT * FROM namirnice_u_obroku WHERE obrok=:vrstaObroka")
-    public List<NamirniceObroka> dohvatiKorisnikovObrokPoVrsi(String vrstaObroka);
+    public List<NamirniceObroka> dohvatiNamirniceObrokaPoVrsi(String vrstaObroka);
 }

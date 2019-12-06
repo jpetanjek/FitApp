@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:background="@color/white">
-
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,63 +22,75 @@
         app:title="Food diary"
         app:titleTextColor="@color/black"/>
 
-    <ScrollView
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context="com.androidapplication.ListActivity">
+            android:orientation="vertical">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:text="Breakfast"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewBreakfast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="Breakfast" />
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:id="@+id/lvBreakfast" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="Lunch" />
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:id="@+id/lvLunch"/>
+                tools:listitem="@layout/namirnica_obroka_item"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lunch"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewLunch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="Dinner" />
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:id="@+id/lvDinner"/>
+                tools:listitem="@layout/namirnica_obroka_item"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dinner"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewDinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="Snack" />
-            <ListView
+                tools:listitem="@layout/namirnica_obroka_item"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Snack"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewSnack"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:id="@+id/lvSnack"/>
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/namirnica_obroka_item"/>
 
         </LinearLayout>
-    </ScrollView>
-
+    </androidx.core.widget.NestedScrollView>
 
     <!--
         <Button

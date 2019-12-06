@@ -48,7 +48,13 @@ public class Glavni_Izbornik extends AppCompatActivity {
 
             }
         });
-
+        Button btnBarkodSkener = findViewById(R.id.btnBarkodSkener);
+        btnBarkodSkener.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Glavni_Izbornik.this,BarkodSkenerActivity.class));
+            }
+        });
 
 
         /*

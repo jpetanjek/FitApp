@@ -1,11 +1,17 @@
 package com.example.fitapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Adapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.core.entities.Korisnik;
 import com.example.core.entities.Namirnica;
@@ -25,47 +31,71 @@ public class FoodDiary extends AppCompatActivity {
         popuniNamirniceObroka();
     }
 
-
+    // Postavljanje recycleViewa i NamirniceObrokAdaptera na svaku listu posebno (doručak, ručak, večeru i snack)
     public void popuniNamirniceObroka(){
-        MockUp();
+        //MockUp();
 
-        List<NamirniceObroka> namirniceObrokas = MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiKorisnikovObrokPoVrsi("Breakfast");
-        ListView lvBreakfast = findViewById(R.id.lvBreakfast);
-        NamirniceObrokaAdapter namirniceObrokaAdapter = new NamirniceObrokaAdapter(this, R.layout.meallistrow, namirniceObrokas);
-        lvBreakfast.setAdapter(namirniceObrokaAdapter);
-        postaviVelicinuListViewa(lvBreakfast);
+        // Doručak
+        RecyclerView recyclerViewBreakfast = findViewById(R.id.recycleviewBreakfast);
+        recyclerViewBreakfast.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewBreakfast.setHasFixedSize(true);
 
-        namirniceObrokas = MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiKorisnikovObrokPoVrsi("Lunch");
-        ListView lvLunch = findViewById(R.id.lvLunch);
-        namirniceObrokaAdapter = new NamirniceObrokaAdapter(this, R.layout.meallistrow, namirniceObrokas);
-        lvLunch.setAdapter(namirniceObrokaAdapter);
-        postaviVelicinuListViewa(lvLunch);
+        final NamirniceObrokaAdapter adapterBreakfast = new NamirniceObrokaAdapter();
+        recyclerViewBreakfast.setAdapter(adapterBreakfast);
+        adapterBreakfast.setContext(this); // Koristiti DAL (obrisati)
+        adapterBreakfast.setNamirnicas(MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrsi("Breakfast")); // // Koristiti DAL (obrisati)
 
-        namirniceObrokas = MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiKorisnikovObrokPoVrsi("Dinner");
-        ListView lvDinner = findViewById(R.id.lvDinner);
-        namirniceObrokaAdapter = new NamirniceObrokaAdapter(this, R.layout.meallistrow, namirniceObrokas);
-        lvDinner.setAdapter(namirniceObrokaAdapter);
-        postaviVelicinuListViewa(lvDinner);
+        //Ručak
+        RecyclerView recyclerViewLunch = findViewById(R.id.recycleviewLunch);
+        recyclerViewLunch.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewLunch.setHasFixedSize(true);
 
-        namirniceObrokas = MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiKorisnikovObrokPoVrsi("Snack");
-        ListView lvSnack = findViewById(R.id.lvSnack);
-        namirniceObrokaAdapter = new NamirniceObrokaAdapter(this, R.layout.meallistrow, namirniceObrokas);
-        lvSnack.setAdapter(namirniceObrokaAdapter);
-        postaviVelicinuListViewa(lvSnack);
+        NamirniceObrokaAdapter adapterLunch = new NamirniceObrokaAdapter();
+        recyclerViewLunch.setAdapter(adapterLunch);
+        adapterLunch.setContext(this);// Koristiti DAL (obrisati)
+        adapterLunch.setNamirnicas(MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrsi("Lunch")); // // Koristiti DAL (obrisati)
 
+        //Večera
+        RecyclerView recycleviewDinner = findViewById(R.id.recycleviewDinner);
+        recycleviewDinner.setLayoutManager(new LinearLayoutManager(this));
+        recycleviewDinner.setHasFixedSize(true);
+
+        NamirniceObrokaAdapter adapterDinner = new NamirniceObrokaAdapter();
+        recycleviewDinner.setAdapter(adapterDinner);
+        adapterDinner.setContext(this);// Koristiti DAL (obrisati)
+        adapterDinner.setNamirnicas(MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrsi("Dinner")); // Koristiti DAL (obrisati)
+
+        //Snack
+        RecyclerView recycleviewSnack = findViewById(R.id.recycleviewSnack);
+        recycleviewSnack.setLayoutManager(new LinearLayoutManager(this));
+        recycleviewSnack.setHasFixedSize(true);
+
+        NamirniceObrokaAdapter adapterSnack = new NamirniceObrokaAdapter();
+        recycleviewSnack.setAdapter(adapterSnack);
+        adapterSnack.setContext(this); // Koristiti DAL (obrisati)
+        adapterSnack.setNamirnicas(MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrsi("Snack")); // Koristiti DAL (obrisati)
+
+        makeAdapterItemErasable(adapterBreakfast, recyclerViewBreakfast, "Breakfast");
+        makeAdapterItemErasable(adapterLunch, recyclerViewLunch, "Lunch");
+        makeAdapterItemErasable(adapterDinner, recycleviewDinner, "Dinner");
+        makeAdapterItemErasable(adapterSnack, recycleviewSnack, "Snack");
     }
 
-    public void postaviVelicinuListViewa(ListView listView){
-        int brojElemenataListe = listView.getAdapter().getCount();
+    public void makeAdapterItemErasable(final NamirniceObrokaAdapter adapter, RecyclerView recyclerView , final String obrok){
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
 
-        final float scale = this.getResources().getDisplayMetrics().density;
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                MyDatabase.getInstance(FoodDiary.this).getNamirnicaDAO().brisanjeKorisnikovogObroka(adapter.getNamirnicaObrokaAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(FoodDiary.this, "Namirnica obroka obrisana.", Toast.LENGTH_SHORT);
+                adapter.setNamirnicas(MyDatabase.getInstance(FoodDiary.this).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrsi(obrok));
+            }
+        }).attachToRecyclerView(recyclerView);
 
-        int pixels = (int) (brojElemenataListe * scale + 0.5f);
-        pixels = pixels * 50; // Otprilike za 1 element je 50
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) listView.getLayoutParams();
-
-        lp.height = pixels;
-        listView.setLayoutParams(lp);
     }
 
     public void MockUp(){

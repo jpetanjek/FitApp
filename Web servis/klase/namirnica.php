@@ -22,6 +22,23 @@ if(isset($_GET["query"]) && $_GET["query"]=="getAll"){
     
 }
 /*
+    Funkcija dohvaća sve namirnice iz baze podataka istog naziva.
+*/
+if(isset($_GET["query"]) && $_GET["query"]=="getByName" && isset($_GET["naziv"])){
+    $sveNamirnice = array();
+    $imeNamirnice = $_GET["naziv"];
+    $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica WHERE naziv LIKE '%$imeNamirnice%'");
+    $brojNamirnica = mysqli_num_rows($dohvatNamirnica);
+    while($redak = mysqli_fetch_array($dohvatNamirnica)){
+        $novaNamirnica = new Namirnica($redak,true);
+        array_push($sveNamirnice,$novaNamirnica->dohvatiJson());
+    }
+    header('Content-type: application/json');
+    http_response_code(200); 
+    echo json_encode($sveNamirnice);
+    
+}
+/*
     Funkcija dohvaća određenu namirnicu iz baze podataka prema primarnom ključu.
 */
 if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["namirnica"])){
@@ -29,6 +46,21 @@ if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["namirnica"
     $dohvacenaNamirnica;
     $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica WHERE id = $identifikatorNamirnica");
     $brojNamirnica = mysqli_num_rows($dohvatNamirnica);
+    while($redak = mysqli_fetch_array($dohvatNamirnica)){
+        $novaNamirnica = new Namirnica($redak,true);
+        $dohvacenaNamirnica = $novaNamirnica->dohvatiJson();
+    }
+    header('Content-type: application/json');
+    http_response_code(200); 
+    echo json_encode($dohvacenaNamirnica);
+}
+/*
+Funkcija dohvaća određenu namirnicu iz baze podataka prema isbn.
+*/
+if(isset($_GET["query"]) && $_GET["query"]=="getByGoogleId" && isset($_GET["namirnica"])){
+    $identifikatorNamirnica = $_GET["namirnica"];
+    $dohvacenaNamirnica;
+    $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica WHERE isbn = $identifikatorNamirnica");
     while($redak = mysqli_fetch_array($dohvatNamirnica)){
         $novaNamirnica = new Namirnica($redak,true);
         $dohvacenaNamirnica = $novaNamirnica->dohvatiJson();

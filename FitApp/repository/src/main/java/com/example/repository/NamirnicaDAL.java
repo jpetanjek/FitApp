@@ -23,49 +23,45 @@ import static com.example.database.MyDatabase.getInstance;
 
 public class NamirnicaDAL {
 
-    public static Namirnica DohvatiWeb(Integer identifikator){
-        final Namirnica[] returnme = {new Namirnica()};
+    public static void DohvatiWeb(Integer identifikator, final Callback<RetroNamirnica> callback){
 
         Retrofit retrofit = RetrofitInstance.getInstance();
         JsonApi jsonApi = retrofit.create(JsonApi.class);
         jsonApi.dohvatiNamirnicu(identifikator).enqueue(new Callback<RetroNamirnica>() {
             @Override
             public void onResponse(Call<RetroNamirnica> call, Response<RetroNamirnica> response) {
-
-                returnme[0] = returnme[0].parseNamirnica(response.body());
+                callback.onResponse(call,response);
+                //parsajte sa response.body()
             }
 
             @Override
             public void onFailure(Call<RetroNamirnica> call, Throwable t) {
-
+                callback.onFailure(call,t);
             }
         });
 
-        return returnme[0];
     }
 
     public static Namirnica DohvatiLokalno(Integer identifikator, Context context){
         return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirnicu(identifikator);
     }
 
-    public static Namirnica DohvatiPoISBNWeb(String isbn){
-        final Namirnica[] returnme = {new Namirnica()};
+    public static void DohvatiPoISBNWeb(String isbn, final Callback<RetroNamirnica> callback){
 
         Retrofit retrofit = RetrofitInstance.getInstance();
         JsonApi jsonApi = retrofit.create(JsonApi.class);
         jsonApi.dohvatiNamirnicuPoISBN(isbn).enqueue(new Callback<RetroNamirnica>() {
             @Override
             public void onResponse(Call<RetroNamirnica> call, Response<RetroNamirnica> response) {
-                returnme[0] = returnme[0].parseNamirnica(response.body());
+                callback.onResponse(call,response);
             }
 
             @Override
             public void onFailure(Call<RetroNamirnica> call, Throwable t) {
-
+                callback.onFailure(call,t);
             }
         });
 
-        return returnme[0];
     }
 
     public static Namirnica DohvatiPoISBNLokalno(String isbn, Context context){
@@ -93,27 +89,26 @@ public class NamirnicaDAL {
         });
     }
 
-    public static List<Namirnica> DohvatiSveWeb(final Context context){
-        final List<Namirnica> returnme = new ArrayList<>();
+    public static void DohvatiSveWeb(final Callback<List<RetroNamirnica>> callback){
         Retrofit retrofit = RetrofitInstance.getInstance();
         JsonApi jsonApi = retrofit.create(JsonApi.class);
         jsonApi.dohvatiSveNamirnice().enqueue(new Callback<List<RetroNamirnica>>() {
             @Override
             public void onResponse(Call<List<RetroNamirnica>> call, Response<List<RetroNamirnica>> response) {
-                for(RetroNamirnica r: response.body()){
+                /*for(RetroNamirnica r: response.body()){
                     Namirnica namirnica = new Namirnica();
                     namirnica = namirnica.parseNamirnica(r);
 
                     returnme.add(namirnica);
-                }
+                }*/
+                callback.onResponse(call,response);
             }
 
             @Override
             public void onFailure(Call<List<RetroNamirnica>> call, Throwable t) {
-
+                callback.onFailure(call,t);
             }
         });
-        return returnme;
     }
 
     public static List<Namirnica> DohvatiSveLokalno(Context context){

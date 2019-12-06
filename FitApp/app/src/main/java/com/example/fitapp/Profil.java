@@ -312,7 +312,6 @@ public class Profil extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if(v.getId()== com.example.registracija.R.id.btnWeightLossOrGainGoal) {
-                        //TODO - popraviti unose
                         final NumberPicker lossGainPick = new NumberPicker(Profil.this);
                         final String[] inputValues = {"-0.25","-0.5","-1.0","1.0","0.5","0.25"};
                         lossGainPick.setDisplayedValues(inputValues);
@@ -361,10 +360,8 @@ public class Profil extends AppCompatActivity {
             if (acct != null) {
                 String personEmail = acct.getEmail();
                 Uri personPhoto = acct.getPhotoUrl();
-                //TODO - acct.getPhotoUrl() vraca null, testano bez slike na profilu i sa slikom na profilu
                 email.setText(personEmail);
                 Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
-
             }
 
         }

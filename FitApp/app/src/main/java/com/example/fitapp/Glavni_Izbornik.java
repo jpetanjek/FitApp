@@ -104,6 +104,8 @@ public class Glavni_Izbornik extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
+
+
     /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

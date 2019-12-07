@@ -2,13 +2,26 @@ package com.example.fitapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import androidx.appcompat.widget.Toolbar;
+
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+
+
+import android.util.Log;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+
 import android.widget.Toast;
 
 import com.example.core.entities.Korisnik;
@@ -21,6 +34,7 @@ import com.example.fitapp.viewmodels.NamirniceRuckaViewModel;
 import com.example.fitapp.viewmodels.NamirniceSnackViewModel;
 import com.example.fitapp.viewmodels.NamirniceVecereViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodDiary extends AppCompatActivity {
@@ -34,8 +48,29 @@ public class FoodDiary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_diary);
+
         MockUp();
         popuniNamirniceObroka();
+
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    Intent i = new Intent(FoodDiary.this, Glavni_Izbornik.class);
+                    startActivity(i);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
+
+
 
     }
 
@@ -214,5 +249,23 @@ public class FoodDiary extends AppCompatActivity {
         namirniceObroka.setIdNamirnica(namirnice.get(4).getId());
         namirniceObroka.setObrok("Dinner");
         MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
+    }
+
+    public static View getToolbarLogoView(Toolbar toolbar){
+        boolean hadContentDescription = android.text.TextUtils.isEmpty(toolbar.getLogoDescription());
+        String contentDescription = String.valueOf(!hadContentDescription ? toolbar.getLogoDescription() : "logoContentDescription");
+        toolbar.setLogoDescription(contentDescription);
+        ArrayList<View> potentialViews = new ArrayList<View>();
+        toolbar.findViewsWithText(potentialViews,contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        View logoIcon = null;
+
+        if(potentialViews.size() > 0){
+            logoIcon = potentialViews.get(0);
+        }
+
+        if(hadContentDescription)
+            toolbar.setLogoDescription(null);
+
+        return logoIcon;
     }
 }

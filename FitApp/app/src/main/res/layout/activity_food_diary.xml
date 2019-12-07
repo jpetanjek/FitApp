@@ -17,7 +17,7 @@
         android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:logo="@drawable/ic_person_black_24dp"
+        app:logo="@drawable/ic_arrow_back_black_24dp"
         app:titleMarginStart="30dp"
         app:title="Food diary"
         app:titleTextColor="@color/black"/>

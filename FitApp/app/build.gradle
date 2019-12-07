@@ -70,4 +70,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
+
+    def recyclerview_version = "1.0.0"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_version"
+    implementation "androidx.cardview:cardview:$recyclerview_version"
+    implementation 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
 }

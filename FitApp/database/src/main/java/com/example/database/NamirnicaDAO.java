@@ -1,5 +1,6 @@
 package com.example.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -42,20 +43,20 @@ public interface NamirnicaDAO {
   
     //CRUD nad namirnice_u_obroku
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public long[] unosKorisnikovogObroka(NamirniceObroka... namirniceObroka);
+    public long[] unosNamirniceObroka(NamirniceObroka... namirniceObroka);
 
     @Update
-    public void azuriranjeKorisnikovogObroka(NamirniceObroka... namirniceObroka);
+    public void azuriranjeNamirniceObroka(NamirniceObroka... namirniceObroka);
 
     @Delete
-    public void brisanjeKorisnikovogObroka(NamirniceObroka... namirniceObroka);
+    public void brisanjeNamirniceObroka(NamirniceObroka... namirniceObroka);
 
     @Query("SELECT * FROM namirnice_u_obroku")
-    public List<NamirniceObroka> dohvatiSveKorisnikoveObroke();
+    public List<NamirniceObroka> dohvatiSveNamirniceObroka();
 
     @Query("DELETE FROM namirnice_u_obroku WHERE id=:idNamirniceObroka")
     public void brisanjeKorisnikovogObroka(int idNamirniceObroka);
 
     @Query("SELECT * FROM namirnice_u_obroku WHERE obrok=:vrstaObroka")
-    public List<NamirniceObroka> dohvatiNamirniceObrokaPoVrsi(String vrstaObroka);
+    public LiveData<List<NamirniceObroka>> dohvatiNamirniceObrokaPoVrsi(String vrstaObroka);
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.entities.Namirnica;
@@ -16,6 +17,7 @@ import com.example.core.entities.NamirniceObroka;
 import com.example.database.MyDatabase;
 import com.example.fitapp.Glavni_Izbornik;
 import com.example.fitapp.R;
+import com.example.repository.NamirnicaDAL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +38,11 @@ public class NamirniceObrokaAdapter extends RecyclerView.Adapter<NamirniceObroka
 
     @Override
     public void onBindViewHolder(@NonNull NamirniceObrokaHolder holder, int position) {
-        NamirniceObroka trenutnaNamirnica = namirnicaObrokas.get(position);
-        holder.tvBrojKalorija.setText(String.valueOf(MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirnicu(trenutnaNamirnica.getIdNamirnica()).getBrojKalorija()));
-        holder.tvNazivNamirnice.setText(MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirnicu(trenutnaNamirnica.getIdNamirnica()).getNaziv());
+        NamirniceObroka trenutnaNamirnicaObroka = namirnicaObrokas.get(position);
+        Namirnica namirnica = NamirnicaDAL.DohvatiLokalno(trenutnaNamirnicaObroka.getIdNamirnica(), context);
+
+        holder.tvBrojKalorija.setText(String.valueOf(namirnica.getBrojKalorija()));
+        holder.tvNazivNamirnice.setText(namirnica.getNaziv());
     }
 
     @Override

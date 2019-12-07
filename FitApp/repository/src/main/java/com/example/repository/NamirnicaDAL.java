@@ -1,9 +1,13 @@
 package com.example.repository;
 
 import android.content.Context;
+import android.os.AsyncTask;
+
+import androidx.lifecycle.LiveData;
 
 import com.example.core.entities.Korisnik;
 import com.example.core.entities.Namirnica;
+import com.example.core.entities.NamirniceObroka;
 import com.example.database.MyDatabase;
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
@@ -194,4 +198,52 @@ public class NamirnicaDAL {
     public static void IzbrisiLokalno(Context context, Integer identifikator){
         getInstance(context).getNamirnicaDAO().brisanjeNamirnice(identifikator);
     }
+
+
+    // Namirnice obroka
+
+    public static void UnesiKorisnikovObrok(Context context, NamirniceObroka... namirnicaObroka){
+        new InsertNamirniceObrokaAsyncTask(context).execute(namirnicaObroka);
+    }
+
+    public static void ObrisiKorisnikovObrok(Context context, NamirniceObroka... namirnicaObroka){
+        new DeleteNamirniceObrokaAsyncTask(context).execute(namirnicaObroka);
+    }
+
+    public static LiveData<List<NamirniceObroka>> DohvatiSveNamirniceObroka(String obrok, Context context){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrsi(obrok);
+    }
+
+    //Asinkroni rad s NamirniceObroka u bazi
+
+    private static class InsertNamirniceObrokaAsyncTask extends AsyncTask<NamirniceObroka, Void, Void>{
+        private Context context;
+
+        private InsertNamirniceObrokaAsyncTask(Context context){
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(NamirniceObroka... namirniceObrokas) {
+            MyDatabase.getInstance(context).getNamirnicaDAO().unosNamirniceObroka(namirniceObrokas[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteNamirniceObrokaAsyncTask extends AsyncTask<NamirniceObroka, Void, Void>{
+        private Context context;
+
+        private DeleteNamirniceObrokaAsyncTask(Context context){
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(NamirniceObroka... namirniceObrokas) {
+            MyDatabase.getInstance(context).getNamirnicaDAO().brisanjeNamirniceObroka(namirniceObrokas[0]);
+            return null;
+        }
+    }
+
+
+
 }

@@ -47,6 +47,16 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/namirnica_obroka_item"/>
 
+            <Button
+                android:id="@+id/btnAddBreakfast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:text="Add Breakfast"
+                android:background="@color/cardview_light_background"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,6 +70,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/namirnica_obroka_item"/>
+
+            <Button
+                android:id="@+id/btnAddLunch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:text="Add Lunch"
+                android:background="@color/cardview_light_background"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,6 +95,16 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/namirnica_obroka_item"/>
 
+            <Button
+                android:id="@+id/btnAddDinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:text="Add Dinner"
+                android:background="@color/cardview_light_background"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,6 +118,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/namirnica_obroka_item"/>
+
+            <Button
+                android:id="@+id/btnAddSnack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:text="Add Snack"
+                android:background="@color/cardview_light_background"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

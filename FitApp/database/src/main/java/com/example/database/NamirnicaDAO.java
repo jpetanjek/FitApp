@@ -57,6 +57,6 @@ public interface NamirnicaDAO {
     @Query("DELETE FROM namirnice_u_obroku WHERE id=:idNamirniceObroka")
     public void brisanjeKorisnikovogObroka(int idNamirniceObroka);
 
-    @Query("SELECT * FROM namirnice_u_obroku WHERE obrok=:vrstaObroka")
-    public LiveData<List<NamirniceObroka>> dohvatiNamirniceObrokaPoVrsi(String vrstaObroka);
+    @Query("SELECT * FROM namirnice_u_obroku WHERE obrok=:vrstaObroka and datum=:datum")
+    public LiveData<List<NamirniceObroka>> dohvatiNamirniceObrokaPoVrstiZaDatum(String vrstaObroka, String datum);
 }

@@ -6,12 +6,10 @@ import RetroEntities.RetroKorisnik;
 import RetroEntities.RetroNamirnica;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface JsonApi {
@@ -30,15 +28,15 @@ public interface JsonApi {
     @Multipart
     @POST("korisnik.php?query=insert")
     Call<Void> unesiKorisnika (@Part("ime") String ime,
-                               @Part("prezime") String prezime,
-                               @Part("google_id") String googleId,
-                               @Part("email") String email,
-                               @Part("visina") Float visina,
-                               @Part("masa") Float masa,
-                               @Part("cilj_mase") Float ciljMase,
-                               @Part("cilj_tjednog_mrsavljenja") Float ciljTjednogMrsavljenja,
-                               @Part("spol") String spol,
-                               @Part("datum_rodenja") String datumRodenja);
+                                          @Part("prezime") String prezime,
+                                          @Part("google_id") String googleId,
+                                          @Part("email") String email,
+                                          @Part("visina") Float visina,
+                                          @Part("masa") Float masa,
+                                          @Part("cilj_mase") Float ciljMase,
+                                          @Part("cilj_tjednog_mrsavljenja") Float ciljTjednogMrsavljenja,
+                                          @Part("spol") String spol,
+                                          @Part("datum_rodenja") String datumRodenja);
 
     @Multipart
     @POST("namirnica.php?query=update")
@@ -61,7 +59,7 @@ public interface JsonApi {
 
     @Multipart
     @POST("namirnica.php?query=insert")
-    Call<Void> unesiNamirnicu(
+    Call<Integer> unesiNamirnicu(
             @Part("naziv") String naziv,
             @Part("broj_kalorija") Integer brojKalorija,
             @Part("tezina") Integer tezina,

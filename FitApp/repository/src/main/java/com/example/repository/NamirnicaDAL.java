@@ -50,6 +50,10 @@ public class NamirnicaDAL {
         return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirnicu(identifikator);
     }
 
+    public static LiveData<Namirnica> LIVEDohvatiLokalno(Integer identifikator, Context context){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().LIVEdohvatiNamirnicu(identifikator);
+    }
+
     public static void DohvatiPoISBNWeb(String isbn, final Callback<RetroNamirnica> callback){
 
         Retrofit retrofit = RetrofitInstance.getInstance();
@@ -171,24 +175,24 @@ public class NamirnicaDAL {
 
     }
 
-    public static void Kreiraj(Namirnica namirnica,Context context){
+    public static void Kreiraj(Namirnica namirnica, final Context context,final Callback<Integer> callback){
+
         Retrofit retrofit = RetrofitInstance.getInstance();
         JsonApi jsonApi = retrofit.create(JsonApi.class);
-        jsonApi.unesiNamirnicu(namirnica.getNaziv(),namirnica.getBrojKalorija(),namirnica.getTezina(),namirnica.getIsbn()).enqueue(new Callback<Void>() {
+        jsonApi.unesiNamirnicu(namirnica.getNaziv(),namirnica.getBrojKalorija(),namirnica.getTezina(),namirnica.getIsbn()).enqueue(new Callback<Integer>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                KreirajLokalno(DohvatiLokalno(response.body(),context),context);
+                callback.onResponse(call,response);
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-
+            public void onFailure(Call<Integer> call, Throwable t) {
+                callback.onFailure(call,t);
             }
         });
-
-        MyDatabase myDatabase = MyDatabase.getInstance(context);
-        myDatabase.getNamirnicaDAO().unosNamirnica(namirnica);
     }
+
 
     public static void KreirajLokalno(Namirnica namirnica,Context context){
         MyDatabase myDatabase = MyDatabase.getInstance(context);

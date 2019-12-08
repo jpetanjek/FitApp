@@ -210,8 +210,8 @@ public class NamirnicaDAL {
         new DeleteNamirniceObrokaAsyncTask(context).execute(namirnicaObroka);
     }
 
-    public static LiveData<List<NamirniceObroka>> DohvatiSveNamirniceObroka(String obrok, Context context){
-        return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrsi(obrok);
+    public static LiveData<List<NamirniceObroka>> DohvatiSveNamirniceObrokaZaDatum(String obrok, String datum, Context context){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrstiZaDatum(obrok,datum);
     }
 
     //Asinkroni rad s NamirniceObroka u bazi

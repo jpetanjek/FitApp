@@ -16,12 +16,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.core.entities.Korisnik;
@@ -29,29 +29,71 @@ import com.example.core.entities.Namirnica;
 import com.example.core.entities.NamirniceObroka;
 import com.example.database.MyDatabase;
 import com.example.fitapp.adapters.NamirniceObrokaAdapter;
-import com.example.fitapp.viewmodels.NamirniceDoruckaViewModel;
-import com.example.fitapp.viewmodels.NamirniceRuckaViewModel;
-import com.example.fitapp.viewmodels.NamirniceSnackViewModel;
-import com.example.fitapp.viewmodels.NamirniceVecereViewModel;
+import com.example.fitapp.viewmodels.NamirniceObrokaViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class FoodDiary extends AppCompatActivity {
 
-    private NamirniceDoruckaViewModel namirniceDoruckaViewModel;
-    private NamirniceRuckaViewModel namirniceRuckaViewModel;
-    private NamirniceVecereViewModel namirniceVecereViewModel;
-    private NamirniceSnackViewModel namirniceSnackViewModel;
+    private NamirniceObrokaViewModel namirniceDoruckaViewModel;
+    private NamirniceObrokaViewModel namirniceRuckaViewModel;
+    private NamirniceObrokaViewModel namirniceVecereViewModel;
+    private NamirniceObrokaViewModel namirniceSnackViewModel;
+    private Date trenutniDatum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_diary);
 
-        MockUp();
-        popuniNamirniceObroka();
+        trenutniDatum = new Date(System.currentTimeMillis());
 
+        final TextView tvDate = findViewById(R.id.tvDate);
+        Button btnDateDecrement = findViewById(R.id.btnDateDecrement);
+        Button btnDateIncrement = findViewById(R.id.btnDateIncrement);
+
+        tvDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                popuniNamirniceObroka(); // Nakon promjene datuma se postavljaju namirnice u obroku za taj dan
+            }
+        });
+
+        btnDateDecrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Smanji trenutniDatum za 1
+                promijeniVrijednostDatumaZaBrojDana(-1);
+                tvDate.setText(dohvatiStringDatuma()); // Postavlja se vrijednost tvDate, što triggera tvDate.afterTextChanged
+            }
+        });
+
+        btnDateIncrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Povećaj trenutniDatum za 1
+                promijeniVrijednostDatumaZaBrojDana(1); // Postavlja se vrijednost tvDate, što triggera tvDate.afterTextChanged
+                tvDate.setText(dohvatiStringDatuma());
+            }
+        });
+
+
+        tvDate.setText(dohvatiStringDatuma()); // Inicijalno postavljanje datuma (prilikom prvog učitavanja), triggera tv.Date.afterTextChanged
+        MockUp();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,9 +111,18 @@ public class FoodDiary extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void promijeniVrijednostDatumaZaBrojDana(int brojDana){
+        Calendar c = Calendar.getInstance();
+        c.setTime(trenutniDatum);
+        c.add(Calendar.DATE, brojDana);
+        trenutniDatum = c.getTime();
+    }
 
-
+    private String dohvatiStringDatuma(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        return sdf.format(trenutniDatum);
     }
 
     // Postavljanje recycleViewa i NamirniceObrokAdaptera na svaku listu posebno (doručak, ručak, večeru i snack)
@@ -92,8 +143,8 @@ public class FoodDiary extends AppCompatActivity {
         recyclerViewBreakfast.setAdapter(adapterBreakfast);
         adapterBreakfast.setContext(this);
 
-        namirniceDoruckaViewModel = ViewModelProviders.of(this).get(NamirniceDoruckaViewModel.class);
-        namirniceDoruckaViewModel.getAllNamirniceObroka().observe(this, new Observer<List<NamirniceObroka>>() {
+        namirniceDoruckaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
+        namirniceDoruckaViewModel.getAllNamirniceObroka("Breakfast", dohvatiStringDatuma()).observe(this, new Observer<List<NamirniceObroka>>() {
             @Override
             public void onChanged(List<NamirniceObroka> namirniceObrokas) {
                 adapterBreakfast.setNamirnicas(namirniceObrokas);
@@ -101,18 +152,7 @@ public class FoodDiary extends AppCompatActivity {
         });
 
         // Swipe to delete
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                namirniceDoruckaViewModel.delete(adapterBreakfast.getNamirnicaObrokaAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(FoodDiary.this, "Namirnica obroka obrisana.", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(recyclerViewBreakfast);
+        makeItemErasable(recyclerViewBreakfast, namirniceDoruckaViewModel, adapterBreakfast);
     }
 
     public void popuniNamirniceRucka(){
@@ -125,8 +165,8 @@ public class FoodDiary extends AppCompatActivity {
         recyclerViewLunch.setAdapter(adapterLunch);
         adapterLunch.setContext(this);// Koristiti DAL (obrisati)
 
-        namirniceRuckaViewModel = ViewModelProviders.of(this).get(NamirniceRuckaViewModel.class);
-        namirniceRuckaViewModel.getAllNamirniceObroka().observe(this, new Observer<List<NamirniceObroka>>() {
+        namirniceRuckaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
+        namirniceRuckaViewModel.getAllNamirniceObroka("Lunch", dohvatiStringDatuma()).observe(this, new Observer<List<NamirniceObroka>>() {
             @Override
             public void onChanged(List<NamirniceObroka> namirniceObrokas) {
                 adapterLunch.setNamirnicas(namirniceObrokas);
@@ -134,18 +174,7 @@ public class FoodDiary extends AppCompatActivity {
         });
 
         // Swipe to delete
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                namirniceRuckaViewModel.delete(adapterLunch.getNamirnicaObrokaAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(FoodDiary.this, "Namirnica obroka obrisana.", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(recyclerViewLunch);
+        makeItemErasable(recyclerViewLunch, namirniceRuckaViewModel, adapterLunch);
     }
 
     public void popuniNamirniceVecere(){
@@ -158,8 +187,8 @@ public class FoodDiary extends AppCompatActivity {
         recycleviewDinner.setAdapter(adapterDinner);
         adapterDinner.setContext(this);
 
-        namirniceVecereViewModel = ViewModelProviders.of(this).get(NamirniceVecereViewModel.class);
-        namirniceVecereViewModel.getAllNamirniceObroka().observe(this, new Observer<List<NamirniceObroka>>() {
+        namirniceVecereViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
+        namirniceVecereViewModel.getAllNamirniceObroka("Dinner", dohvatiStringDatuma()).observe(this, new Observer<List<NamirniceObroka>>() {
             @Override
             public void onChanged(List<NamirniceObroka> namirniceObrokas) {
                 adapterDinner.setNamirnicas(namirniceObrokas);
@@ -167,18 +196,7 @@ public class FoodDiary extends AppCompatActivity {
         });
 
         // Swipe to delete
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                namirniceVecereViewModel.delete(adapterDinner.getNamirnicaObrokaAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(FoodDiary.this, "Namirnica obroka obrisana.", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(recycleviewDinner);
+        makeItemErasable(recycleviewDinner, namirniceVecereViewModel, adapterDinner);
     }
 
     public void popuniNamirniceSnacka(){
@@ -191,8 +209,8 @@ public class FoodDiary extends AppCompatActivity {
         recycleviewSnack.setAdapter(adapterSnack);
         adapterSnack.setContext(this);
 
-        namirniceSnackViewModel = ViewModelProviders.of(this).get(NamirniceSnackViewModel.class);
-        namirniceSnackViewModel.getAllNamirniceObroka().observe(this, new Observer<List<NamirniceObroka>>() {
+        namirniceSnackViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
+        namirniceSnackViewModel.getAllNamirniceObroka("Snack", dohvatiStringDatuma()).observe(this, new Observer<List<NamirniceObroka>>() {
             @Override
             public void onChanged(List<NamirniceObroka> namirniceObrokas) {
                 adapterSnack.setNamirnicas(namirniceObrokas);
@@ -200,6 +218,11 @@ public class FoodDiary extends AppCompatActivity {
         });
 
         // Swipe to delete
+        makeItemErasable(recycleviewSnack, namirniceSnackViewModel, adapterSnack);
+    }
+
+    public void makeItemErasable(RecyclerView recyclerView, final NamirniceObrokaViewModel viewModel, final NamirniceObrokaAdapter adapter){
+
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -208,12 +231,11 @@ public class FoodDiary extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                namirniceSnackViewModel.delete(adapterSnack.getNamirnicaObrokaAt(viewHolder.getAdapterPosition()));
+                viewModel.delete(adapter.getNamirnicaObrokaAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(FoodDiary.this, "Namirnica obroka obrisana.", Toast.LENGTH_SHORT).show();
             }
-        }).attachToRecyclerView(recycleviewSnack);
+        }).attachToRecyclerView(recyclerView);
     }
-
 
 
     public void MockUp(){
@@ -224,30 +246,63 @@ public class FoodDiary extends AppCompatActivity {
         namirniceObroka.setIdKorisnik(korisnik.getId());
         namirniceObroka.setIdNamirnica(namirnice.get(0).getId());
         namirniceObroka.setObrok("Breakfast");
+        namirniceObroka.setDatum("08.12.2019");
         MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
 
         namirniceObroka = new NamirniceObroka();
         namirniceObroka.setIdKorisnik(korisnik.getId());
         namirniceObroka.setIdNamirnica(namirnice.get(1).getId());
         namirniceObroka.setObrok("Dinner");
+        namirniceObroka.setDatum("08.12.2019");
         MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
 
         namirniceObroka = new NamirniceObroka();
         namirniceObroka.setIdKorisnik(korisnik.getId());
         namirniceObroka.setIdNamirnica(namirnice.get(2).getId());
         namirniceObroka.setObrok("Snack");
+        namirniceObroka.setDatum("08.12.2019");
         MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
 
         namirniceObroka = new NamirniceObroka();
         namirniceObroka.setIdKorisnik(korisnik.getId());
         namirniceObroka.setIdNamirnica(namirnice.get(3).getId());
         namirniceObroka.setObrok("Lunch");
+        namirniceObroka.setDatum("08.12.2019");
         MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
 
         namirniceObroka = new NamirniceObroka();
         namirniceObroka.setIdKorisnik(korisnik.getId());
         namirniceObroka.setIdNamirnica(namirnice.get(4).getId());
         namirniceObroka.setObrok("Dinner");
+        namirniceObroka.setDatum("08.12.2019");
+        MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
+
+        namirniceObroka = new NamirniceObroka();
+        namirniceObroka.setIdKorisnik(korisnik.getId());
+        namirniceObroka.setIdNamirnica(namirnice.get(4).getId());
+        namirniceObroka.setObrok("Dinner");
+        namirniceObroka.setDatum("10.12.2019");
+        MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
+
+        namirniceObroka = new NamirniceObroka();
+        namirniceObroka.setIdKorisnik(korisnik.getId());
+        namirniceObroka.setIdNamirnica(namirnice.get(4).getId());
+        namirniceObroka.setObrok("Dinner");
+        namirniceObroka.setDatum("09.12.2019");
+        MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
+
+        namirniceObroka = new NamirniceObroka();
+        namirniceObroka.setIdKorisnik(korisnik.getId());
+        namirniceObroka.setIdNamirnica(namirnice.get(3).getId());
+        namirniceObroka.setObrok("Dinner");
+        namirniceObroka.setDatum("11.12.2019");
+        MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
+
+        namirniceObroka = new NamirniceObroka();
+        namirniceObroka.setIdKorisnik(korisnik.getId());
+        namirniceObroka.setIdNamirnica(namirnice.get(2).getId());
+        namirniceObroka.setObrok("Snack");
+        namirniceObroka.setDatum("10.12.2019");
         MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
     }
 

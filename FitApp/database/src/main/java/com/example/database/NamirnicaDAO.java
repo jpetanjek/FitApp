@@ -28,6 +28,9 @@ public interface NamirnicaDAO {
     @Query("SELECT * FROM namirnica WHERE id = :idNamirnice")
     public Namirnica dohvatiNamirnicu(int idNamirnice);
 
+    @Query("SELECT * FROM namirnica WHERE id = :idNamirnice")
+    public LiveData<Namirnica> LIVEdohvatiNamirnicu(int idNamirnice);
+
     @Query("SELECT * FROM namirnica")
     public List<Namirnica> dohvatiSveNamirnice();
 

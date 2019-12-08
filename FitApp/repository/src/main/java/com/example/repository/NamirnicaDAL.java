@@ -114,7 +114,22 @@ public class NamirnicaDAL {
             }
         });
     }
+    public static void DohvatiNamirniceSlicnogNaziva(String nazivNamirnice,final Callback<List<RetroNamirnica>> callback){
+        Retrofit retrofit = RetrofitInstance.getInstance();
+        JsonApi jsonApi = retrofit.create(JsonApi.class);
+        jsonApi.dohvatiNamirnicePoImenu(nazivNamirnice).enqueue(new Callback<List<RetroNamirnica>>() {
+            @Override
+            public void onResponse(Call<List<RetroNamirnica>> call, Response<List<RetroNamirnica>> response) {
+                callback.onResponse(call,response);
+            }
 
+            @Override
+            public void onFailure(Call<List<RetroNamirnica>> call, Throwable t) {
+                callback.onFailure(call,t);
+            }
+        });
+
+    }
     public static List<Namirnica> DohvatiSveLokalno(Context context){
         MyDatabase myDatabase = MyDatabase.getInstance(context);
 

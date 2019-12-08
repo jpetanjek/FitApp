@@ -30,6 +30,7 @@ import com.example.core.entities.NamirniceObroka;
 import com.example.database.MyDatabase;
 import com.example.fitapp.adapters.NamirniceObrokaAdapter;
 import com.example.fitapp.viewmodels.NamirniceObrokaViewModel;
+import com.example.repository.NamirnicaDAL;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class FoodDiary extends AppCompatActivity {
     private NamirniceObrokaViewModel namirniceSnackViewModel;
     private Date trenutniDatum;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,8 @@ public class FoodDiary extends AppCompatActivity {
         final TextView tvDate = findViewById(R.id.tvDate);
         Button btnDateDecrement = findViewById(R.id.btnDateDecrement);
         Button btnDateIncrement = findViewById(R.id.btnDateIncrement);
-
+        dodajTrigereNaGumbove();
+        IspisiNamirniceObroka();
         tvDate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -112,7 +115,54 @@ public class FoodDiary extends AppCompatActivity {
             }
         });
     }
+    private void IspisiNamirniceObroka(){
+        List<NamirniceObroka> namirniceObrokas = new ArrayList<>();
+        namirniceObrokas = MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiSveNamirniceObroka();
+        for(int i=0;i<namirniceObrokas.size();i++){
+            System.out.println(namirniceObrokas.get(i).getIdNamirnica());
+        }
 
+    }
+    private void dodajTrigereNaGumbove(){
+        Button btnAddDorucak = findViewById(R.id.btnAddBreakfast);
+        Button btnAddRucak = findViewById(R.id.btnAddLunch);
+        Button btnAddVecera = findViewById(R.id.btnAddDinner);
+        Button btnAddUzina = findViewById(R.id.btnAddSnack);
+        btnAddDorucak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
+                i.putExtra("Obrok","Breakfast");
+                startActivity(i);
+            }
+        });
+
+        btnAddRucak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
+                i.putExtra("Obrok","Lunch");
+                startActivity(i);
+            }
+        });
+
+        btnAddVecera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
+                i.putExtra("Obrok","Dinner");
+                startActivity(i);
+            }
+        });
+        btnAddUzina.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
+                i.putExtra("Obrok","Snack");
+                startActivity(i);
+            }
+        });
+    }
     private void promijeniVrijednostDatumaZaBrojDana(int brojDana){
         Calendar c = Calendar.getInstance();
         c.setTime(trenutniDatum);

@@ -44,7 +44,6 @@ public class NamirniceObrokaAdapter extends RecyclerView.Adapter<NamirniceObroka
         holder.tvBrojKalorija.setText(String.valueOf(namirnica.getBrojKalorija()));
         holder.tvNazivNamirnice.setText(namirnica.getNaziv());
     }
-
     @Override
     public int getItemCount() {
         return namirnicaObrokas.size();

@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.barkod.fragments.BarkodFragment;
 import com.example.core.entities.Namirnica;
 import com.example.fitapp.adapters.FoodDiaryAdapter;
 import com.example.fitapp.adapters.NamirniceAdapter;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import RetroEntities.RetroNamirnica;
+import adapter.CurrentActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,15 +46,26 @@ public class AddFoodToMeal extends AppCompatActivity {
         nazivNamirnice = findViewById(R.id.txtNazivNamirnice);
         prosljedeniPodaci = getIntent().getExtras();
         nazivObroka = prosljedeniPodaci.getString("Obrok");
+        CurrentActivity.setActivity(AddFoodToMeal.this);
         slikaBarkoda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(AddFoodToMeal.this,BarkodSkenerActivity.class);
                 i.putExtras(prosljedeniPodaci);
                 startActivity(i);
+
             }
         });
-
+        Button button = findViewById(R.id.button3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent i = new Intent(AddFoodToMeal.this,ModularActivity.class);
+                //i.putExtras(prosljedeniPodaci);
+                //startActivity(i);
+            }
+        });
     }
 
     private void popuniSadrzajPretrage(){

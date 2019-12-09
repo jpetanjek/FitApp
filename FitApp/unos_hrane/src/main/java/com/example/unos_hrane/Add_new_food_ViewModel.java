@@ -16,9 +16,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Add_new_food_ViewModel extends AndroidViewModel {
-    private LiveData<Namirnica> namirnicaLiveData;
+    public LiveData<Namirnica> namirnicaLiveData;
 
-    public Add_new_food_ViewModel(@NonNull final Application application) {
+    public Add_new_food_ViewModel(@NonNull final Application application, final Callback<Integer> callback) {
         super(application);
         Namirnica namirnica = new Namirnica();
         NamirnicaDAL.Kreiraj(namirnica, application, new Callback<Integer>() {
@@ -27,14 +27,17 @@ public class Add_new_food_ViewModel extends AndroidViewModel {
                 //ovdje se id novostvorene namirnice na webservisu vraca u responsu
                 //kako bi mogli njezinu lokalnu komponentu koristiti kao LIVE data
                 namirnicaLiveData = NamirnicaDAL.LIVEDohvatiLokalno(response.body(),application);
+                callback.onResponse(call,response);
             }
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
-
+                callback.onFailure(call,t);
             }
         });
     }
+
+
 
     public void update(Namirnica namirnica,Context context){
         NamirnicaDAL.AsyncUpdateNamirnica(namirnica,context);

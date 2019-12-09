@@ -1,11 +1,13 @@
 package com.example.unos_hrane;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.core.entities.Korisnik;
 import com.example.core.entities.Namirnica;
 import com.example.repository.NamirnicaDAL;
 
@@ -24,7 +26,7 @@ public class Add_new_food_ViewModel extends AndroidViewModel {
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 //ovdje se id novostvorene namirnice na webservisu vraca u responsu
                 //kako bi mogli njezinu lokalnu komponentu koristiti kao LIVE data
-                NamirnicaDAL.LIVEDohvatiLokalno(response.body(),application);
+                namirnicaLiveData = NamirnicaDAL.LIVEDohvatiLokalno(response.body(),application);
             }
 
             @Override
@@ -32,5 +34,9 @@ public class Add_new_food_ViewModel extends AndroidViewModel {
 
             }
         });
+    }
+
+    public void update(Namirnica namirnica,Context context){
+        NamirnicaDAL.AsyncUpdateNamirnica(namirnica,context);
     }
 }

@@ -56,6 +56,13 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
+        Button btnExerciseSelection = findViewById(R.id.btnExcerciseSelection);
+        btnExerciseSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Glavni_Izbornik.this,ExerciseSelection.class));
+            }
+        });
 
         /*
         Button button = findViewById(R.id.registracija);

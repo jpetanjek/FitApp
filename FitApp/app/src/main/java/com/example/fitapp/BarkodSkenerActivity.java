@@ -1,7 +1,9 @@
 package com.example.fitapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -17,6 +19,9 @@ import com.example.repository.KorisnikDAL;
 import com.example.repository.NamirnicaDAL;
 import com.google.android.gms.vision.barcode.Barcode;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import RetroEntities.RetroNamirnica;
@@ -77,13 +82,42 @@ public class BarkodSkenerActivity extends AppCompatActivity implements BarcodeRe
 
         DohvatiNamirnicu(barcode.displayValue);
         if(dohvacenaNamirnica!=null){
+            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            Date date = new Date();
+
             FoodDiaryAdapter.setNamirnica(dohvacenaNamirnica);
             NamirniceObroka namirniceObroka = new NamirniceObroka();
             namirniceObroka.setIdKorisnik(KorisnikDAL.Trenutni(this).getId());
             namirniceObroka.setIdNamirnica(dohvacenaNamirnica.getId());
             namirniceObroka.setObrok(obrok);
-            namirniceObroka.setDatum("08.12.2019");
-            NamirnicaDAL.UnesiKorisnikovObrok(this,namirniceObroka);
+            namirniceObroka.setDatum(dateFormat.format(date));
+            FoodDiaryAdapter.setNamirnicaObroka(namirniceObroka);
+
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(!isFinishing()){
+                        new AlertDialog.Builder(BarkodSkenerActivity.this)
+                                .setTitle("Dodavanje namirnice u obrok!")
+                                .setMessage("Želite li staviti "+dohvacenaNamirnica.getNaziv()+" u obrok "+obrok)
+                                .setCancelable(true)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        NamirnicaDAL.UnesiKorisnikovObrok(getApplicationContext(),FoodDiaryAdapter.getNamirnicaObroka());
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+                    }
+                }
+            });
             //MyDatabase.getInstance(this).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
 
             /*runOnUiThread(new Runnable() {
@@ -96,7 +130,6 @@ public class BarkodSkenerActivity extends AppCompatActivity implements BarcodeRe
             });
 
              */
-            finish();
         }
 
     }

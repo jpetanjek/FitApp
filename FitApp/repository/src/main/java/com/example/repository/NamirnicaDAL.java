@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -48,6 +49,10 @@ public class NamirnicaDAL {
 
     public static Namirnica DohvatiLokalno(Integer identifikator, Context context){
         return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirnicu(identifikator);
+    }
+
+    public static LiveData<Namirnica> LIVEDohvatiLokalno(Integer identifikator, Context context){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().LIVEdohvatiNamirnicu(identifikator);
     }
 
     public static void DohvatiPoISBNWeb(String isbn, final Callback<RetroNamirnica> callback){
@@ -114,7 +119,22 @@ public class NamirnicaDAL {
             }
         });
     }
+    public static void DohvatiNamirniceSlicnogNaziva(String nazivNamirnice,final Callback<List<RetroNamirnica>> callback){
+        Retrofit retrofit = RetrofitInstance.getInstance();
+        JsonApi jsonApi = retrofit.create(JsonApi.class);
+        jsonApi.dohvatiNamirnicePoImenu(nazivNamirnice).enqueue(new Callback<List<RetroNamirnica>>() {
+            @Override
+            public void onResponse(Call<List<RetroNamirnica>> call, Response<List<RetroNamirnica>> response) {
+                callback.onResponse(call,response);
+            }
 
+            @Override
+            public void onFailure(Call<List<RetroNamirnica>> call, Throwable t) {
+                callback.onFailure(call,t);
+            }
+        });
+
+    }
     public static List<Namirnica> DohvatiSveLokalno(Context context){
         MyDatabase myDatabase = MyDatabase.getInstance(context);
 
@@ -171,24 +191,25 @@ public class NamirnicaDAL {
 
     }
 
-    public static void Kreiraj(Namirnica namirnica,Context context){
+    public static void Kreiraj(Namirnica namirnica, final Context context,final Callback<Integer> callback){
+
         Retrofit retrofit = RetrofitInstance.getInstance();
         JsonApi jsonApi = retrofit.create(JsonApi.class);
-        jsonApi.unesiNamirnicu(namirnica.getNaziv(),namirnica.getBrojKalorija(),namirnica.getTezina(),namirnica.getIsbn()).enqueue(new Callback<Void>() {
+        jsonApi.unesiNamirnicu(namirnica.getNaziv(),namirnica.getBrojKalorija(),namirnica.getTezina(),namirnica.getIsbn()).enqueue(new Callback<Integer>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                //KreirajLokalno(DohvatiLokalno(response.body(),context),context);
+                AsyncUnosNamirnica(DohvatiLokalno(response.body(),context),context);
+                callback.onResponse(call,response);
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-
+            public void onFailure(Call<Integer> call, Throwable t) {
+                callback.onFailure(call,t);
             }
         });
-
-        MyDatabase myDatabase = MyDatabase.getInstance(context);
-        myDatabase.getNamirnicaDAO().unosNamirnica(namirnica);
     }
+
 
     public static void KreirajLokalno(Namirnica namirnica,Context context){
         MyDatabase myDatabase = MyDatabase.getInstance(context);
@@ -197,6 +218,47 @@ public class NamirnicaDAL {
 
     public static void IzbrisiLokalno(Context context, Integer identifikator){
         getInstance(context).getNamirnicaDAO().brisanjeNamirnice(identifikator);
+    }
+
+
+
+    //Namirnice MVVM
+    public static void AsyncUnosNamirnica(Namirnica namirnica,Context context){
+        new UnosNamirnicaAsynctaks(context).execute(namirnica);
+    }
+
+    public static void AsyncUpdateNamirnica(Namirnica namirnica,Context context){
+        new UpdateNamirnicaAsynctaks(context).execute(namirnica);
+    }
+
+
+    //Asinkron rad s Namirnica
+    private static class UnosNamirnicaAsynctaks extends AsyncTask<Namirnica,Void,Void>{
+        private Context context;
+
+        private UnosNamirnicaAsynctaks(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground (Namirnica... namirnicas){
+            MyDatabase.getInstance(context).getNamirnicaDAO().unosNamirnica(namirnicas[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateNamirnicaAsynctaks extends AsyncTask<Namirnica,Void,Void>{
+        private Context context;
+
+        private UpdateNamirnicaAsynctaks(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground (Namirnica... namirnicas){
+            MyDatabase.getInstance(context).getNamirnicaDAO().azuriranjeNamirnica(namirnicas[0]);
+            return null;
+        }
     }
 
 
@@ -210,8 +272,8 @@ public class NamirnicaDAL {
         new DeleteNamirniceObrokaAsyncTask(context).execute(namirnicaObroka);
     }
 
-    public static LiveData<List<NamirniceObroka>> DohvatiSveNamirniceObroka(String obrok, Context context){
-        return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrsi(obrok);
+    public static LiveData<List<NamirniceObroka>> DohvatiSveNamirniceObrokaZaDatum(String obrok, String datum, Context context){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrstiZaDatum(obrok,datum);
     }
 
     //Asinkroni rad s NamirniceObroka u bazi

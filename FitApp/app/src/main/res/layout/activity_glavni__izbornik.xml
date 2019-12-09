@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -16,11 +15,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:logo="@drawable/ic_person_black_24dp"
-        app:title="Glavni izbornik"
+        app:title="FitApp"
         app:titleMarginStart="30dp"
         app:titleTextColor="@color/black" />
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +30,134 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="15dp">
+            app:cardCornerRadius="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+
+                <LinearLayout
+                    android:layout_width="349dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="233dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/fire" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="3dp"
+                            android:text="Calorie overview"
+                            android:textColor="#9B9B9B"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="324dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp">
+
+                        <TextView
+                            android:id="@+id/remaining_calorie"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="1192"
+                            android:textColor="#000000"
+                            android:textSize="44dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="/"
+                            android:textColor="#9B9B9B"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/calorie_goal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="1896"
+                            android:textColor="#9B9B9B"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text=" - "
+                            android:textColor="#F44336"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/food_calorie"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="1036"
+                            android:textColor="#F44336"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text=" + "
+                            android:textColor="#4CAF50"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/exercise_calorie"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="332"
+                            android:textColor="#4CAF50"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text=" kcal"
+                            android:textColor="#9B9B9B"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -45,46 +169,47 @@
                 <LinearLayout
                     android:layout_width="349dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="233dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginLeft="20dp">
+
+                        <ImageView
+                            android:layout_width="29dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/exercises" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="3dp"
+                            android:text="Exercise"
+                            android:textColor="#9B9B9B"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="324dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp">
 
                         <LinearLayout
-                            android:layout_width="233dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/fire" />
-
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginTop="3dp"
-                                android:text="Calorie overview"
-                                android:textColor="#9B9B9B"
-                                android:textSize="18dp" />
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="324dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:orientation="horizontal">
-
-                            <TextView
+                                android:id="@+id/actual_exercise"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
-                                android:text="1192"
-                                android:textColor="#000000"
+                                android:text="332"
+                                android:textColor="#4CAF50"
                                 android:textSize="44dp" />
 
                             <TextView
@@ -96,43 +221,12 @@
                                 android:textSize="15dp" />
 
                             <TextView
+                                android:id="@+id/recommended_exercise"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
-                                android:text="1896"
+                                android:text="500"
                                 android:textColor="#9B9B9B"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:text=" - "
-                                android:textColor="#F44336"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:text="1036"
-                                android:textColor="#F44336"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:text=" + "
-                                android:textColor="#4CAF50"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:text="332"
-                                android:textColor="#4CAF50"
                                 android:textSize="15dp" />
 
                             <TextView
@@ -143,198 +237,48 @@
                                 android:textColor="#9B9B9B"
                                 android:textSize="15dp" />
 
-
                         </LinearLayout>
 
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:orientation="horizontal">
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-
-
-
-
-
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="15dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="14dp">
-
-                <LinearLayout
-                    android:layout_width="349dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
                         <LinearLayout
-                            android:layout_width="233dp"
-                            android:layout_height="wrap_content">
+                            android:layout_width="120dp"
+                            android:layout_height="43dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="50dp"
+                            android:background="@drawable/layout_bg"
+                            android:orientation="horizontal"
+                            android:gravity="center">
 
-                            <ImageView
-                                android:layout_width="29dp"
+                            <ImageButton
+
+                                android:layout_width="40dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/exercises" />
+                                android:textAllCaps="false"
+                                android:src="@drawable/ic_history"
+                                android:background="@drawable/button_bg"
+                                android:scaleType="fitCenter"
+                                android:padding="7dp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginTop="3dp"
-                                android:text="Exercises"
-                                android:textColor="#9B9B9B"
-                                android:textSize="18dp" />
+                            <ImageButton
 
-                        </LinearLayout>
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/vertical_line"
+                                android:background="@drawable/button_bg"
+                                android:scaleType="fitCenter" />
 
+                            <ImageButton
 
-                        <LinearLayout
-                            android:layout_width="324dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:text="332"
-                                    android:textColor="#4CAF50"
-                                    android:textSize="44dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:text="/"
-                                    android:textColor="#9B9B9B"
-                                    android:textSize="15dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:text="500"
-                                    android:textColor="#9B9B9B"
-                                    android:textSize="15dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:text=" kcal"
-                                    android:textColor="#9B9B9B"
-                                    android:textSize="15dp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="120dp"
-                                android:layout_height="43dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginLeft="50dp"
-                                android:background="@drawable/layout_bg"
-                                android:orientation="horizontal"
-                                android:gravity="center"
-                                >
-
-
-                                <ImageButton
-
-                                    android:layout_width="40dp"
-                                    android:layout_height="match_parent"
-                                    android:textAllCaps="false"
-                                    android:src="@drawable/ic_history"
-                                    android:background="@drawable/button_bg"
-                                    android:scaleType="fitCenter"
-                                    android:padding="7dp"
-                                    />
-
-                                <ImageButton
-
-                                    android:layout_width="20dp"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/vertical_line"
-                                    android:background="@drawable/button_bg"
-                                    android:scaleType="fitCenter"
-                                    />
-
-
-                                <ImageButton
-
-                                    android:layout_width="40dp"
-                                    android:layout_height="match_parent"
-                                    android:textAllCaps="false"
-                                    android:src="@drawable/dots"
-                                    android:background="@drawable/button_bg"
-                                    android:scaleType="fitCenter"
-                                    android:padding="10dp"
-                                    />
-
-
-
-                            </LinearLayout>
-
-
-
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:textAllCaps="false"
+                                android:src="@drawable/dots"
+                                android:background="@drawable/button_bg"
+                                android:scaleType="fitCenter"
+                                android:padding="10dp" />
 
                         </LinearLayout>
 
                     </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:orientation="horizontal">
-
 
                 </LinearLayout>
 
@@ -346,7 +290,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:cardCornerRadius="15dp">
+            app:cardCornerRadius="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -355,129 +301,100 @@
                 android:orientation="vertical"
                 android:padding="14dp">
 
+
                 <LinearLayout
                     android:layout_width="349dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="233dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginLeft="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/meals" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="3dp"
+                            android:text="Food"
+                            android:textColor="#9B9B9B"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="324dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp">
 
                         <LinearLayout
-                            android:layout_width="233dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <TextView
+                                android:id="@+id/actual_food"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/meals" />
+                                android:layout_gravity="bottom"
+                                android:text="1036"
+                                android:textColor="#F44336"
+                                android:textSize="44dp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginTop="3dp"
-                                android:text="Meals"
+                                android:layout_gravity="bottom"
+                                android:text="/"
                                 android:textColor="#9B9B9B"
-                                android:textSize="18dp" />
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/recommended_food"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="2396"
+                                android:textColor="#9B9B9B"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text=" kcal"
+                                android:textColor="#9B9B9B"
+                                android:textSize="15dp" />
 
                         </LinearLayout>
 
-
                         <LinearLayout
-                            android:layout_width="324dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:orientation="horizontal">
+                            android:layout_width="120dp"
+                            android:layout_height="43dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="18dp"
+                            android:orientation="horizontal"
+                            android:gravity="center">
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:text="1036"
-                                    android:textColor="#F44336"
-                                    android:textSize="44dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:text="/"
-                                    android:textColor="#9B9B9B"
-                                    android:textSize="15dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:text="2396"
-                                    android:textColor="#9B9B9B"
-                                    android:textSize="15dp" />
-
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:text=" kcal"
-                                    android:textColor="#9B9B9B"
-                                    android:textSize="15dp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="120dp"
+                            <Button
+                                android:id="@+id/btnFoodDiary"
+                                android:layout_width="match_parent"
                                 android:layout_height="43dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginLeft="18dp"
-                                android:orientation="horizontal"
-                                android:gravity="center"
-                                >
-
-
-                                <Button
-                                    android:id="@+id/btnFoodDiary"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="43dp"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/btn2_background"
-                                    android:text="Add"
-                                    android:textAllCaps="false" />
-
-                            </LinearLayout>
-
-
-
-
-
+                                android:layout_weight="1"
+                                android:background="@drawable/btn2_background"
+                                android:text="Add"
+                                android:textAllCaps="false" />
 
                         </LinearLayout>
 
                     </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:orientation="horizontal">
-
 
                 </LinearLayout>
 
@@ -485,12 +402,13 @@
 
         </androidx.cardview.widget.CardView>
 
-
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:cardCornerRadius="15dp">
+            app:cardCornerRadius="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -508,9 +426,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
-
+                        android:orientation="vertical">
 
                         <Button
                             android:id="@+id/btnBarkodSkener"
@@ -540,17 +456,6 @@
 
                     </LinearLayout>
 
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:orientation="horizontal">
-
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -561,7 +466,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:cardCornerRadius="15dp">
+            app:cardCornerRadius="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -582,7 +489,8 @@
 
                         <LinearLayout
                             android:layout_width="233dp"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -600,21 +508,21 @@
 
                         </LinearLayout>
 
-
                         <LinearLayout
                             android:layout_width="324dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="20dp">
 
                             <TextView
+                                android:id="@+id/weight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:text=" 82,1"
                                 android:textColor="#000000"
                                 android:textSize="44dp" />
-
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -624,58 +532,33 @@
                                 android:textColor="#9B9B9B"
                                 android:textSize="15dp" />
 
-
                             <LinearLayout
                                 android:layout_width="120dp"
                                 android:layout_height="43dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginLeft="70dp"
                                 android:orientation="horizontal"
-                                android:gravity="center"
-                            >
+                                android:gravity="center">
 
+                                <Button
+                                    android:layout_width="match_parent"
+                                    android:layout_height="43dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/btn2_background"
+                                    android:text="Measure"
+                                    android:textAllCaps="false" />
 
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="43dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/btn2_background"
-                                android:text="Measure"
-                                android:textAllCaps="false" />
-
-                        </LinearLayout>
+                            </LinearLayout>
 
                         </LinearLayout>
-
-
 
                     </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:orientation="horizontal">
-
 
                 </LinearLayout>
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
-
-
-
 
     </LinearLayout>
 

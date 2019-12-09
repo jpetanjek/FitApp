@@ -22,7 +22,7 @@ public class NamirniceObroka {
     @ForeignKey(entity = Korisnik.class,parentColumns = "id",childColumns = "idKorisnik")
     private int idKorisnik;
 
-    //private Date datum;
+    private String datum;
     private boolean planirano;
 
     @Nullable
@@ -60,15 +60,14 @@ public class NamirniceObroka {
         this.idKorisnik = idKorisnik;
     }
 
-   /* public Date getDatum() {
+    public String getDatum() {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(String datum) {
         this.datum = datum;
     }
 
-    */
 
     public boolean isPlanirano() {
         return planirano;

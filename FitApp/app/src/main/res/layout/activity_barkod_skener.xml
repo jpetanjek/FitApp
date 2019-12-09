@@ -6,24 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Barcode Reader fragment -->
+        <!-- Barcode Reader fragment -->
     <fragment
         android:id="@+id/barcode_fragment"
         android:name="info.androidhive.barcode.BarcodeReader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="645dp"
         app:auto_focus="true"
-        app:use_flash="false" />
+        app:use_flash="false">
 
-    <!-- Scanner overlay animation -->
+
+    </fragment>
+
+        <!-- Scanner overlay animation -->
+
     <info.androidhive.barcode.ScannerOverlay
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="645dp"
         android:background="#44000000"
         app:line_color="#7323DC"
         app:line_speed="6"
         app:line_width="4"
         app:square_height="200"
         app:square_width="200" />
+
+    <EditText
+        android:id="@+id/enter_barcode"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="25dp"
+        android:layout_below="@id/barcode_fragment"
+        android:text="Enter the barcode here"
+        android:background="@null"
+        >
+    </EditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/enter_barcode"
+        android:background="#B92C2928"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Place the blue line in the center of the barcode to scan"
+        >
+    </TextView>
 
 </RelativeLayout>

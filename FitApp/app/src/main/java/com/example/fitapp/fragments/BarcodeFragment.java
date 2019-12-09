@@ -12,12 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.core.entities.Namirnica;
 import com.example.fitapp.R;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.List;
 
 import info.androidhive.barcode.BarcodeReader;
+import suceljeUnosa.IUnosNamirnice;
 
 public class BarcodeFragment extends Fragment implements BarcodeReader.BarcodeReaderListener {
     private static final String TAG = BarcodeFragment.class.getSimpleName();
@@ -92,4 +94,5 @@ public class BarcodeFragment extends Fragment implements BarcodeReader.BarcodeRe
     public void onCameraPermissionDenied() {
         Toast.makeText(getActivity(), "Camera permission denied!", Toast.LENGTH_LONG).show();
     }
+
 }

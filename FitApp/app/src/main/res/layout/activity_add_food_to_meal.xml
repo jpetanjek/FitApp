@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddFoodToMeal">
+
+    <ImageView
+        android:id="@+id/picBarcode"
+        android:layout_width="51dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/toolbarAddFood"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="29dp"
+        android:layout_toEndOf="@+id/txtNazivNamirnice"
+        app:srcCompat="@drawable/barcode"
+        tools:layout_editor_absoluteX="335dp"
+        tools:layout_editor_absoluteY="79dp" />
+
+    <EditText
+        android:id="@+id/txtNazivNamirnice"
+        android:layout_width="266dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbarAddFood"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="29dp"
+        android:ems="10"
+        android:hint="@string/hintNazivNamirnice"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="81dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarAddFood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:logo="@drawable/ic_arrow_back_black_24dp"
+        app:title="Add food to meal"
+        app:titleMarginStart="30dp"
+        app:titleTextColor="@color/black"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNazivNamirnice"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="18dp"
+        android:text="Search results" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="397dp"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="9dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPretrazeneNamirnice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="99dp"
+        android:layout_marginBottom="23dp"
+        android:text="Unos nove namirnice" />
+
+</RelativeLayout>

@@ -69,5 +69,14 @@ public class Namirnica {
         novaNamirnica.setIsbn(response.getIsbn());
         return novaNamirnica;
     }
+    public static Namirnica parseStaticNamirnica(RetroNamirnica response){
+        Namirnica novaNamirnica = new Namirnica();
+        novaNamirnica.setId(response.getId());
+        novaNamirnica.setNaziv(response.getNaziv());
+        novaNamirnica.setTezina(response.getTezina());
+        novaNamirnica.setBrojKalorija(response.getBrojKalorija());
+        novaNamirnica.setIsbn(response.getIsbn());
+        return novaNamirnica;
+    }
 
 }

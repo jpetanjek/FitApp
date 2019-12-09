@@ -28,6 +28,9 @@ public interface NamirnicaDAO {
     @Query("SELECT * FROM namirnica WHERE id = :idNamirnice")
     public Namirnica dohvatiNamirnicu(int idNamirnice);
 
+    @Query("SELECT * FROM namirnica WHERE id = :idNamirnice")
+    public LiveData<Namirnica> LIVEdohvatiNamirnicu(int idNamirnice);
+
     @Query("SELECT * FROM namirnica")
     public List<Namirnica> dohvatiSveNamirnice();
 
@@ -57,6 +60,6 @@ public interface NamirnicaDAO {
     @Query("DELETE FROM namirnice_u_obroku WHERE id=:idNamirniceObroka")
     public void brisanjeKorisnikovogObroka(int idNamirniceObroka);
 
-    @Query("SELECT * FROM namirnice_u_obroku WHERE obrok=:vrstaObroka")
-    public LiveData<List<NamirniceObroka>> dohvatiNamirniceObrokaPoVrsi(String vrstaObroka);
+    @Query("SELECT * FROM namirnice_u_obroku WHERE obrok=:vrstaObroka and datum=:datum")
+    public LiveData<List<NamirniceObroka>> dohvatiNamirniceObrokaPoVrstiZaDatum(String vrstaObroka, String datum);
 }

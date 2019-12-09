@@ -52,7 +52,8 @@ public class Glavni_Izbornik extends AppCompatActivity {
         btnBarkodSkener.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Glavni_Izbornik.this,BarkodSkenerActivity.class));
+                //startActivity(new Intent(Glavni_Izbornik.this,BarkodSkenerActivity.class));
+                startActivity(new Intent(Glavni_Izbornik.this,AddFoodToMeal.class));
             }
         });
 

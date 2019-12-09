@@ -2,7 +2,7 @@
     <string name="app_name">FitApp</string>
     <string name="Signout">Signout</string>
     <string name="Registracija">Registracija</string>
-
+    <string name="hintNazivNamirnice">Naziv namirnice</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

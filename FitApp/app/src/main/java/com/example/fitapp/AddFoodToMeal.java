@@ -33,6 +33,7 @@ public class AddFoodToMeal extends AppCompatActivity {
     private EditText nazivNamirnice;
     private RecyclerView recyclerView;
     private String nazivObroka;
+    private Bundle prosljedeniPodaci;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,13 @@ public class AddFoodToMeal extends AppCompatActivity {
         setContentView(R.layout.activity_add_food_to_meal);
         slikaBarkoda = findViewById(R.id.picBarcode);
         nazivNamirnice = findViewById(R.id.txtNazivNamirnice);
-        nazivObroka = getIntent().getStringExtra("Obrok");
+        prosljedeniPodaci = getIntent().getExtras();
+        nazivObroka = prosljedeniPodaci.getString("Obrok");
         slikaBarkoda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(AddFoodToMeal.this,BarkodSkenerActivity.class);
-                i.putExtra("Obrok",getIntent().getStringExtra("Obrok"));
+                i.putExtras(prosljedeniPodaci);
                 startActivity(i);
             }
         });

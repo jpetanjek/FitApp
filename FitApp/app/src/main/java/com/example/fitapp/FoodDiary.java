@@ -128,11 +128,15 @@ public class FoodDiary extends AppCompatActivity {
         Button btnAddRucak = findViewById(R.id.btnAddLunch);
         Button btnAddVecera = findViewById(R.id.btnAddDinner);
         Button btnAddUzina = findViewById(R.id.btnAddSnack);
+        //bundle ("Datum" => datum, "Obrok" => obrok)
         btnAddDorucak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("Obrok","Breakfast");
+                bundle.putString("Datum",trenutniDatum.toString());
                 Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
-                i.putExtra("Obrok","Breakfast");
+                i.putExtras(bundle);
                 startActivity(i);
             }
         });
@@ -140,8 +144,11 @@ public class FoodDiary extends AppCompatActivity {
         btnAddRucak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("Obrok","Lunch");
+                bundle.putString("Datum",trenutniDatum.toString());
                 Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
-                i.putExtra("Obrok","Lunch");
+                i.putExtras(bundle);
                 startActivity(i);
             }
         });
@@ -149,16 +156,22 @@ public class FoodDiary extends AppCompatActivity {
         btnAddVecera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("Obrok","Dinner");
+                bundle.putString("Datum",trenutniDatum.toString());
                 Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
-                i.putExtra("Obrok","Dinner");
+                i.putExtras(bundle);
                 startActivity(i);
             }
         });
         btnAddUzina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("Obrok","Snack");
+                bundle.putString("Datum",trenutniDatum.toString());
                 Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
-                i.putExtra("Obrok","Snack");
+                i.putExtras(bundle);
                 startActivity(i);
             }
         });

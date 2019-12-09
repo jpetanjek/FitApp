@@ -1,6 +1,7 @@
 package com.example.fitapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class NamirniceAdapter extends RecyclerView.Adapter<NamirniceAdapter.Nami
 
         holder.tvBrojKalorija.setText(String.valueOf(trenutnaNamirnica.getBrojKalorija()));
         holder.tvNazivNamirnice.setText(trenutnaNamirnica.getNaziv());
+        holder.idNamirnice = trenutnaNamirnica.getId();
     }
 
     @Override
@@ -52,6 +54,7 @@ public class NamirniceAdapter extends RecyclerView.Adapter<NamirniceAdapter.Nami
     class NamirniceHolder extends RecyclerView.ViewHolder{
         private TextView tvNazivNamirnice;
         private TextView tvBrojKalorija;
+        private Integer idNamirnice;
 
         public NamirniceHolder(@NonNull View itemView) {
             super(itemView);

@@ -76,9 +76,14 @@
         </LinearLayout>
 
     </ScrollView>
+    <FrameLayout
+        android:id="@+id/fragmentModul"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnUnosNoveNamirnice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -86,5 +91,7 @@
         android:layout_marginEnd="99dp"
         android:layout_marginBottom="23dp"
         android:text="Unos nove namirnice" />
+
+
 
 </RelativeLayout>

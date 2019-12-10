@@ -4,28 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.barkod.fragments.BarkodFragment;
 import com.example.core.entities.Namirnica;
-import com.example.fitapp.adapters.FoodDiaryAdapter;
 import com.example.fitapp.adapters.NamirniceAdapter;
-import com.example.fitapp.adapters.NamirniceObrokaAdapter;
 import com.example.repository.NamirnicaDAL;
+import com.example.unos_hrane.Add_new_food;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import RetroEntities.RetroNamirnica;
+import adapter.CurrentActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class AddFoodToMeal extends AppCompatActivity {
 
@@ -34,6 +34,7 @@ public class AddFoodToMeal extends AppCompatActivity {
     private RecyclerView recyclerView;
     private String nazivObroka;
     private Bundle prosljedeniPodaci;
+    private Button unosNoveNamirnice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +42,37 @@ public class AddFoodToMeal extends AppCompatActivity {
         setContentView(R.layout.activity_add_food_to_meal);
         slikaBarkoda = findViewById(R.id.picBarcode);
         nazivNamirnice = findViewById(R.id.txtNazivNamirnice);
+        unosNoveNamirnice = findViewById(R.id.btnUnosNoveNamirnice);
+
         prosljedeniPodaci = getIntent().getExtras();
         nazivObroka = prosljedeniPodaci.getString("Obrok");
+        CurrentActivity.setActivity(AddFoodToMeal.this);
         slikaBarkoda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AddFoodToMeal.this,BarkodSkenerActivity.class);
-                i.putExtras(prosljedeniPodaci);
-                startActivity(i);
+                unosNoveNamirnice.setVisibility(View.INVISIBLE);
+                BarkodFragment barkodFragment = new BarkodFragment();
+                barkodFragment.setArguments(prosljedeniPodaci);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack("BarkodFragment")
+                        .replace(R.id.fragmentModul,barkodFragment)
+                        .commit();
             }
         });
+        unosNoveNamirnice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Add_new_food anfFragment = new Add_new_food();
+                anfFragment.setArguments(prosljedeniPodaci);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack("AddNewFood")
+                        .replace(R.id.fragmentModul,anfFragment)
+                        .commit();
+            }
+        });
     }
 
     private void popuniSadrzajPretrage(){
@@ -98,5 +119,6 @@ public class AddFoodToMeal extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         popuniSadrzajPretrage();
+        unosNoveNamirnice.setVisibility(View.VISIBLE);
     }
 }

@@ -4,10 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import androidx.appcompat.widget.Toolbar;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +32,7 @@ import com.example.fitapp.adapters.NamirniceObrokaAdapter;
 import com.example.fitapp.viewmodels.NamirniceObrokaViewModel;
 import com.example.repository.NamirnicaDAL;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -128,13 +129,15 @@ public class FoodDiary extends AppCompatActivity {
         Button btnAddRucak = findViewById(R.id.btnAddLunch);
         Button btnAddVecera = findViewById(R.id.btnAddDinner);
         Button btnAddUzina = findViewById(R.id.btnAddSnack);
+
         //bundle ("Datum" => datum, "Obrok" => obrok)
         btnAddDorucak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 Bundle bundle = new Bundle();
                 bundle.putString("Obrok","Breakfast");
-                bundle.putString("Datum",trenutniDatum.toString());
+                bundle.putString("Datum",dateFormat.format(trenutniDatum).toString());
                 Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
                 i.putExtras(bundle);
                 startActivity(i);
@@ -144,9 +147,10 @@ public class FoodDiary extends AppCompatActivity {
         btnAddRucak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 Bundle bundle = new Bundle();
                 bundle.putString("Obrok","Lunch");
-                bundle.putString("Datum",trenutniDatum.toString());
+                bundle.putString("Datum",dateFormat.format(trenutniDatum).toString());
                 Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
                 i.putExtras(bundle);
                 startActivity(i);
@@ -156,9 +160,10 @@ public class FoodDiary extends AppCompatActivity {
         btnAddVecera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 Bundle bundle = new Bundle();
                 bundle.putString("Obrok","Dinner");
-                bundle.putString("Datum",trenutniDatum.toString());
+                bundle.putString("Datum",dateFormat.format(trenutniDatum).toString());
                 Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
                 i.putExtras(bundle);
                 startActivity(i);
@@ -167,9 +172,10 @@ public class FoodDiary extends AppCompatActivity {
         btnAddUzina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 Bundle bundle = new Bundle();
                 bundle.putString("Obrok","Snack");
-                bundle.putString("Datum",trenutniDatum.toString());
+                bundle.putString("Datum",dateFormat.format(trenutniDatum).toString());
                 Intent i = new Intent(FoodDiary.this,AddFoodToMeal.class);
                 i.putExtras(bundle);
                 startActivity(i);

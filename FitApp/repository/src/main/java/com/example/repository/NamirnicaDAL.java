@@ -51,9 +51,7 @@ public class NamirnicaDAL {
         return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirnicu(identifikator);
     }
 
-    public static LiveData<Namirnica> LIVEDohvatiLokalno(Integer identifikator, Context context){
-        return MyDatabase.getInstance(context).getNamirnicaDAO().LIVEdohvatiNamirnicu(identifikator);
-    }
+
 
     public static void DohvatiPoISBNWeb(String isbn, final Callback<RetroNamirnica> callback){
 
@@ -191,15 +189,17 @@ public class NamirnicaDAL {
 
     }
 
-    public static void Kreiraj(Namirnica namirnica, final Context context,final Callback<Integer> callback){
+    public static void Kreiraj(final Namirnica namirnica, final Context context, final Callback<Integer> callback){
 
         Retrofit retrofit = RetrofitInstance.getInstance();
         JsonApi jsonApi = retrofit.create(JsonApi.class);
         jsonApi.unesiNamirnicu(namirnica.getNaziv(),namirnica.getBrojKalorija(),namirnica.getTezina(),namirnica.getIsbn()).enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                //KreirajLokalno(DohvatiLokalno(response.body(),context),context);
-                AsyncUnosNamirnica(DohvatiLokalno(response.body(),context),context);
+                Namirnica lokalnaNamirnica = namirnica;
+                lokalnaNamirnica.setId(response.body());
+                KreirajLokalno(lokalnaNamirnica,context);
+                //AsyncUnosNamirnica(DohvatiLokalno(response.body(),context),context);
                 callback.onResponse(call,response);
             }
 
@@ -231,6 +231,18 @@ public class NamirnicaDAL {
         new UpdateNamirnicaAsynctaks(context).execute(namirnica);
     }
 
+    //LIVE
+
+    public static LiveData<Namirnica> LIVEDohvatiLokalno(Integer identifikator, Context context){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().LIVEdohvatiNamirnicu(identifikator);
+    }
+
+    public static LiveData<Namirnica> LIVEKreirajPraznuLokalno(Context context){
+        MyDatabase myDatabase = MyDatabase.getInstance(context);
+        Namirnica namirnica = new Namirnica();
+        long[] odgovor = myDatabase.getNamirnicaDAO().unosNamirnica(namirnica);
+        return LIVEDohvatiLokalno((int)odgovor[0],context);
+    }
 
     //Asinkron rad s Namirnica
     private static class UnosNamirnicaAsynctaks extends AsyncTask<Namirnica,Void,Void>{
@@ -272,8 +284,24 @@ public class NamirnicaDAL {
         new DeleteNamirniceObrokaAsyncTask(context).execute(namirnicaObroka);
     }
 
+    public static void AzurirajKorisnikovObrok(Context context, NamirniceObroka... namirniceObrokas){
+        new AzurirajNamirniceObrokaAsynctaks(context).execute(namirniceObrokas);
+    }
+
+    //LIVE
+
     public static LiveData<List<NamirniceObroka>> DohvatiSveNamirniceObrokaZaDatum(String obrok, String datum, Context context){
         return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrstiZaDatum(obrok,datum);
+    }
+
+    public static LiveData<NamirniceObroka> LIVEDohvatiLokalnuNamirniceObroka(Context context, String identifikator){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoId(identifikator);
+    }
+
+    public static LiveData<NamirniceObroka> LiveKreirajPraznuLokalnuNamirniceObroka(Context context){
+        NamirniceObroka namirniceObroka = new NamirniceObroka();
+        long[] odgovor = MyDatabase.getInstance(context).getNamirnicaDAO().unosNamirniceObroka(namirniceObroka);
+        return LIVEDohvatiLokalnuNamirniceObroka(context,Long.toString(odgovor[0]));
     }
 
     //Asinkroni rad s NamirniceObroka u bazi
@@ -306,6 +334,16 @@ public class NamirnicaDAL {
         }
     }
 
+    private static class AzurirajNamirniceObrokaAsynctaks extends AsyncTask<NamirniceObroka, Void, Void>{
+        private  Context context;
 
+        private AzurirajNamirniceObrokaAsynctaks(Context context) {this.context = context;}
+
+        @Override
+        protected Void doInBackground(NamirniceObroka... namirniceObrokas){
+            MyDatabase.getInstance(context).getNamirnicaDAO().azuriranjeNamirniceObroka(namirniceObrokas[0]);
+            return null;
+        }
+    }
 
 }

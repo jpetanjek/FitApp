@@ -9,14 +9,17 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.core.entities.Namirnica;
 import com.example.fitapp.adapters.FoodDiaryAdapter;
 import com.example.fitapp.adapters.NamirniceAdapter;
 import com.example.fitapp.adapters.NamirniceObrokaAdapter;
 import com.example.repository.NamirnicaDAL;
+import com.example.unos_hrane.Add_new_food;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class AddFoodToMeal extends AppCompatActivity {
     private RecyclerView recyclerView;
     private String nazivObroka;
     private Bundle prosljedeniPodaci;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class AddFoodToMeal extends AppCompatActivity {
         nazivNamirnice = findViewById(R.id.txtNazivNamirnice);
         prosljedeniPodaci = getIntent().getExtras();
         nazivObroka = prosljedeniPodaci.getString("Obrok");
+
         slikaBarkoda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +56,22 @@ public class AddFoodToMeal extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        button = findViewById(R.id.button3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_LONG).show();
+                Add_new_food anfFragment = new Add_new_food();
+                anfFragment.setArguments(prosljedeniPodaci);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack("AddNewFood")
+                        .replace(R.id.fragmentModul,anfFragment)
+                        .commit();
+            }
+        });
+
 
     }
 

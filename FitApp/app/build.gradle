@@ -63,6 +63,8 @@ dependencies {
     implementation project(':core')
     implementation project(':repository')
     implementation project(':barcode-reader')
+    implementation project(':barkod')
+    implementation project(':unos_hrane')
 
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation 'com.google.android.gms:play-services-vision:19.0.0'

@@ -8,6 +8,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 import RetroEntities.RetroNamirnica;
+import adapter.CurrentActivity;
 import adapter.CurrentFood;
 import info.androidhive.barcode.BarcodeReader;
 import retrofit2.Call;
@@ -40,7 +42,7 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
     private Barcode skeniranObjekt;
     private Namirnica dohvacenaNamirnica;
     private String obrok;
-
+    private String datumNamirniceObroka;
 
     public BarkodFragment() {
         System.out.println("Kreiran fragment!");
@@ -64,7 +66,9 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        obrok = getActivity().getIntent().getStringExtra("Obrok");
+        //obrok = getActivity().getIntent().getStringExtra("Obrok");
+        obrok = getArguments().getString("Obrok");
+        datumNamirniceObroka = getArguments().getString("Datum");
         if (getArguments() != null) {
 
         }
@@ -87,8 +91,38 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
         barcodeReader.playBeep();
 
         DohvatiNamirnicu(barcode.displayValue);
-        if(!provjeriPostojanje()){
-            unesiNamirnicu();
+        if(dohvacenaNamirnica!=null){
+            CurrentFood.setNamirnica(dohvacenaNamirnica);
+            NamirniceObroka namirniceObroka = new NamirniceObroka();
+            namirniceObroka.setIdKorisnik(KorisnikDAL.Trenutni(CurrentActivity.getActivity()).getId());
+            namirniceObroka.setIdNamirnica(dohvacenaNamirnica.getId());
+            namirniceObroka.setObrok(obrok);
+            namirniceObroka.setDatum(datumNamirniceObroka);
+            CurrentFood.setNamirnicaObroka(namirniceObroka);
+            CurrentActivity.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(!CurrentActivity.getActivity().isFinishing()){
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Dodavanje namirnice u obrok!")
+                                .setMessage("Želite li staviti "+dohvacenaNamirnica.getNaziv()+" u obrok "+obrok)
+                                .setCancelable(true)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        NamirnicaDAL.UnesiKorisnikovObrok(CurrentActivity.getActivity(),CurrentFood.getNamirnicaObroka());
+                                        getActivity().getSupportFragmentManager().popBackStack();
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+                    }
+                }
+            });
         }
     }
 
@@ -127,39 +161,7 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
 
     @Override
     public void unesiNamirnicu() {
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = new Date();
-        CurrentFood.setNamirnica(dohvacenaNamirnica);
-        NamirniceObroka namirniceObroka = new NamirniceObroka();
-        namirniceObroka.setIdKorisnik(KorisnikDAL.Trenutni(getContext()).getId());
-        namirniceObroka.setIdNamirnica(dohvacenaNamirnica.getId());
-        namirniceObroka.setObrok(obrok);
-        namirniceObroka.setDatum(dateFormat.format(date));
-        CurrentFood.setNamirnicaObroka(namirniceObroka);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(!getActivity().isFinishing()){
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Dodavanje namirnice u obrok!")
-                            .setMessage("Želite li staviti "+dohvacenaNamirnica.getNaziv()+" u obrok "+obrok)
-                            .setCancelable(true)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    NamirnicaDAL.UnesiKorisnikovObrok(getContext(),CurrentFood.getNamirnicaObroka());
-                                    getActivity().getSupportFragmentManager().popBackStack();
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            }).show();
-                }
-            }
-        });
     }
 
     @Override

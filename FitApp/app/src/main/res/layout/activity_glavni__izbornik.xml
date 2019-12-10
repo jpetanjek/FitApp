@@ -253,7 +253,7 @@
                                 android:layout_width="40dp"
                                 android:layout_height="match_parent"
                                 android:textAllCaps="false"
-                                android:src="@drawable/time"
+                                android:src="@drawable/ic_history"
                                 android:background="@drawable/button_bg"
                                 android:scaleType="fitCenter"
                                 android:padding="7dp" />
@@ -446,11 +446,12 @@
                             android:textAllCaps="false" />
 
                         <Button
+                            android:id="@+id/btnExcerciseSelection"
                             android:layout_width="104dp"
                             android:layout_height="43dp"
                             android:layout_weight="1"
                             android:background="@drawable/btn2_background"
-                            android:text="step chart2"
+                            android:text="Exercise selection"
                             android:textAllCaps="false" />
 
                     </LinearLayout>

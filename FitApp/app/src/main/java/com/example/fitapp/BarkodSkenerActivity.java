@@ -37,12 +37,16 @@ public class BarkodSkenerActivity extends AppCompatActivity implements BarcodeRe
     private Barcode skeniranObjekt;
     private Namirnica dohvacenaNamirnica;
     private String obrok;
+    private String trenutniDatum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barkod_skener);
 
-        obrok = getIntent().getStringExtra("Obrok");
+        obrok = getIntent().getExtras().getString("Obrok");
+        trenutniDatum = getIntent().getExtras().getString("Datum");
+
         // getting barcode instance
         barcodeReader = (BarcodeReader) getSupportFragmentManager().findFragmentById(R.id.barcode_fragment);
 
@@ -82,15 +86,12 @@ public class BarkodSkenerActivity extends AppCompatActivity implements BarcodeRe
 
         DohvatiNamirnicu(barcode.displayValue);
         if(dohvacenaNamirnica!=null){
-            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            Date date = new Date();
-
             FoodDiaryAdapter.setNamirnica(dohvacenaNamirnica);
             NamirniceObroka namirniceObroka = new NamirniceObroka();
             namirniceObroka.setIdKorisnik(KorisnikDAL.Trenutni(this).getId());
             namirniceObroka.setIdNamirnica(dohvacenaNamirnica.getId());
             namirniceObroka.setObrok(obrok);
-            namirniceObroka.setDatum(dateFormat.format(date));
+            namirniceObroka.setDatum(trenutniDatum);
             FoodDiaryAdapter.setNamirnicaObroka(namirniceObroka);
 
 

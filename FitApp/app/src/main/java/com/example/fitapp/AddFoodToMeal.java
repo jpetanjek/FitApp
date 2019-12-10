@@ -38,7 +38,6 @@ public class AddFoodToMeal extends AppCompatActivity {
 
     private Button button;
 
-    private Button unosNoveNamirnice;
 
 
     @Override
@@ -47,7 +46,6 @@ public class AddFoodToMeal extends AppCompatActivity {
         setContentView(R.layout.activity_add_food_to_meal);
         slikaBarkoda = findViewById(R.id.picBarcode);
         nazivNamirnice = findViewById(R.id.txtNazivNamirnice);
-        unosNoveNamirnice = findViewById(R.id.btnUnosNoveNamirnice);
 
         prosljedeniPodaci = getIntent().getExtras();
         nazivObroka = prosljedeniPodaci.getString("Obrok");
@@ -57,83 +55,77 @@ public class AddFoodToMeal extends AppCompatActivity {
         slikaBarkoda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                unosNoveNamirnice.setVisibility(View.INVISIBLE);
                 BarkodFragment barkodFragment = new BarkodFragment();
                 barkodFragment.setArguments(prosljedeniPodaci);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .addToBackStack("BarkodFragment")
-                        .replace(R.id.fragmentModul,barkodFragment)
+                        .replace(R.id.fragmentModul, barkodFragment)
                         .commit();
             }
         });
-        unosNoveNamirnice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
 
-        button = findViewById(R.id.button3);
+        button = findViewById(R.id.btnUnosNoveNamirnice);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_LONG).show();
 
                 Add_new_food anfFragment = new Add_new_food();
                 anfFragment.setArguments(prosljedeniPodaci);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .addToBackStack("AddNewFood")
-                        .replace(R.id.fragmentModul,anfFragment)
+                        .replace(R.id.fragmentModul, anfFragment)
                         .commit();
             }
         });
-
     }
 
-    private void popuniSadrzajPretrage(){
-        recyclerView = findViewById(R.id.recyclerViewPretrazeneNamirnice);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final NamirniceAdapter namirniceAdapter = new NamirniceAdapter();
-        recyclerView.setAdapter(namirniceAdapter);
-        namirniceAdapter.setContext(this);
-        nazivNamirnice.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        private void popuniSadrzajPretrage () {
+            recyclerView = findViewById(R.id.recyclerViewPretrazeneNamirnice);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            final NamirniceAdapter namirniceAdapter = new NamirniceAdapter();
+            recyclerView.setAdapter(namirniceAdapter);
+            namirniceAdapter.setContext(this);
+            nazivNamirnice.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+                }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                NamirnicaDAL.DohvatiNamirniceSlicnogNaziva(nazivNamirnice.getText().toString(), new Callback<List<RetroNamirnica>>() {
-                    @Override
-                    public void onResponse(Call<List<RetroNamirnica>> call, Response<List<RetroNamirnica>> response) {
-                        if(response.isSuccessful()){
-                            List<Namirnica> dohvaceneNamirnice = new ArrayList<>();
-                            for(RetroNamirnica namirnica:response.body()){
-                                dohvaceneNamirnice.add(Namirnica.parseStaticNamirnica(namirnica));
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    NamirnicaDAL.DohvatiNamirniceSlicnogNaziva(nazivNamirnice.getText().toString(), new Callback<List<RetroNamirnica>>() {
+                        @Override
+                        public void onResponse(Call<List<RetroNamirnica>> call, Response<List<RetroNamirnica>> response) {
+                            if (response.isSuccessful()) {
+                                List<Namirnica> dohvaceneNamirnice = new ArrayList<>();
+                                for (RetroNamirnica namirnica : response.body()) {
+                                    dohvaceneNamirnice.add(Namirnica.parseStaticNamirnica(namirnica));
+                                }
+                                namirniceAdapter.setNamirnice(dohvaceneNamirnice);
                             }
-                            namirniceAdapter.setNamirnice(dohvaceneNamirnice);
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<List<RetroNamirnica>> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<List<RetroNamirnica>> call, Throwable t) {
 
-                    }
-                });
-            }
+                        }
+                    });
+                }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                @Override
+                public void afterTextChanged(Editable s) {
 
-            }
-        });
-    }
+                }
+            });
+        }
 
     @Override
     protected void onResume() {
         super.onResume();
         popuniSadrzajPretrage();
-        unosNoveNamirnice.setVisibility(View.VISIBLE);
+        }
     }
-}

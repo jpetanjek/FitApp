@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.barkod.fragments.BarkodFragment;
 import com.example.core.entities.Namirnica;
@@ -34,7 +35,11 @@ public class AddFoodToMeal extends AppCompatActivity {
     private RecyclerView recyclerView;
     private String nazivObroka;
     private Bundle prosljedeniPodaci;
+
+    private Button button;
+
     private Button unosNoveNamirnice;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,9 @@ public class AddFoodToMeal extends AppCompatActivity {
 
         prosljedeniPodaci = getIntent().getExtras();
         nazivObroka = prosljedeniPodaci.getString("Obrok");
+
         CurrentActivity.setActivity(AddFoodToMeal.this);
+
         slikaBarkoda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +71,13 @@ public class AddFoodToMeal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+        button = findViewById(R.id.button3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_LONG).show();
+
                 Add_new_food anfFragment = new Add_new_food();
                 anfFragment.setArguments(prosljedeniPodaci);
                 getSupportFragmentManager()
@@ -73,6 +87,7 @@ public class AddFoodToMeal extends AppCompatActivity {
                         .commit();
             }
         });
+
     }
 
     private void popuniSadrzajPretrage(){

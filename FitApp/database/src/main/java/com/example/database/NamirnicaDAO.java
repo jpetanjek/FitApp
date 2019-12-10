@@ -57,6 +57,9 @@ public interface NamirnicaDAO {
     @Query("SELECT * FROM namirnice_u_obroku")
     public List<NamirniceObroka> dohvatiSveNamirniceObroka();
 
+    @Query("SELECT * FROM namirnice_u_obroku WHERE id = :unos")
+    public LiveData<NamirniceObroka> dohvatiNamirniceObrokaPoId(String unos);
+
     @Query("DELETE FROM namirnice_u_obroku WHERE id=:idNamirniceObroka")
     public void brisanjeKorisnikovogObroka(int idNamirniceObroka);
 

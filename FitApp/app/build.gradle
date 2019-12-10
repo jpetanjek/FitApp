@@ -77,4 +77,5 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_version"
     implementation "androidx.cardview:cardview:$recyclerview_version"
     implementation 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
+    compile project(path: ':unos_hrane')
 }

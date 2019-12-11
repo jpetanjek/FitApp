@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.entities.Namirnica;
 import com.example.fitapp.AddFoodToMeal;
+import com.example.fitapp.AddSelectedFood;
 import com.example.fitapp.Glavni_Izbornik;
 import com.example.fitapp.R;
 
@@ -90,8 +91,9 @@ public class NamirniceAdapter extends RecyclerView.Adapter<NamirniceAdapter.Nami
             Bundle bundlePretrage = new Bundle();
             bundlePretrage.putString("Obrok",prosljedeniObrok);
             bundlePretrage.putString("Datum",prosljedeniDatum);
-            Intent i = new Intent(context, Glavni_Izbornik.class);
-            
+            bundlePretrage.putInt("idNamirnice",idNamirnice);
+
+            Intent i = new Intent(context, AddSelectedFood.class);
             i.putExtras(bundlePretrage);
             context.startActivity(i);
 

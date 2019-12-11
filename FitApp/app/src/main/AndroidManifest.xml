@@ -14,9 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddFoodToMeal"></activity>
+        <activity android:name=".AddSelectedFood"></activity>
+        <activity android:name=".AddFoodToMeal" />
         <activity android:name=".fragments.BarcodeFragmentTestActivity" />
-        <activity android:name=".ExerciseSelection"/>
+        <activity android:name=".ExerciseSelection" />
         <activity android:name=".BarkodSkenerActivity" />
         <activity android:name=".FoodDiary" />
         <activity android:name=".Profil" />

@@ -35,8 +35,6 @@ public class Glavni_Izbornik extends AppCompatActivity {
         setContentView(R.layout.activity_glavni__izbornik);
         trenutniDatum = new Date(System.currentTimeMillis());
 
-        namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
-        int ukupniBrojKalorija = namirniceObrokaViewModel.getUkupniBrojKalorija(dohvatiStringDatuma());
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -57,8 +55,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
         });
 
 
-        TextView brojKalorija = findViewById(R.id.actual_food);
-        brojKalorija.setText(String.valueOf(ukupniBrojKalorija));
+
 
         Button btnFoodDiary = findViewById(R.id.btnFoodDiary);
         btnFoodDiary.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +102,15 @@ public class Glavni_Izbornik extends AppCompatActivity {
         });
 
          */
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
+        int ukupniBrojKalorija = namirniceObrokaViewModel.getUkupniBrojKalorija(dohvatiStringDatuma());
+        TextView brojKalorija = findViewById(R.id.actual_food);
+        brojKalorija.setText(String.valueOf(ukupniBrojKalorija));
     }
 
     public static View getToolbarLogoView(Toolbar toolbar){

@@ -65,4 +65,7 @@ public interface NamirnicaDAO {
 
     @Query("SELECT * FROM namirnice_u_obroku WHERE obrok=:vrstaObroka and datum=:datum")
     public LiveData<List<NamirniceObroka>> dohvatiNamirniceObrokaPoVrstiZaDatum(String vrstaObroka, String datum);
+
+    @Query("SELECT SUM(n.brojKalorija) FROM namirnice_u_obroku nuo LEFT JOIN namirnica n on nuo.idNamirnica=n.id WHERE nuo.datum=:datum")
+    public int dohvatiUkupanBrojKalorija(String datum);
 }

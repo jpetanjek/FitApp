@@ -7,19 +7,37 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.fitapp.viewmodels.NamirniceObrokaViewModel;
+import com.example.repository.NamirnicaDAL;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 
 
 public class Glavni_Izbornik extends AppCompatActivity {
+    private Date trenutniDatum;
+    NamirniceObrokaViewModel namirniceObrokaViewModel;
+
+    private String dohvatiStringDatuma(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        return sdf.format(trenutniDatum);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glavni__izbornik);
+        trenutniDatum = new Date(System.currentTimeMillis());
+
+        namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
+        int ukupniBrojKalorija = namirniceObrokaViewModel.getUkupniBrojKalorija(dohvatiStringDatuma());
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,6 +56,9 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
+
+        TextView brojKalorija = findViewById(R.id.actual_food);
+        brojKalorija.setText(String.valueOf(ukupniBrojKalorija));
 
         Button btnFoodDiary = findViewById(R.id.btnFoodDiary);
         btnFoodDiary.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +86,6 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
-        /*
-        Button button = findViewById(R.id.registracija);
 
 /*
         Button button = (Button) findViewById(R.id.registracija);

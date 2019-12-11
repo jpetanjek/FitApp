@@ -9,26 +9,42 @@ import android.os.Bundle;
 import com.example.core.entities.Namirnica;
 import com.example.core.entities.NamirniceObroka;
 import com.example.fitapp.viewmodels.AddSelectedFoodViewModel;
+import com.example.registracija.Repozitorij;
 import com.example.repository.KorisnikDAL;
 import com.example.repository.NamirnicaDAL;
 import com.example.unos_hrane.Add_new_food_ViewModel;
 
+import RetroEntities.RetroNamirnica;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AddSelectedFood extends AppCompatActivity {
     private AddSelectedFoodViewModel addSelectedFoodViewModel;
+    private String obrok,datum;
+    private int idNamirnice;
+    private Namirnica namirnica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_selected_food);
 
-        //final String obrok = getArguments().getString("Obrok");
-        //final String datum = getArguments().getString("Datum");
-        String obrok = "Dorucak";
-        String datum = "11/12/2019";
-        Integer idNamirnice= 1;
+        obrok = getIntent().getExtras().getString("Obrok");
+        datum = getIntent().getExtras().getString("Datum");
+        idNamirnice = getIntent().getExtras().getInt("idNamirnice");
 
-        addSelectedFoodViewModel.Inicijaliziraj(idNamirnice);
+
+        if(obrok!=null && datum!=null && idNamirnice!=0){
+            System.out.println("NAMIRNICA ADDSELECTED FOOD");
+            System.out.println("Obrok:"+obrok);
+            System.out.println("Datum:"+datum);
+            System.out.println("IdNamirnice:"+idNamirnice);
+
+        }
+
         addSelectedFoodViewModel = ViewModelProviders.of(this).get(AddSelectedFoodViewModel.class);
+        addSelectedFoodViewModel.Inicijaliziraj(idNamirnice);
         addSelectedFoodViewModel.namirnicaLiveData.observe(this, new Observer<Namirnica>() {
             @Override
             public void onChanged(Namirnica namirnica) {
@@ -55,11 +71,13 @@ public class AddSelectedFood extends AppCompatActivity {
             }
         });
 
+
+
         //update ui
         final NamirniceObroka namirniceObroka = new NamirniceObroka();
         //mock unos
         namirniceObroka.setMasa(200);
-        addSelectedFoodViewModel.updateObrok(namirniceObroka,this);
+        //addSelectedFoodViewModel.updateObrok(namirniceObroka,this);
 
 
         //pritisak na gumb GOTOVO
@@ -76,5 +94,7 @@ public class AddSelectedFood extends AppCompatActivity {
 
         System.out.println("Dodana");
 
+
     }
+
 }

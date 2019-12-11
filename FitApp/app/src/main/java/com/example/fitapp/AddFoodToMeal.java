@@ -1,9 +1,11 @@
 package com.example.fitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,6 +46,24 @@ public class AddFoodToMeal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_to_meal);
+
+        Toolbar toolbar = findViewById(R.id.toolbarAddFood);
+        setSupportActionBar(toolbar);
+
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    Intent i = new Intent(AddFoodToMeal.this, FoodDiary.class);
+                    startActivity(i);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
+
         slikaBarkoda = findViewById(R.id.picBarcode);
         nazivNamirnice = findViewById(R.id.txtNazivNamirnice);
 
@@ -122,6 +142,24 @@ public class AddFoodToMeal extends AppCompatActivity {
                 }
             });
         }
+
+    public static View getToolbarLogoView(Toolbar toolbar){
+        boolean hadContentDescription = android.text.TextUtils.isEmpty(toolbar.getLogoDescription());
+        String contentDescription = String.valueOf(!hadContentDescription ? toolbar.getLogoDescription() : "logoContentDescription");
+        toolbar.setLogoDescription(contentDescription);
+        ArrayList<View> potentialViews = new ArrayList<View>();
+        toolbar.findViewsWithText(potentialViews,contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        View logoIcon = null;
+
+        if(potentialViews.size() > 0){
+            logoIcon = potentialViews.get(0);
+        }
+
+        if(hadContentDescription)
+            toolbar.setLogoDescription(null);
+
+        return logoIcon;
+    }
 
     @Override
     protected void onResume() {

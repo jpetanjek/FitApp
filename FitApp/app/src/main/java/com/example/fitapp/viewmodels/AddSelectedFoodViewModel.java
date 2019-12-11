@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import com.example.core.entities.Namirnica;
 import com.example.core.entities.NamirniceObroka;
 import com.example.database.MyDatabase;
+import com.example.fitapp.AddSelectedFood;
 import com.example.repository.NamirnicaDAL;
 
 import RetroEntities.RetroNamirnica;
@@ -40,6 +41,7 @@ public class AddSelectedFoodViewModel extends AndroidViewModel {
 
                 }
             });
+            MyDatabase.getInstance(getApplication().getApplicationContext()).getNamirnicaDAO().unosNamirnica(dohvaceNamirnica);
             namirnicaLiveData.getValue().setId(dohvaceNamirnica.getId());
             namirnicaLiveData.getValue().setIsbn(dohvaceNamirnica.getIsbn());
             namirnicaLiveData.getValue().setTezina(dohvaceNamirnica.getTezina());

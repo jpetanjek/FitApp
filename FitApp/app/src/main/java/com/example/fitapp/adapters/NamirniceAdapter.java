@@ -96,7 +96,6 @@ public class NamirniceAdapter extends RecyclerView.Adapter<NamirniceAdapter.Nami
             Intent i = new Intent(context, AddSelectedFood.class);
             i.putExtras(bundlePretrage);
             context.startActivity(i);
-
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.core.entities.Namirnica;
@@ -94,7 +95,9 @@ public class AddSelectedFood extends AppCompatActivity {
 
         System.out.println("Dodana");
 
-
+        Intent i = new Intent(AddSelectedFood.this,FoodDiary.class);
+        startActivity(i);
+        finish();
     }
 
 }

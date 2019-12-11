@@ -353,6 +353,7 @@ public class Profil extends AppCompatActivity {
                 }
             });
 
+            //GoogleSlika
             email = findViewById(R.id.tvMail);
             imageView = findViewById(R.id.profile_image);
 
@@ -363,6 +364,16 @@ public class Profil extends AppCompatActivity {
                 email.setText(personEmail);
                 Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
             }
+
+            //UpdateUI s trenutnim korisnikom
+            Korisnik trenutni = KorisnikDAL.Trenutni(this);
+            uiPickLossGainGoal.setText(""+trenutni.getCilj_tjednog_mrsavljenja()+" kg");
+            uiPickWeightGoal.setText(""+trenutni.getCilj_mase()+" kg");
+            uiPickHeight.setText(""+trenutni.getVisina()+" cm");
+            uiPickCurrentWeight.setText(""+trenutni.getMasa()+" kg");
+            uiPickGender.setText(trenutni.getSpol());
+            uiPickDate.setText(trenutni.getDatumRodenja());
+
 
         }
         catch(Exception e){
@@ -405,6 +416,8 @@ public class Profil extends AppCompatActivity {
             return null;
         }
     }
+
+
     /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

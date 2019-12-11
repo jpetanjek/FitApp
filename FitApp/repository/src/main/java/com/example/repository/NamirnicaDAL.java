@@ -1,12 +1,10 @@
 package com.example.repository;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.core.entities.Korisnik;
 import com.example.core.entities.Namirnica;
 import com.example.core.entities.NamirniceObroka;
 import com.example.database.MyDatabase;
@@ -294,6 +292,7 @@ public class NamirnicaDAL {
         return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrstiZaDatum(obrok,datum);
     }
 
+
     public static LiveData<NamirniceObroka> LIVEDohvatiLokalnuNamirniceObroka(Context context, String identifikator){
         return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoId(identifikator);
     }
@@ -346,4 +345,8 @@ public class NamirnicaDAL {
         }
     }
 
+    //Kalorije
+    public static int DohvatiUkupniBrojKalorija(String datum, Context context){
+        return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiUkupanBrojKalorija(datum);
+    }
 }

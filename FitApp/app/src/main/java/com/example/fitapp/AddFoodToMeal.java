@@ -34,10 +34,12 @@ public class AddFoodToMeal extends AppCompatActivity {
     private EditText nazivNamirnice;
     private RecyclerView recyclerView;
     private String nazivObroka;
+    private String datumObroka;
     private Bundle prosljedeniPodaci;
 
     private Button button;
 
+    private NamirniceAdapter namirniceAdapter;
 
 
     @Override
@@ -49,7 +51,7 @@ public class AddFoodToMeal extends AppCompatActivity {
 
         prosljedeniPodaci = getIntent().getExtras();
         nazivObroka = prosljedeniPodaci.getString("Obrok");
-
+        datumObroka = prosljedeniPodaci.getString("Datum");
         CurrentActivity.setActivity(AddFoodToMeal.this);
 
         slikaBarkoda.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +88,7 @@ public class AddFoodToMeal extends AppCompatActivity {
         private void popuniSadrzajPretrage () {
             recyclerView = findViewById(R.id.recyclerViewPretrazeneNamirnice);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            final NamirniceAdapter namirniceAdapter = new NamirniceAdapter();
+            namirniceAdapter = new NamirniceAdapter(datumObroka,nazivObroka);
             recyclerView.setAdapter(namirniceAdapter);
             namirniceAdapter.setContext(this);
             nazivNamirnice.addTextChangedListener(new TextWatcher() {
@@ -128,4 +130,6 @@ public class AddFoodToMeal extends AppCompatActivity {
         super.onResume();
         popuniSadrzajPretrage();
         }
+
+
     }

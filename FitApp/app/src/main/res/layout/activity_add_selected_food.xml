@@ -37,20 +37,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingRight="20dp"
             android:paddingTop="30dp"
             android:paddingStart="20dp"
             android:paddingBottom="20dp"
             android:background="@color/white">
 
-            <EditText
-                android:id="@+id/new_food"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Eggs"
-                android:textStyle="bold"
+                android:layout_gravity="right"
+                android:text="Name"
                 android:textSize="18sp"
-                android:textColor="@color/black"
-                android:background="@color/white">
+                android:textColor="@color/black">
+            </TextView>
+
+            <EditText
+                android:id="@+id/new_food"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Eggs"
+                android:gravity="right"
+                android:layout_marginRight="20dp"
+                android:textSize="18sp"
+                android:textColor="@color/blue2">
+
             </EditText>
 
         </LinearLayout>
@@ -70,7 +81,7 @@
                 android:textColor="@color/black">
             </TextView>
 
-            <TextView
+            <EditText
                 android:id="@+id/number_of_servings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -79,7 +90,8 @@
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
                 android:textColor="@color/blue2">
-            </TextView>
+
+            </EditText>
 
         </LinearLayout>
 
@@ -98,7 +110,7 @@
                 android:textColor="@color/black">
             </TextView>
 
-            <TextView
+            <EditText
                 android:id="@+id/serving_size"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -106,8 +118,9 @@
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
-                android:textColor="@color/black">
-            </TextView>
+                android:textColor="@color/blue2">
+
+            </EditText>
 
         </LinearLayout>
 
@@ -116,44 +129,27 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:layout_marginTop="5dp"
-            android:background="@color/white"
-            android:gravity="center">
+            android:background="@color/white">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:text="Calorie"
+                android:textSize="18sp"
+                android:textColor="@color/black">
+            </TextView>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp">
+            <EditText
+                android:id="@+id/calorie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="189"
+                android:gravity="right"
+                android:layout_marginRight="20dp"
+                android:textSize="18sp"
+                android:textColor="@color/blue2">
 
-                    <TextView
-                        android:id="@+id/calorie"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:text="189"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black">
-                    </TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="cal"
-                        android:gravity="center"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black">
-                    </TextView>
-
-                </LinearLayout>
-
-            </LinearLayout>
+            </EditText>
 
         </LinearLayout>
 

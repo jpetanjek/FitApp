@@ -16,7 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.Button;
+
+import android.widget.EditText;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,12 +49,14 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
     private String obrok;
     private String datumNamirniceObroka;
 
+
     //sucelje
     private Button uiButtonDodaj;
     private TextView uiNaziv;
     private TextView uiBrojPosluzivanja;
     private TextView uiTezina;
     private TextView uiKalorije;
+
 
     @Nullable
     @Override
@@ -80,6 +86,8 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
         add_new_food_viewModel.namirnicaLiveData.observe(this, new Observer<Namirnica>() {
             @Override
             public void onChanged(Namirnica namirnica) {
+
+
                 System.out.println("NAMIRNICA");
                 System.out.println(namirnica.getId());
                 System.out.println(namirnica.getBrojKalorija());

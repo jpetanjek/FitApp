@@ -45,14 +45,13 @@
             android:background="@color/white">
 
             <EditText
-                android:layout_width="wrap_content"
+                android:id="@+id/naziv"
+                android:layout_width="141dp"
                 android:layout_height="match_parent"
                 android:text="Eggs"
-                android:textStyle="bold"
-                android:textSize="18sp"
                 android:textColor="@color/black"
-                android:background="@color/white">
-            </EditText>
+                android:textSize="18sp"
+                android:textStyle="bold"></EditText>
 
         </LinearLayout>
 
@@ -71,15 +70,16 @@
                 android:textColor="@color/black">
             </TextView>
 
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/broj_posluzivanja"
                 android:text="3"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
                 android:textColor="@color/blue2">
-            </TextView>
+            </EditText>
 
         </LinearLayout>
 
@@ -98,15 +98,16 @@
                 android:textColor="@color/black">
             </TextView>
 
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="1.0 medium"
+                android:id="@+id/tezina"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
                 android:textColor="@color/blue2">
-            </TextView>
+            </EditText>
 
         </LinearLayout>
 
@@ -129,15 +130,16 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp">
 
-                    <TextView
+                    <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:id="@+id/kalorije"
                         android:text="189"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/black">
-                    </TextView>
+                    </EditText>
 
                     <TextView
                         android:layout_width="match_parent"

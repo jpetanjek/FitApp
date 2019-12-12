@@ -1,12 +1,16 @@
 package com.example.fitapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.core.entities.Namirnica;
@@ -27,7 +31,6 @@ public class AddSelectedFood extends AppCompatActivity {
     private String obrok,datum;
     private int idNamirnice;
     private Namirnica namirnica;
-
     private EditText New_food;
     private TextView Number_of_servings;
     private TextView Serving_size;
@@ -43,6 +46,10 @@ public class AddSelectedFood extends AppCompatActivity {
         Serving_size = findViewById(R.id.serving_size);
         Calorie = findViewById(R.id.calorie);
 
+
+
+
+
         obrok = getIntent().getExtras().getString("Obrok");
         datum = getIntent().getExtras().getString("Datum");
         idNamirnice = getIntent().getExtras().getInt("idNamirnice");
@@ -53,6 +60,7 @@ public class AddSelectedFood extends AppCompatActivity {
             System.out.println("Obrok:"+obrok);
             System.out.println("Datum:"+datum);
             System.out.println("IdNamirnice:"+idNamirnice);
+
         }
 
         addSelectedFoodViewModel = ViewModelProviders.of(this).get(AddSelectedFoodViewModel.class);
@@ -61,23 +69,22 @@ public class AddSelectedFood extends AppCompatActivity {
             @Override
             public void onChanged(Namirnica namirnica) {
                 New_food.setText(namirnica.getNaziv());
-                Serving_size.setText(namirnica.getTezina());
-                Calorie.setText(namirnica.getBrojKalorija());
-
+                Serving_size.setText(String.valueOf(namirnica.getTezina()));
+                Calorie.setText(String.valueOf(namirnica.getBrojKalorija()));
                 System.out.println("NAMIRNICA");
                 System.out.println(namirnica.getId());
                 System.out.println(namirnica.getBrojKalorija());
                 System.out.println(namirnica.getIsbn());
                 System.out.println(namirnica.getNaziv());
                 System.out.println(namirnica.getTezina());
+
             }
         });
 
         addSelectedFoodViewModel.namirniceObrokaLiveData.observe(this, new Observer<NamirniceObroka>() {
             @Override
             public void onChanged(NamirniceObroka namirniceObroka) {
-                Number_of_servings.setText("1");
-
+                Number_of_servings.setText("3");
                 System.out.println("NamirniceObroka");
                 System.out.println(namirniceObroka.getDatum());
                 System.out.println(namirniceObroka.getId());
@@ -89,6 +96,21 @@ public class AddSelectedFood extends AppCompatActivity {
         });
 
 
+        final LinearLayout numberOfServings = findViewById(R.id.numberOfServings);
+        numberOfServings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NumberOfServingsDialog cdd=new NumberOfServingsDialog(AddSelectedFood.this,Integer.valueOf(String.valueOf(Number_of_servings.getText())));
+                cdd.setDialogResult(new NumberOfServingsDialog.OnMyDialogResult() {
+                    @Override
+                    public void finish(String result) {
+                        Number_of_servings.setText(result);
+                    }
+                });
+                cdd.show();
+
+            }
+        });
 
         //update ui
         final NamirniceObroka namirniceObroka = new NamirniceObroka();
@@ -111,9 +133,7 @@ public class AddSelectedFood extends AppCompatActivity {
 
         System.out.println("Dodana");
 
-        Intent i = new Intent(AddSelectedFood.this,FoodDiary.class);
-        startActivity(i);
-        finish();
+
     }
 
 }

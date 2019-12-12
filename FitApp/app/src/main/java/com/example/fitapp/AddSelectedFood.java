@@ -38,10 +38,10 @@ public class AddSelectedFood extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_selected_food);
 
-        New_food = findViewById(com.example.unos_hrane.R.id.new_food);
-        Number_of_servings = findViewById(com.example.unos_hrane.R.id.number_of_servings);
-        Serving_size = findViewById(com.example.unos_hrane.R.id.serving_size);
-        Calorie = findViewById(com.example.unos_hrane.R.id.calorie);
+        New_food = findViewById(R.id.new_food);
+        Number_of_servings = findViewById(R.id.number_of_servings);
+        Serving_size = findViewById(R.id.serving_size);
+        Calorie = findViewById(R.id.calorie);
 
         obrok = getIntent().getExtras().getString("Obrok");
         datum = getIntent().getExtras().getString("Datum");

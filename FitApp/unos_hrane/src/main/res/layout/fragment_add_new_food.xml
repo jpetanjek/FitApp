@@ -45,15 +45,16 @@
             android:background="@color/white">
 
             <EditText
-                android:id="@+id/new_food"
+
+                android:id="@+id/naziv"
+
                 android:layout_width="wrap_content"
+
                 android:layout_height="match_parent"
                 android:text="Eggs"
-                android:textStyle="bold"
-                android:textSize="18sp"
                 android:textColor="@color/black"
-                android:background="@color/white">
-            </EditText>
+                android:textSize="18sp"
+                android:textStyle="bold"></EditText>
 
         </LinearLayout>
 
@@ -73,15 +74,15 @@
             </TextView>
 
             <EditText
-                android:id="@+id/number_of_servings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/broj_posluzivanja"
                 android:text="3"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
-                android:textColor="@color/blue2"
-                android:background="@color/white">
+                android:textColor="@color/blue2">
+
             </EditText>
 
         </LinearLayout>
@@ -102,15 +103,16 @@
             </TextView>
 
             <EditText
-                android:id="@+id/serving_size"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="1.0 medium"
+                android:id="@+id/tezina"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
-                android:textColor="@color/blue2"
-                android:background="@color/white">
+                android:textColor="@color/blue2">
+
             </EditText>
 
         </LinearLayout>
@@ -135,15 +137,14 @@
                     android:layout_marginRight="16dp">
 
                     <EditText
-                        android:id="@+id/calorie"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:id="@+id/kalorije"
                         android:text="189"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:background="@color/white">
+                        android:textColor="@color/black">
 
                     </EditText>
 

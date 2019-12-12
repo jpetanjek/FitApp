@@ -16,7 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.Button;
+
 import android.widget.EditText;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,32 +41,47 @@ import retrofit2.Response;
 
 
 public class Add_new_food extends Fragment implements NamirnicaImporter {
+
     private OnFragmentInteractionListener mListener;
     private Callback<Integer> callback;
     private Add_new_food_ViewModel add_new_food_viewModel;
+
     private String obrok;
     private String datumNamirniceObroka;
 
 
+    //sucelje
+    private Button uiButtonDodaj;
+    private TextView uiNaziv;
+    private TextView uiBrojPosluzivanja;
+    private TextView uiTezina;
+    private TextView uiKalorije;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_new_food, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_add_new_food, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        System.out.println("OnViewCreated");
-
-        //final String obrok = getArguments().getString("Obrok");
-        //final String datum = getArguments().getString("Datum");
         setBundle();
 
+        //inicijalizacija sucelja
+        uiButtonDodaj = (Button) view.findViewById(R.id.btnUnos);
+        uiNaziv = (TextView) view.findViewById(R.id.naziv);
+        uiBrojPosluzivanja = (TextView) view.findViewById(R.id.broj_posluzivanja);
+        uiTezina = (TextView) view.findViewById(R.id.tezina);
+        uiKalorije = (TextView) view.findViewById(R.id.kalorije);
 
+        //gumb dodaj
+        uiButtonDodaj.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        //inicijaliziraj Namirnicu
         add_new_food_viewModel = ViewModelProviders.of(this).get(Add_new_food_ViewModel.class);
         add_new_food_viewModel.namirnicaLiveData.observe(this, new Observer<Namirnica>() {
             @Override
@@ -76,9 +95,14 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
                 System.out.println(namirnica.getNaziv());
                 System.out.println(namirnica.getTezina());
 
+                uiNaziv.setText(namirnica.getNaziv());
+                uiKalorije.setText(namirnica.getBrojKalorija());
+                uiTezina.setText(namirnica.getTezina());
+
             }
         });
 
+        //inicijaliziraj Namirnicu_obroka
         add_new_food_viewModel.namirniceObrokaLiveData.observe(this, new Observer<NamirniceObroka>() {
             @Override
             public void onChanged(NamirniceObroka namirniceObroka) {
@@ -89,14 +113,41 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
                 System.out.println(namirniceObroka.getIdNamirnica());
                 System.out.println(namirniceObroka.getMasa());
                 System.out.println(namirniceObroka.getObrok());
+
+                if(namirniceObroka.getMasa()==0){
+                    namirniceObroka.setMasa(1);
+                }
+
+                uiBrojPosluzivanja.setText(Float.toString(namirniceObroka.getMasa()));
             }
         });
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        System.out.println("OnViewCreated");
+
+        //final String obrok = getArguments().getString("Obrok");
+        //final String datum = getArguments().getString("Datum");
+
+
+
+
+
         //update namirnica i ui
+
         Namirnica namirnica = new Namirnica();
+
         namirnica.setIsbn("123456789");
         namirnica.setTezina(100);
         namirnica.setBrojKalorija(120);
         namirnica.setNaziv("Hrenovke");
+
+
         add_new_food_viewModel.update(namirnica,getActivity());
 
         final NamirniceObroka namirniceObroka = new NamirniceObroka();
@@ -145,32 +196,6 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
 
                 }
             });
-
-
-
-
-        /*
-        final LifecycleOwner owner = this;
-        add_new_food_viewModel.WebInicijalizacija(getActivity().getApplication(), new Callback<Integer>() {
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                System.out.println("OnResponse");
-                add_new_food_viewModel.namirnicaLiveData.observe(owner, new Observer<Namirnica>() {
-                    @Override
-                    public void onChanged(Namirnica namirnica) {
-                        System.out.println("OnChanged");
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-
-            }
-        });
-*/
-
-
     }
 
 

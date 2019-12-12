@@ -102,9 +102,9 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
                 System.out.println(namirnica.getNaziv());
                 System.out.println(namirnica.getTezina());
 
-                uiNaziv.setText(namirnica.getNaziv());
-                uiKalorije.setText(namirnica.getBrojKalorija());
-                uiTezina.setText(namirnica.getTezina());
+                //uiNaziv.setText(namirnica.getNaziv());
+                //uiKalorije.setText(namirnica.getBrojKalorija());
+                //uiTezina.setText(namirnica.getTezina());
 
             }
         });
@@ -126,7 +126,7 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
                     namirniceObroka.setMasa(1);
                 }
 
-                uiBrojPosluzivanja.setText(Float.toString(namirniceObroka.getMasa()));
+                //uiBrojPosluzivanja.setText(Float.toString(namirniceObroka.getMasa()));
             }
         });
 
@@ -181,7 +181,8 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                namirnica.setBrojKalorija(Integer.parseInt(uiKalorije.getText().toString()));
+                add_new_food_viewModel.update(namirnica, getContext());
             }
         });
 
@@ -205,6 +206,47 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
         });
 
         //pritisak gumba
+        uiButtonDodaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //spremi stvorenu hranu na webservis
+                //dohvati njezin id i stvori namirnicu u lokalnoj bazi s tim id
+                //spremi lokalnu hranu kao id obroka
+                System.out.println("Kreiraj");
+                NamirnicaDAL.Kreiraj(namirnica, getContext(), new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                        System.out.println("onReponse");
+
+                        namirniceObroka.setIdKorisnik(KorisnikDAL.Trenutni(getContext()).getId());
+                        //response.body je id novostvorene namirnice na webservisu
+                        namirniceObroka.setIdNamirnica(response.body());
+                        //iz bundle
+                        namirniceObroka.setObrok(obrok);
+                        namirniceObroka.setDatum(datumNamirniceObroka);
+                        //lokalnaNamirniceObroka.setPlanirano();
+
+                        //SPREMI NamirnicaUObrok
+                        NamirnicaDAL.UnesiKorisnikovObrok(getContext(),namirniceObroka);
+
+                        System.out.println("Dodana");
+
+
+                        //zatvori fragment
+
+                        if(mListener != null){
+                            mListener.onFragmentInteraction(true);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
 
         return view;
     }
@@ -212,74 +254,6 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        System.out.println("OnViewCreated");
-
-        //final String obrok = getArguments().getString("Obrok");
-        //final String datum = getArguments().getString("Datum");
-
-
-
-
-
-        //update namirnica i ui
-
-        Namirnica namirnica = new Namirnica();
-
-        namirnica.setIsbn("123456789");
-        namirnica.setTezina(100);
-        namirnica.setBrojKalorija(120);
-        namirnica.setNaziv("Hrenovke");
-
-
-        add_new_food_viewModel.update(namirnica,getActivity());
-
-        final NamirniceObroka namirniceObroka = new NamirniceObroka();
-        namirniceObroka.setMasa(200);
-        add_new_food_viewModel.updateObrok(namirniceObroka,getActivity());
-
-        //pritisak gumba dodaj hranu
-        final NamirniceObroka lokalnaNamirniceObroka = namirniceObroka;
-
-        //spremi stvorenu hranu na webservis
-            //dohvati njezin id i stvori namirnicu u lokalnoj bazi s tim id
-            //spremi lokalnu hranu kao id obroka
-        System.out.println("Kreiraj");
-            NamirnicaDAL.Kreiraj(namirnica, getContext(), new Callback<Integer>() {
-                @Override
-                public void onResponse(Call<Integer> call, Response<Integer> response) {
-                    System.out.println("onReponse");
-
-                    lokalnaNamirniceObroka.setIdKorisnik(KorisnikDAL.Trenutni(getContext()).getId());
-                    //response.body je id novostvorene namirnice na webservisu
-                    lokalnaNamirniceObroka.setIdNamirnica(response.body());
-                    //iz bundle
-                    lokalnaNamirniceObroka.setObrok(obrok);
-                    lokalnaNamirniceObroka.setDatum(datumNamirniceObroka);
-                    //lokalnaNamirniceObroka.setPlanirano();
-
-                    //SPREMI NamirnicaUObrok
-                    NamirnicaDAL.UnesiKorisnikovObrok(getContext(),lokalnaNamirniceObroka);
-
-                    System.out.println("Dodana");
-
-
-                    //zatvori fragment
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if(mListener != null){
-                        mListener.onFragmentInteraction(true);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Integer> call, Throwable t) {
-
-                }
-            });
     }
 
 

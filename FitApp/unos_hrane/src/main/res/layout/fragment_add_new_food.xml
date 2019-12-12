@@ -58,7 +58,7 @@
                 android:id="@+id/naziv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Eggs"
+                android:hint="ex. Eggs"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
@@ -89,7 +89,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="1.0 medium"
+                android:hint="ex. 1.0 medium"
                 android:id="@+id/tezina"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
@@ -119,7 +119,7 @@
                 android:id="@+id/kalorije"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="189"
+                android:hint="ex. 189"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
@@ -148,12 +148,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/broj_posluzivanja"
-                android:text="3"
+                android:hint="ex. 3"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
                 android:textColor="@color/blue2">
-
             </EditText>
 
         </LinearLayout>

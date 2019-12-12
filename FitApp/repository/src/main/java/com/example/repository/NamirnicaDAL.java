@@ -288,7 +288,7 @@ public class NamirnicaDAL {
 
     //LIVE
 
-    public static LiveData<List<NamirniceObroka>> DohvatiSveNamirniceObrokaZaDatum(String obrok, String datum, Context context){
+    public static List<NamirniceObroka> DohvatiSveNamirniceObrokaZaDatum(String obrok, String datum, Context context){
         return MyDatabase.getInstance(context).getNamirnicaDAO().dohvatiNamirniceObrokaPoVrstiZaDatum(obrok,datum);
     }
 

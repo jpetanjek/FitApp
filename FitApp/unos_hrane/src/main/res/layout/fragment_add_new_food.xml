@@ -45,6 +45,7 @@
             android:background="@color/white">
 
             <EditText
+                android:id="@+id/new_food"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Eggs"
@@ -71,15 +72,17 @@
                 android:textColor="@color/black">
             </TextView>
 
-            <TextView
+            <EditText
+                android:id="@+id/number_of_servings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="3"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
-                android:textColor="@color/blue2">
-            </TextView>
+                android:textColor="@color/blue2"
+                android:background="@color/white">
+            </EditText>
 
         </LinearLayout>
 
@@ -98,15 +101,17 @@
                 android:textColor="@color/black">
             </TextView>
 
-            <TextView
+            <EditText
+                android:id="@+id/serving_size"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="1.0 medium"
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:textSize="18sp"
-                android:textColor="@color/blue2">
-            </TextView>
+                android:textColor="@color/blue2"
+                android:background="@color/white">
+            </EditText>
 
         </LinearLayout>
 
@@ -129,15 +134,18 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp">
 
-                    <TextView
+                    <EditText
+                        android:id="@+id/calorie"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:text="189"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black">
-                    </TextView>
+                        android:textColor="@color/black"
+                        android:background="@color/white">
+
+                    </EditText>
 
                     <TextView
                         android:layout_width="match_parent"

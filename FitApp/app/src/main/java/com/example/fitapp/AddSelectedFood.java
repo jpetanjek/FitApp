@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.core.entities.Namirnica;
 import com.example.core.entities.NamirniceObroka;
@@ -26,10 +28,20 @@ public class AddSelectedFood extends AppCompatActivity {
     private int idNamirnice;
     private Namirnica namirnica;
 
+    private EditText New_food;
+    private TextView Number_of_servings;
+    private TextView Serving_size;
+    private TextView Calorie;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_selected_food);
+
+        New_food = findViewById(com.example.unos_hrane.R.id.new_food);
+        Number_of_servings = findViewById(com.example.unos_hrane.R.id.number_of_servings);
+        Serving_size = findViewById(com.example.unos_hrane.R.id.serving_size);
+        Calorie = findViewById(com.example.unos_hrane.R.id.calorie);
 
         obrok = getIntent().getExtras().getString("Obrok");
         datum = getIntent().getExtras().getString("Datum");
@@ -41,7 +53,6 @@ public class AddSelectedFood extends AppCompatActivity {
             System.out.println("Obrok:"+obrok);
             System.out.println("Datum:"+datum);
             System.out.println("IdNamirnice:"+idNamirnice);
-
         }
 
         addSelectedFoodViewModel = ViewModelProviders.of(this).get(AddSelectedFoodViewModel.class);
@@ -49,19 +60,24 @@ public class AddSelectedFood extends AppCompatActivity {
         addSelectedFoodViewModel.namirnicaLiveData.observe(this, new Observer<Namirnica>() {
             @Override
             public void onChanged(Namirnica namirnica) {
+                New_food.setText(namirnica.getNaziv());
+                Serving_size.setText(namirnica.getTezina());
+                Calorie.setText(namirnica.getBrojKalorija());
+
                 System.out.println("NAMIRNICA");
                 System.out.println(namirnica.getId());
                 System.out.println(namirnica.getBrojKalorija());
                 System.out.println(namirnica.getIsbn());
                 System.out.println(namirnica.getNaziv());
                 System.out.println(namirnica.getTezina());
-
             }
         });
 
         addSelectedFoodViewModel.namirniceObrokaLiveData.observe(this, new Observer<NamirniceObroka>() {
             @Override
             public void onChanged(NamirniceObroka namirniceObroka) {
+                Number_of_servings.setText("1");
+
                 System.out.println("NamirniceObroka");
                 System.out.println(namirniceObroka.getDatum());
                 System.out.println(namirniceObroka.getId());

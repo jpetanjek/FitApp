@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.barkod.fragments.BarkodFragment;
 import com.example.core.entities.Namirnica;
 import com.example.fitapp.adapters.NamirniceAdapter;
+import com.example.fitapp.managers.NamirnicaManager;
 import com.example.repository.NamirnicaDAL;
 import com.example.unos_hrane.Add_new_food;
 
@@ -38,7 +39,7 @@ public class AddFoodToMeal extends AppCompatActivity {
     private String nazivObroka;
     private String datumObroka;
     private Bundle prosljedeniPodaci;
-
+    private NamirnicaManager namirnicaManager;
     private Button button;
 
     private NamirniceAdapter namirniceAdapter;
@@ -73,17 +74,23 @@ public class AddFoodToMeal extends AppCompatActivity {
         nazivObroka = prosljedeniPodaci.getString("Obrok");
         datumObroka = prosljedeniPodaci.getString("Datum");
         CurrentActivity.setActivity(AddFoodToMeal.this);
+        namirnicaManager = NamirnicaManager.getINSTANCE();
+        namirnicaManager.setupManager(this);
 
         slikaBarkoda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BarkodFragment barkodFragment = new BarkodFragment();
                 barkodFragment.setArguments(prosljedeniPodaci);
-                getSupportFragmentManager()
+                namirnicaManager.startModule(barkodFragment);
+
+                /*getSupportFragmentManager()
                         .beginTransaction()
                         .addToBackStack("BarkodFragment")
                         .replace(R.id.fragmentModul, barkodFragment)
                         .commit();
+
+                 */
             }
         });
 

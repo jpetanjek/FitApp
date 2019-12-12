@@ -30,19 +30,21 @@ import RetroEntities.RetroNamirnica;
 import adapter.CurrentActivity;
 import adapter.CurrentFood;
 import info.androidhive.barcode.BarcodeReader;
+import managers.NamirnicaImporter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import suceljeUnosa.IUnosNamirnice;
 
 
-public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeReaderListener, IUnosNamirnice {
+public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeReaderListener, NamirnicaImporter {
     private static final String TAG = BarkodFragment.class.getSimpleName();
     private BarcodeReader barcodeReader;
     private Barcode skeniranObjekt;
     private Namirnica dohvacenaNamirnica;
+    private Bundle dohvacenBundle;
     private String obrok;
     private String datumNamirniceObroka;
+    private NamirniceObroka namirniceObroka;
 
     public BarkodFragment() {
         System.out.println("Kreiran fragment!");
@@ -91,9 +93,13 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
         barcodeReader.playBeep();
 
         DohvatiNamirnicu(barcode.displayValue);
+        unesiNovuNamirnicuObroka();
+    }
+
+    private void unesiNovuNamirnicuObroka() {
         if(dohvacenaNamirnica!=null){
             CurrentFood.setNamirnica(dohvacenaNamirnica);
-            NamirniceObroka namirniceObroka = new NamirniceObroka();
+            namirniceObroka = new NamirniceObroka();
             namirniceObroka.setIdKorisnik(KorisnikDAL.Trenutni(CurrentActivity.getActivity()).getId());
             namirniceObroka.setIdNamirnica(dohvacenaNamirnica.getId());
             namirniceObroka.setObrok(obrok);
@@ -158,13 +164,6 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
     public void onCameraPermissionDenied() {
         Toast.makeText(getActivity(), "Camera permission denied!", Toast.LENGTH_LONG).show();
     }
-
-    @Override
-    public void unesiNamirnicu() {
-
-    }
-
-    @Override
     public boolean provjeriPostojanje() {
         if(dohvacenaNamirnica!=null){
             return true;
@@ -172,5 +171,22 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
             return false;
         }
     }
+
+    @Override
+    public String getName() {
+        return "Barkod reader";
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
+
+    @Override
+    public void setBundle() {
+        obrok = getArguments().getString("Obrok");
+        datumNamirniceObroka = getArguments().getString("Datum");
+    }
+
 }
 

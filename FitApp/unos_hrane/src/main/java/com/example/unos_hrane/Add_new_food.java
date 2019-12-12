@@ -2,11 +2,14 @@ package com.example.unos_hrane;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
@@ -16,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -56,6 +60,8 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
         //final String obrok = getArguments().getString("Obrok");
         //final String datum = getArguments().getString("Datum");
         setBundle();
+
+
 
 
         add_new_food_viewModel = ViewModelProviders.of(this).get(Add_new_food_ViewModel.class);

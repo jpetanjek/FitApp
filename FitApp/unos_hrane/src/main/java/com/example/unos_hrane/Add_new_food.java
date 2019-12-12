@@ -13,6 +13,8 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +59,10 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
     private TextView uiTezina;
     private TextView uiKalorije;
 
+    //lokalne varijable za interakciju s ViewModelom
+    private Namirnica namirnica;
+    private NamirniceObroka namirniceObroka;
+
 
     @Nullable
     @Override
@@ -82,6 +88,7 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
         });
 
         //inicijaliziraj Namirnicu
+        namirnica = new Namirnica();
         add_new_food_viewModel = ViewModelProviders.of(this).get(Add_new_food_ViewModel.class);
         add_new_food_viewModel.namirnicaLiveData.observe(this, new Observer<Namirnica>() {
             @Override
@@ -103,6 +110,7 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
         });
 
         //inicijaliziraj Namirnicu_obroka
+        namirniceObroka = new NamirniceObroka();
         add_new_food_viewModel.namirniceObrokaLiveData.observe(this, new Observer<NamirniceObroka>() {
             @Override
             public void onChanged(NamirniceObroka namirniceObroka) {
@@ -121,6 +129,82 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
                 uiBrojPosluzivanja.setText(Float.toString(namirniceObroka.getMasa()));
             }
         });
+
+        //unos naziva
+        uiNaziv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                namirnica.setNaziv(uiNaziv.getText().toString());
+                add_new_food_viewModel.update(namirnica,getContext());
+            }
+        });
+
+        //unos mase
+        uiTezina.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        //unos kalorija
+        uiNaziv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        //unos kolicine
+        uiBrojPosluzivanja.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                namirniceObroka.setMasa(Float.parseFloat(uiBrojPosluzivanja.getText().toString()));
+                add_new_food_viewModel.updateObrok(namirniceObroka,getContext());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        //pritisak gumba
 
         return view;
     }

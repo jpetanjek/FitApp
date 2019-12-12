@@ -51,6 +51,7 @@ public class AddFoodToMeal extends AppCompatActivity implements Add_new_food.OnF
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_to_meal);
 

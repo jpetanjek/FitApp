@@ -78,15 +78,6 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
         uiTezina = (TextView) view.findViewById(R.id.tezina);
         uiKalorije = (TextView) view.findViewById(R.id.kalorije);
 
-        //gumb dodaj
-        uiButtonDodaj.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         //inicijaliziraj Namirnicu
         namirnica = new Namirnica();
         add_new_food_viewModel = ViewModelProviders.of(this).get(Add_new_food_ViewModel.class);
@@ -130,6 +121,14 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
             }
         });
 
+        return view;
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         //unos naziva
         uiNaziv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -144,6 +143,7 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 namirnica.setNaziv(uiNaziv.getText().toString());
                 add_new_food_viewModel.update(namirnica,getContext());
             }
@@ -163,12 +163,13 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                namirnica.setTezina(Integer.parseInt(uiTezina.getText().toString()));
+                add_new_food_viewModel.update(namirnica,getContext());
             }
         });
 
         //unos kalorija
-        uiNaziv.addTextChangedListener(new TextWatcher() {
+        uiKalorije.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -195,13 +196,13 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                namirniceObroka.setMasa(Float.parseFloat(uiBrojPosluzivanja.getText().toString()));
-                add_new_food_viewModel.updateObrok(namirniceObroka,getContext());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                namirniceObroka.setMasa(Float.parseFloat(uiBrojPosluzivanja.getText().toString()));
+                add_new_food_viewModel.updateObrok(namirniceObroka,getContext());
             }
         });
 
@@ -247,13 +248,6 @@ public class Add_new_food extends Fragment implements NamirnicaImporter {
             }
         });
 
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
 

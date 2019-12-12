@@ -62,6 +62,11 @@ public class NamirniceObrokaAdapter extends RecyclerView.Adapter<NamirniceObroka
         return namirnicaObrokas.get(position);
     }
 
+    public void removeItemAt(int position){
+        namirnicaObrokas.remove(position);
+        notifyItemRemoved(position);
+    }
+
     class NamirniceObrokaHolder extends RecyclerView.ViewHolder{
         private TextView tvNazivNamirnice;
         private TextView tvBrojKalorija;

@@ -14,7 +14,7 @@ import com.example.repository.NamirnicaDAL;
 import java.util.List;
 
 public class NamirniceObrokaViewModel extends AndroidViewModel {
-    private LiveData<List<NamirniceObroka>>  namirniceObrokas;
+    private List<NamirniceObroka>  namirniceObrokas;
     private int ukupniBrojKalorija;
     private Context context;
 
@@ -31,7 +31,7 @@ public class NamirniceObrokaViewModel extends AndroidViewModel {
         NamirnicaDAL.ObrisiKorisnikovObrok(context, namirnicaObroka);
     }
 
-    public LiveData<List<NamirniceObroka>> getAllNamirniceObroka(String vrstaObroka, String datum){
+    public List<NamirniceObroka> getAllNamirniceObroka(String vrstaObroka, String datum){
         namirniceObrokas = NamirnicaDAL.DohvatiSveNamirniceObrokaZaDatum(vrstaObroka, datum, context);
 
         return namirniceObrokas;

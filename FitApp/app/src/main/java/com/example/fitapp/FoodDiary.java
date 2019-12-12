@@ -41,17 +41,31 @@ import java.util.List;
 
 public class FoodDiary extends AppCompatActivity {
 
-    private NamirniceObrokaViewModel namirniceDoruckaViewModel;
-    private NamirniceObrokaViewModel namirniceRuckaViewModel;
-    private NamirniceObrokaViewModel namirniceVecereViewModel;
-    private NamirniceObrokaViewModel namirniceSnackViewModel;
+    private NamirniceObrokaViewModel namirniceObrokaViewModel;
     private Date trenutniDatum;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_diary);
+
+        namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
+
+        final RecyclerView recyclerViewBreakfast = findViewById(R.id.recycleviewBreakfast);
+        final NamirniceObrokaAdapter adapterBreakfast = new NamirniceObrokaAdapter();
+        postaviRecycleViewe(recyclerViewBreakfast, adapterBreakfast);
+
+        final RecyclerView recyclerViewLunch = findViewById(R.id.recycleviewLunch);
+        final NamirniceObrokaAdapter adapterLunch = new NamirniceObrokaAdapter();
+        postaviRecycleViewe(recyclerViewLunch, adapterLunch);
+
+        final RecyclerView recycleviewDinner = findViewById(R.id.recycleviewDinner);
+        final NamirniceObrokaAdapter adapterDinner = new NamirniceObrokaAdapter();
+        postaviRecycleViewe(recycleviewDinner, adapterDinner);
+
+        final RecyclerView recycleviewSnack = findViewById(R.id.recycleviewSnack);
+        final NamirniceObrokaAdapter adapterSnack = new NamirniceObrokaAdapter();
+        postaviRecycleViewe(recycleviewSnack, adapterSnack);
 
         trenutniDatum = new Date(System.currentTimeMillis());
 
@@ -73,7 +87,11 @@ public class FoodDiary extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                popuniNamirniceObroka(); // Nakon promjene datuma se postavljaju namirnice u obroku za taj dan
+                // Nakon promjene datuma se postavljaju namirnice u obroku za taj dan
+                popuniNamirniceDorucka(recyclerViewBreakfast, adapterBreakfast);
+                popuniNamirniceRucka(recyclerViewLunch, adapterLunch);
+                popuniNamirniceVecere(recycleviewDinner, adapterDinner);
+                popuniNamirniceSnacka(recycleviewSnack, adapterSnack);
             }
         });
 
@@ -97,7 +115,7 @@ public class FoodDiary extends AppCompatActivity {
 
 
         tvDate.setText(dohvatiStringDatuma()); // Inicijalno postavljanje datuma (prilikom prvog učitavanja), triggera tv.Date.afterTextChanged
-        MockUp();
+        //MockUp();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -116,6 +134,14 @@ public class FoodDiary extends AppCompatActivity {
             }
         });
     }
+
+    private void postaviRecycleViewe(RecyclerView recyclerView, NamirniceObrokaAdapter adapter){
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setAdapter(adapter);
+        adapter.setContext(this);
+    }
+
     private void IspisiNamirniceObroka(){
         List<NamirniceObroka> namirniceObrokas = new ArrayList<>();
         namirniceObrokas = MyDatabase.getInstance(this).getNamirnicaDAO().dohvatiSveNamirniceObroka();
@@ -194,103 +220,43 @@ public class FoodDiary extends AppCompatActivity {
         return sdf.format(trenutniDatum);
     }
 
-    // Postavljanje recycleViewa i NamirniceObrokAdaptera na svaku listu posebno (doručak, ručak, večeru i snack)
-    public void popuniNamirniceObroka(){
-        popuniNamirniceDorucka();
-        popuniNamirniceRucka();
-        popuniNamirniceVecere();
-        popuniNamirniceSnacka();
-    }
-
-    public void popuniNamirniceDorucka(){
+    public void popuniNamirniceDorucka(RecyclerView recyclerViewBreakfast, final NamirniceObrokaAdapter adapterBreakfast){
         // Doručak
-        RecyclerView recyclerViewBreakfast = findViewById(R.id.recycleviewBreakfast);
-        recyclerViewBreakfast.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewBreakfast.setHasFixedSize(true);
-
-        final NamirniceObrokaAdapter adapterBreakfast = new NamirniceObrokaAdapter();
-        recyclerViewBreakfast.setAdapter(adapterBreakfast);
-        adapterBreakfast.setContext(this);
-
-        namirniceDoruckaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
-        namirniceDoruckaViewModel.getAllNamirniceObroka("Breakfast", dohvatiStringDatuma()).observe(this, new Observer<List<NamirniceObroka>>() {
-            @Override
-            public void onChanged(List<NamirniceObroka> namirniceObrokas) {
-                adapterBreakfast.setNamirnicas(namirniceObrokas);
-            }
-        });
+        List<NamirniceObroka> namirniceObrokas = namirniceObrokaViewModel.getAllNamirniceObroka("Breakfast", dohvatiStringDatuma());
+        adapterBreakfast.setNamirnicas(namirniceObrokas);
 
         // Swipe to delete
-        makeItemErasable(recyclerViewBreakfast, namirniceDoruckaViewModel, adapterBreakfast);
+        makeItemErasable(recyclerViewBreakfast, adapterBreakfast);
     }
 
-    public void popuniNamirniceRucka(){
+    public void popuniNamirniceRucka(RecyclerView recyclerViewLunch, final NamirniceObrokaAdapter adapterLunch ){
         //Ručak
-        RecyclerView recyclerViewLunch = findViewById(R.id.recycleviewLunch);
-        recyclerViewLunch.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewLunch.setHasFixedSize(true);
-
-        final NamirniceObrokaAdapter adapterLunch = new NamirniceObrokaAdapter();
-        recyclerViewLunch.setAdapter(adapterLunch);
-        adapterLunch.setContext(this);// Koristiti DAL (obrisati)
-
-        namirniceRuckaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
-        namirniceRuckaViewModel.getAllNamirniceObroka("Lunch", dohvatiStringDatuma()).observe(this, new Observer<List<NamirniceObroka>>() {
-            @Override
-            public void onChanged(List<NamirniceObroka> namirniceObrokas) {
-                adapterLunch.setNamirnicas(namirniceObrokas);
-            }
-        });
+        List<NamirniceObroka> namirniceObrokas = namirniceObrokaViewModel.getAllNamirniceObroka("Lunch", dohvatiStringDatuma());
+        adapterLunch.setNamirnicas(namirniceObrokas);
 
         // Swipe to delete
-        makeItemErasable(recyclerViewLunch, namirniceRuckaViewModel, adapterLunch);
+        makeItemErasable(recyclerViewLunch, adapterLunch);
     }
 
-    public void popuniNamirniceVecere(){
+    public void popuniNamirniceVecere(RecyclerView recycleviewDinner, final NamirniceObrokaAdapter adapterDinner){
         // Večera
-        RecyclerView recycleviewDinner = findViewById(R.id.recycleviewDinner);
-        recycleviewDinner.setLayoutManager(new LinearLayoutManager(this));
-        recycleviewDinner.setHasFixedSize(true);
-
-        final NamirniceObrokaAdapter adapterDinner = new NamirniceObrokaAdapter();
-        recycleviewDinner.setAdapter(adapterDinner);
-        adapterDinner.setContext(this);
-
-        namirniceVecereViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
-        namirniceVecereViewModel.getAllNamirniceObroka("Dinner", dohvatiStringDatuma()).observe(this, new Observer<List<NamirniceObroka>>() {
-            @Override
-            public void onChanged(List<NamirniceObroka> namirniceObrokas) {
-                adapterDinner.setNamirnicas(namirniceObrokas);
-            }
-        });
+        List<NamirniceObroka> namirniceObrokas = namirniceObrokaViewModel.getAllNamirniceObroka("Dinner", dohvatiStringDatuma());
+        adapterDinner.setNamirnicas(namirniceObrokas);
 
         // Swipe to delete
-        makeItemErasable(recycleviewDinner, namirniceVecereViewModel, adapterDinner);
+        makeItemErasable(recycleviewDinner, adapterDinner);
     }
 
-    public void popuniNamirniceSnacka(){
+    public void popuniNamirniceSnacka(RecyclerView recycleviewSnack,final NamirniceObrokaAdapter adapterSnack ){
         //Snack
-        RecyclerView recycleviewSnack = findViewById(R.id.recycleviewSnack);
-        recycleviewSnack.setLayoutManager(new LinearLayoutManager(this));
-        recycleviewSnack.setHasFixedSize(true);
-
-        final NamirniceObrokaAdapter adapterSnack = new NamirniceObrokaAdapter();
-        recycleviewSnack.setAdapter(adapterSnack);
-        adapterSnack.setContext(this);
-
-        namirniceSnackViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
-        namirniceSnackViewModel.getAllNamirniceObroka("Snack", dohvatiStringDatuma()).observe(this, new Observer<List<NamirniceObroka>>() {
-            @Override
-            public void onChanged(List<NamirniceObroka> namirniceObrokas) {
-                adapterSnack.setNamirnicas(namirniceObrokas);
-            }
-        });
+        List<NamirniceObroka> namirniceObrokas = namirniceObrokaViewModel.getAllNamirniceObroka("Snack", dohvatiStringDatuma());
+        adapterSnack.setNamirnicas(namirniceObrokas);
 
         // Swipe to delete
-        makeItemErasable(recycleviewSnack, namirniceSnackViewModel, adapterSnack);
+        makeItemErasable(recycleviewSnack, adapterSnack);
     }
 
-    public void makeItemErasable(RecyclerView recyclerView, final NamirniceObrokaViewModel viewModel, final NamirniceObrokaAdapter adapter){
+    public void makeItemErasable(RecyclerView recyclerView, final NamirniceObrokaAdapter adapter){
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -300,7 +266,12 @@ public class FoodDiary extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                viewModel.delete(adapter.getNamirnicaObrokaAt(viewHolder.getAdapterPosition()));
+                NamirniceObroka namirniceObroka = adapter.getNamirnicaObrokaAt(viewHolder.getAdapterPosition());
+
+                adapter.removeItemAt(viewHolder.getAdapterPosition());
+
+                namirniceObrokaViewModel.delete(namirniceObroka);
+
                 Toast.makeText(FoodDiary.this, "Namirnica obroka obrisana.", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);

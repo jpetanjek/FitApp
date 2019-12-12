@@ -33,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddFoodToMeal extends AppCompatActivity implements Add_new_food.OnFragmentInteractionListener{
+public class AddFoodToMeal extends AppCompatActivity implements Add_new_food.OnFragmentInteractionListener, BarkodFragment.OnFragmentInteractionListener{
 
     private ImageView slikaBarkoda;
     private EditText nazivNamirnice;

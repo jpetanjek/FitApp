@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_add_food_to_meal"
     tools:context=".AddFoodToMeal">
 
+    <FrameLayout
+        android:id="@+id/fragmentModul"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
     <ImageView
@@ -78,10 +83,7 @@
         </LinearLayout>
 
     </ScrollView>
-    <FrameLayout
-        android:id="@+id/fragmentModul"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
 
     <Button

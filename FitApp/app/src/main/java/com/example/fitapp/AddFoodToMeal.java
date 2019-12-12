@@ -12,7 +12,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.barkod.fragments.BarkodFragment;
@@ -31,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddFoodToMeal extends AppCompatActivity {
+public class AddFoodToMeal extends AppCompatActivity implements Add_new_food.OnFragmentInteractionListener{
 
     private ImageView slikaBarkoda;
     private EditText nazivNamirnice;
@@ -41,6 +43,8 @@ public class AddFoodToMeal extends AppCompatActivity {
     private Bundle prosljedeniPodaci;
     private NamirnicaManager namirnicaManager;
     private Button button;
+    //private RelativeLayout layout;
+    //private FrameLayout frameLayout;
 
     private NamirniceAdapter namirniceAdapter;
 
@@ -52,6 +56,9 @@ public class AddFoodToMeal extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarAddFood);
         setSupportActionBar(toolbar);
+
+        //layout = findViewById(R.id.activity_add_food_to_meal);
+        //frameLayout = findViewById(R.id.fragmentModul);
 
         View logoView = getToolbarLogoView(toolbar);
         logoView.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +90,8 @@ public class AddFoodToMeal extends AppCompatActivity {
                 BarkodFragment barkodFragment = new BarkodFragment();
                 barkodFragment.setArguments(prosljedeniPodaci);
                 namirnicaManager.startModule(barkodFragment);
-
+                //layout.setVisibility(View.GONE);
+                //frameLayout.setVisibility(View.VISIBLE);
                 /*getSupportFragmentManager()
                         .beginTransaction()
                         .addToBackStack("BarkodFragment")
@@ -101,6 +109,7 @@ public class AddFoodToMeal extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_LONG).show();
 
+                /*
                 Add_new_food anfFragment = new Add_new_food();
                 anfFragment.setArguments(prosljedeniPodaci);
                 getSupportFragmentManager()
@@ -108,6 +117,14 @@ public class AddFoodToMeal extends AppCompatActivity {
                         .addToBackStack("AddNewFood")
                         .replace(R.id.fragmentModul, anfFragment)
                         .commit();
+
+                 */
+                Add_new_food anfFragment = new Add_new_food();
+                anfFragment.setArguments(prosljedeniPodaci);
+                namirnicaManager.startModule(anfFragment);
+                //layout.setVisibility(View.GONE);
+                //frameLayout.setVisibility(View.VISIBLE);
+
             }
         });
     }
@@ -177,4 +194,11 @@ public class AddFoodToMeal extends AppCompatActivity {
         }
 
 
+    @Override
+    public void onFragmentInteraction(boolean signalGotovo) {
+        if(signalGotovo){
+            onBackPressed();
+            finish();
+        }
     }
+}

@@ -29,11 +29,20 @@ public class NamirnicaManager {
         this.activity = activity;
     }
     public void startModule(NamirnicaImporter importer){
-        activity.getSupportFragmentManager()
+        /*activity.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentModul,importer.getFragment())
                 .addToBackStack(importer.getName())
                 .commit();
+
+
+         */
+        activity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_add_food_to_meal,importer.getFragment())
+                .addToBackStack(importer.getName())
+                .commit();
+
     }
 
 }

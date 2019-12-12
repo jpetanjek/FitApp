@@ -28,14 +28,18 @@ import com.example.core.entities.NamirniceObroka;
 import com.example.repository.KorisnikDAL;
 import com.example.repository.NamirnicaDAL;
 
+import managers.NamirnicaImporter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class Add_new_food extends Fragment {
+public class Add_new_food extends Fragment implements NamirnicaImporter {
+    private OnFragmentInteractionListener mListener;
     private Callback<Integer> callback;
     private Add_new_food_ViewModel add_new_food_viewModel;
+    private String obrok;
+    private String datumNamirniceObroka;
 
     @Nullable
     @Override
@@ -49,8 +53,9 @@ public class Add_new_food extends Fragment {
 
         System.out.println("OnViewCreated");
 
-        final String obrok = getArguments().getString("Obrok");
-        final String datum = getArguments().getString("Datum");
+        //final String obrok = getArguments().getString("Obrok");
+        //final String datum = getArguments().getString("Datum");
+        setBundle();
 
 
         add_new_food_viewModel = ViewModelProviders.of(this).get(Add_new_food_ViewModel.class);
@@ -108,7 +113,7 @@ public class Add_new_food extends Fragment {
                     lokalnaNamirniceObroka.setIdNamirnica(response.body());
                     //iz bundle
                     lokalnaNamirniceObroka.setObrok(obrok);
-                    lokalnaNamirniceObroka.setDatum(datum);
+                    lokalnaNamirniceObroka.setDatum(datumNamirniceObroka);
                     //lokalnaNamirniceObroka.setPlanirano();
 
                     //SPREMI NamirnicaUObrok
@@ -118,6 +123,14 @@ public class Add_new_food extends Fragment {
 
 
                     //zatvori fragment
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(mListener != null){
+                        mListener.onFragmentInteraction(true);
+                    }
                 }
 
                 @Override
@@ -154,4 +167,39 @@ public class Add_new_food extends Fragment {
     }
 
 
+    @Override
+    public String getName() {
+        return "Rucni unos nove hrane";
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
+
+    @Override
+    public void setBundle() {
+        obrok = getArguments().getString("Obrok");
+        datumNamirniceObroka = getArguments().getString("Datum");
+    }
+    public interface OnFragmentInteractionListener{
+        void onFragmentInteraction(boolean signalGotovo);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 }

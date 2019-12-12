@@ -1,5 +1,6 @@
 package com.example.barkod.fragments;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.net.DnsResolver;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
     private String obrok;
     private String datumNamirniceObroka;
     private NamirniceObroka namirniceObroka;
+    private OnFragmentInteractionListener mListener;
+
 
     public BarkodFragment() {
         System.out.println("Kreiran fragment!");
@@ -118,6 +121,9 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
                                     public void onClick(DialogInterface dialog, int which) {
                                         NamirnicaDAL.UnesiKorisnikovObrok(CurrentActivity.getActivity(),CurrentFood.getNamirnicaObroka());
                                         getActivity().getSupportFragmentManager().popBackStack();
+                                        if(mListener != null){
+                                            mListener.onFragmentInteraction(true);
+                                        }
                                     }
                                 })
                                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -186,6 +192,27 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
     public void setBundle() {
         obrok = getArguments().getString("Obrok");
         datumNamirniceObroka = getArguments().getString("Datum");
+    }
+
+    public interface OnFragmentInteractionListener{
+        void onFragmentInteraction(boolean signalGotovo);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
 }

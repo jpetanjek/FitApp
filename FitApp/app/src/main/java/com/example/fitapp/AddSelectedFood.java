@@ -9,9 +9,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.core.entities.Namirnica;
 import com.example.core.entities.NamirniceObroka;
@@ -35,6 +37,10 @@ public class AddSelectedFood extends AppCompatActivity {
     private TextView Number_of_servings;
     private TextView Serving_size;
     private TextView Calorie;
+    private Button btnCreateFood;
+    private NamirniceObroka namirniceObroka;
+    private int brojKalorija;
+    private int tezinaNamirnice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +51,17 @@ public class AddSelectedFood extends AppCompatActivity {
         Number_of_servings = findViewById(R.id.number_of_servings);
         Serving_size = findViewById(R.id.serving_size);
         Calorie = findViewById(R.id.calorie);
-
-
-
-
+        btnCreateFood = findViewById(R.id.btnUnos);
 
         obrok = getIntent().getExtras().getString("Obrok");
         datum = getIntent().getExtras().getString("Datum");
         idNamirnice = getIntent().getExtras().getInt("idNamirnice");
-
 
         if(obrok!=null && datum!=null && idNamirnice!=0){
             System.out.println("NAMIRNICA ADDSELECTED FOOD");
             System.out.println("Obrok:"+obrok);
             System.out.println("Datum:"+datum);
             System.out.println("IdNamirnice:"+idNamirnice);
-
         }
 
         addSelectedFoodViewModel = ViewModelProviders.of(this).get(AddSelectedFoodViewModel.class);
@@ -71,6 +72,8 @@ public class AddSelectedFood extends AppCompatActivity {
                 New_food.setText(namirnica.getNaziv());
                 Serving_size.setText(String.valueOf(namirnica.getTezina()));
                 Calorie.setText(String.valueOf(namirnica.getBrojKalorija()));
+                brojKalorija = namirnica.getBrojKalorija();
+                tezinaNamirnice = namirnica.getTezina();
                 System.out.println("NAMIRNICA");
                 System.out.println(namirnica.getId());
                 System.out.println(namirnica.getBrojKalorija());
@@ -84,7 +87,7 @@ public class AddSelectedFood extends AppCompatActivity {
         addSelectedFoodViewModel.namirniceObrokaLiveData.observe(this, new Observer<NamirniceObroka>() {
             @Override
             public void onChanged(NamirniceObroka namirniceObroka) {
-                Number_of_servings.setText("3");
+                Number_of_servings.setText("1");
                 System.out.println("NamirniceObroka");
                 System.out.println(namirniceObroka.getDatum());
                 System.out.println(namirniceObroka.getId());
@@ -105,17 +108,23 @@ public class AddSelectedFood extends AppCompatActivity {
                     @Override
                     public void finish(String result) {
                         Number_of_servings.setText(result);
+                        int brojPonavljanja = Integer.parseInt(Number_of_servings.getText().toString());
+                        int ukupnoKalorija = brojKalorija*brojPonavljanja;
+                        String inkrementalniBrojKalorija = String.valueOf(ukupnoKalorija);
+                        Calorie.setText(inkrementalniBrojKalorija);
+                        namirniceObroka.setMasa(IzracunajMasuNamirniceObroka());
                     }
                 });
                 cdd.show();
 
             }
         });
-
         //update ui
-        final NamirniceObroka namirniceObroka = new NamirniceObroka();
+        namirniceObroka = new NamirniceObroka();
         //mock unos
-        namirniceObroka.setMasa(200);
+
+
+        //namirniceObroka.setMasa(200);
         //addSelectedFoodViewModel.updateObrok(namirniceObroka,this);
 
 
@@ -129,11 +138,22 @@ public class AddSelectedFood extends AppCompatActivity {
         //lokalnaNamirniceObroka.setPlanirano();
 
         //SPREMI NamirnicaUObrok
-        NamirnicaDAL.UnesiKorisnikovObrok(this,namirniceObroka);
 
         System.out.println("Dodana");
+        btnCreateFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NamirnicaDAL.UnesiKorisnikovObrok(v.getContext(),namirniceObroka);
+                finish();
+            }
+        });
 
 
     }
 
+    private float IzracunajMasuNamirniceObroka(){
+        int brPosluzivanja = Integer.parseInt(Number_of_servings.getText().toString());
+        float ukupnaMasa = brojKalorija * brPosluzivanja * tezinaNamirnice;
+        return ukupnaMasa;
+    }
 }

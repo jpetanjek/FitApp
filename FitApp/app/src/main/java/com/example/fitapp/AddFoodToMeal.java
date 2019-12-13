@@ -29,11 +29,12 @@ import java.util.List;
 
 import RetroEntities.RetroNamirnica;
 import adapter.CurrentActivity;
+import adapter.CurrentFood;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddFoodToMeal extends AppCompatActivity implements Add_new_food.OnFragmentInteractionListener, BarkodFragment.OnFragmentInteractionListener{
+public class AddFoodToMeal extends AppCompatActivity implements Add_new_food.OnFragmentInteractionListener, BarkodFragment.OnFragmentInteractionListener, BarkodFragment.onScannedObjectListener{
 
     private ImageView slikaBarkoda;
     private EditText nazivNamirnice;
@@ -91,6 +92,7 @@ public class AddFoodToMeal extends AppCompatActivity implements Add_new_food.OnF
                 BarkodFragment barkodFragment = new BarkodFragment();
                 barkodFragment.setArguments(prosljedeniPodaci);
                 namirnicaManager.startModule(barkodFragment);
+
                 //layout.setVisibility(View.GONE);
                 //frameLayout.setVisibility(View.VISIBLE);
                 /*getSupportFragmentManager()
@@ -201,5 +203,16 @@ public class AddFoodToMeal extends AppCompatActivity implements Add_new_food.OnF
             onBackPressed();
             finish();
         }
+    }
+
+    @Override
+    public void onScannedCompleteInteraction(Namirnica namirnica) {
+        Intent i = new Intent(AddFoodToMeal.this,AddSelectedFood.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("idNamirnice", namirnica.getId());
+        bundle.putString("Obrok",nazivObroka);
+        bundle.putString("Datum",datumObroka);
+        i.putExtras(bundle);
+        startActivity(i);
     }
 }

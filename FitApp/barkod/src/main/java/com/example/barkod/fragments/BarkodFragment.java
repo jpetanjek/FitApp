@@ -30,6 +30,7 @@ import java.util.List;
 import RetroEntities.RetroNamirnica;
 import adapter.CurrentActivity;
 import adapter.CurrentFood;
+import dialog.NumberOfServingsDialog;
 import info.androidhive.barcode.BarcodeReader;
 import managers.NamirnicaImporter;
 import retrofit2.Call;
@@ -112,6 +113,19 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
                 @Override
                 public void run() {
                     if(!CurrentActivity.getActivity().isFinishing()){
+                        NumberOfServingsDialog cdd=new NumberOfServingsDialog(getActivity() ,Integer.valueOf(String.valueOf(1)));
+                        cdd.setDialogResult(new NumberOfServingsDialog.OnMyDialogResult() {
+                            @Override
+                            public void finish(String result) {
+                                NamirnicaDAL.UnesiKorisnikovObrok(CurrentActivity.getActivity(),CurrentFood.getNamirnicaObroka());
+                                getActivity().getSupportFragmentManager().popBackStack();
+                                if(mListener != null){
+                                    mListener.onFragmentInteraction(true);
+                                }
+                            }
+                        });
+                        cdd.show();
+/*
                         new AlertDialog.Builder(getContext())
                                 .setTitle("Dodavanje namirnice u obrok!")
                                 .setMessage("Želite li staviti "+dohvacenaNamirnica.getNaziv()+" u obrok "+obrok)
@@ -132,6 +146,8 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
 
                                     }
                                 }).show();
+
+ */
                     }
                 }
             });

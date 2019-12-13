@@ -1,8 +1,7 @@
-package com.example.fitapp;
+package dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -10,9 +9,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import adapter.CurrentActivity;
+import com.example.barkod.R;
 
-public class NumberOfServingsDialog extends Dialog implements android.view.View.OnClickListener {
+public class NumberOfServingsDialog extends Dialog implements View.OnClickListener {
 
     public Activity c;
     public Dialog d;
@@ -23,7 +22,7 @@ public class NumberOfServingsDialog extends Dialog implements android.view.View.
     public ImageView minus;
     OnMyDialogResult mDialogResult;
 
-    public NumberOfServingsDialog(Activity a,int br) {
+    public NumberOfServingsDialog(Activity a, int br) {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
@@ -48,7 +47,7 @@ public class NumberOfServingsDialog extends Dialog implements android.view.View.
         Cancel.setOnClickListener(this);
     }
 
-    private class OKListener implements android.view.View.OnClickListener {
+    private class OKListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
 
@@ -66,22 +65,18 @@ public class NumberOfServingsDialog extends Dialog implements android.view.View.
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.add:
-                broj++;
-                tekst.setText(String.valueOf(broj));
-                break;
-            case R.id.minus:
-                if(broj>0)
-                    broj--;
-                tekst.setText(String.valueOf(broj));
-                break;
-            case R.id.btn_ok:
-                new OKListener().onClick(v);
-                break;
-            case R.id.btn_cancel:
-                d.dismiss();
-                break;
+        int id = v.getId();
+        if (id == R.id.add) {
+            broj++;
+            tekst.setText(String.valueOf(broj));
+        } else if (id==R.id.minus) {
+            if (broj > 0)
+                broj--;
+            tekst.setText(String.valueOf(broj));
+        } else if (id == R.id.btn_ok) {
+            new OKListener().onClick(v);
+        } else if (id == R.id.btn_cancel) {
+            d.dismiss();
         }
     }
     public interface OnMyDialogResult{

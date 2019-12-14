@@ -48,6 +48,7 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
     private String datumNamirniceObroka;
     private NamirniceObroka namirniceObroka;
     private OnFragmentInteractionListener mListener;
+    private onScannedObjectListener mObjectListener;
 
 
     public BarkodFragment() {
@@ -96,8 +97,19 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
         skeniranObjekt = barcode;
         barcodeReader.playBeep();
 
+
+        InicijalizirajListener();
         DohvatiNamirnicu(barcode.displayValue);
         unesiNovuNamirnicuObroka();
+    }
+
+    private void InicijalizirajListener() {
+        if (getContext() instanceof onScannedObjectListener) {
+            mObjectListener = (onScannedObjectListener) getContext();
+        } else {
+            throw new RuntimeException(getContext().toString()
+                    + " must implement onScannedObjectListener");
+        }
     }
 
     private void unesiNovuNamirnicuObroka() {
@@ -133,10 +145,12 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        NamirnicaDAL.UnesiKorisnikovObrok(CurrentActivity.getActivity(),CurrentFood.getNamirnicaObroka());
                                         getActivity().getSupportFragmentManager().popBackStack();
                                         if(mListener != null){
                                             mListener.onFragmentInteraction(true);
+                                        }
+                                        if(mObjectListener != null){
+                                            mObjectListener.onScannedCompleteInteraction(dohvacenaNamirnica);
                                         }
                                     }
                                 })
@@ -151,6 +165,7 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
                     }
                 }
             });
+
         }
     }
 
@@ -213,6 +228,9 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
     public interface OnFragmentInteractionListener{
         void onFragmentInteraction(boolean signalGotovo);
     }
+    public interface onScannedObjectListener{
+        void onScannedCompleteInteraction(Namirnica namirnica);
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -232,4 +250,3 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
     }
 
 }
-

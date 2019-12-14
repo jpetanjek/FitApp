@@ -5,6 +5,9 @@ require '../entiteti/Namirnica.class.php';
 
 $baza = new Database();
 $baza->spojiDB();
+/*
+    Funkcija dohvaća sve namirnice iz baze podataka.
+*/
 if(isset($_GET["query"]) && $_GET["query"]=="getAll"){
     $sveNamirnice = array();
     $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica");
@@ -18,10 +21,13 @@ if(isset($_GET["query"]) && $_GET["query"]=="getAll"){
     echo json_encode($sveNamirnice);
     
 }
-if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["namirnica"])){
-    $identifikatorNamirnica = $_GET["namirnica"];
+/*
+    Funkcija dohvaća sve namirnice iz baze podataka istog naziva.
+*/
+if(isset($_GET["query"]) && $_GET["query"]=="getByName" && isset($_GET["naziv"])){
     $sveNamirnice = array();
-    $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica WHERE id = $identifikatorNamirnica");
+    $imeNamirnice = $_GET["naziv"];
+    $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica WHERE naziv LIKE '%$imeNamirnice%'");
     $brojNamirnica = mysqli_num_rows($dohvatNamirnica);
     while($redak = mysqli_fetch_array($dohvatNamirnica)){
         $novaNamirnica = new Namirnica($redak,true);
@@ -30,6 +36,38 @@ if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["namirnica"
     header('Content-type: application/json');
     http_response_code(200); 
     echo json_encode($sveNamirnice);
+    
+}
+/*
+    Funkcija dohvaća određenu namirnicu iz baze podataka prema primarnom ključu.
+*/
+if(isset($_GET["query"]) && $_GET["query"]=="getById" && isset($_GET["namirnica"])){
+    $identifikatorNamirnica = $_GET["namirnica"];
+    $dohvacenaNamirnica;
+    $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica WHERE id = $identifikatorNamirnica");
+    $brojNamirnica = mysqli_num_rows($dohvatNamirnica);
+    while($redak = mysqli_fetch_array($dohvatNamirnica)){
+        $novaNamirnica = new Namirnica($redak,true);
+        $dohvacenaNamirnica = $novaNamirnica->dohvatiJson();
+    }
+    header('Content-type: application/json');
+    http_response_code(200); 
+    echo json_encode($dohvacenaNamirnica);
+}
+/*
+Funkcija dohvaća određenu namirnicu iz baze podataka prema isbn.
+*/
+if(isset($_GET["query"]) && $_GET["query"]=="getByGoogleId" && isset($_GET["namirnica"])){
+    $identifikatorNamirnica = $_GET["namirnica"];
+    $dohvacenaNamirnica;
+    $dohvatNamirnica = $baza->selectDB("SELECT * FROM namirnica WHERE isbn = $identifikatorNamirnica");
+    while($redak = mysqli_fetch_array($dohvatNamirnica)){
+        $novaNamirnica = new Namirnica($redak,true);
+        $dohvacenaNamirnica = $novaNamirnica->dohvatiJson();
+    }
+    header('Content-type: application/json');
+    http_response_code(200); 
+    echo json_encode($dohvacenaNamirnica);
 }
 /*
     Funkcija ažurira određenu namirnicu.
@@ -105,7 +143,7 @@ function populateObject(){
 if(isset($_GET["query"]) && $_GET["query"] == "insert" && provjeriPostVarijable()){
     $namirnica = populateObject();
     $novaNamirnicaInsert = new Namirnica($namirnica);
-    $upit = "INSERT INTO namirnica(naziv,broj_kalorija,tezina,isbn) VALUES ('$novaNamirnicaInsert->naziv',$novaNamirnicaInsert->brojKalorija,$novaNamirnicaInsert->tezina,'$novaNamirnicaInsert->isbn')";
+    $upit = "INSERT INTO namirnica(naziv,broj_kalorija,tezina,isbn) VALUES (TRIM(BOTH '\"' FROM '$novaNamirnicaInsert->naziv'),TRIM(BOTH '\"' FROM '$novaNamirnicaInsert->brojKalorija'),TRIM(BOTH '\"' FROM '$novaNamirnicaInsert->tezina'),TRIM(BOTH '\"' FROM '$novaNamirnicaInsert->isbn'))";
     $rezultatObrade = $baza->updateDB($upit);
 }
 $baza->zatvoriDB();

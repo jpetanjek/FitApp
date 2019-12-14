@@ -2,5 +2,11 @@
     <string name="app_name">FitApp</string>
     <string name="Signout">Signout</string>
     <string name="Registracija">Registracija</string>
+    <string name="hintNazivNamirnice">Naziv namirnice</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_for_food">Search for food</string>
+    <string name="search_for_a_food">Search for a food</string>
+    <string name="add_new_food">Add new food</string>
 
 </resources>

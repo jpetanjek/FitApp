@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.fitapp"
-        minSdkVersion 29
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -23,11 +23,25 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
+    //External UI
+    implementation 'com.github.biodunalfet:SlidingSquaresLoader:1.0'
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+            maven { url 'https://jitpack.io/' }
+        }
+    }
+
+    //CardView
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     //Retrofit
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
@@ -39,12 +53,33 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
+    //RecyclerView
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+
     implementation project(':registracija')
     implementation project(':database')
     implementation project(':webservice')
     implementation project(':core')
-
+    implementation project(':repository')
+    implementation project(':barcode-reader')
+    implementation project(':barkod')
+    implementation project(':unos_hrane')
 
     implementation 'com.github.bumptech.glide:glide:4.10.0'
+    implementation 'com.google.android.gms:play-services-vision:19.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    //butterknife
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+
+
+    def recyclerview_version = "1.0.0"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_version"
+    implementation "androidx.cardview:cardview:$recyclerview_version"
+    implementation 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
+    compile project(path: ':unos_hrane')
 }

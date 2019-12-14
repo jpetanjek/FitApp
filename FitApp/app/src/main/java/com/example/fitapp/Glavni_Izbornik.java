@@ -1,94 +1,134 @@
 package com.example.fitapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.fragment.app.FragmentActivity;
-
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import com.example.fitapp.viewmodels.NamirniceObrokaViewModel;
+import com.example.repository.NamirnicaDAL;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
-import com.example.registracija.Registracija;
-import com.example.webservice.JsonApi;
-import com.example.webservice.RetrofitInstance;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.Api;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.concurrent.TimeUnit;
-
-import RetroEntities.RetroKorisnik;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class Glavni_Izbornik extends AppCompatActivity {
+    private Date trenutniDatum;
+    NamirniceObrokaViewModel namirniceObrokaViewModel;
 
-
+    private String dohvatiStringDatuma(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        return sdf.format(trenutniDatum);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glavni__izbornik);
+        trenutniDatum = new Date(System.currentTimeMillis());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        toolbar.findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener(){
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 try{
-                    Intent i = new Intent("com.Profil");
+                    Intent i = new Intent(Glavni_Izbornik.this, Profil.class);
                     startActivity(i);
                 }
                 catch (Exception e){
                     System.out.println(e.getMessage());
                 }
-
             }
-
         });
 
+
+
+
+        Button btnFoodDiary = findViewById(R.id.btnFoodDiary);
+        btnFoodDiary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Glavni_Izbornik.this, FoodDiary.class);
+                startActivity(intent);
+
+            }
+        });
+        Button btnBarkodSkener = findViewById(R.id.btnBarkodSkener);
+        btnBarkodSkener.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //startActivity(new Intent(Glavni_Izbornik.this,BarkodSkenerActivity.class));
+                startActivity(new Intent(Glavni_Izbornik.this,AddFoodToMeal.class));
+            }
+        });
+
+        Button btnExerciseSelection = findViewById(R.id.btnExcerciseSelection);
+        btnExerciseSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Glavni_Izbornik.this,ExerciseSelection.class));
+            }
+        });
+
+
+/*
         Button button = (Button) findViewById(R.id.registracija);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    // ...
                     case R.id.registracija:
-                            Intent intent = new Intent(Glavni_Izbornik.this, Registracija.class);
-                            startActivity(intent);
 
+                        Intent intent = new Intent(Glavni_Izbornik.this, Registracija.class);
+                        startActivity(intent);
                         break;
-                    // ...
                 }
 
             }
         });
+
+         */
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
+        int ukupniBrojKalorija = namirniceObrokaViewModel.getUkupniBrojKalorija(dohvatiStringDatuma());
+        TextView brojKalorija = findViewById(R.id.actual_food);
+        brojKalorija.setText(String.valueOf(ukupniBrojKalorija));
+    }
+
+    public static View getToolbarLogoView(Toolbar toolbar){
+        boolean hadContentDescription = android.text.TextUtils.isEmpty(toolbar.getLogoDescription());
+        String contentDescription = String.valueOf(!hadContentDescription ? toolbar.getLogoDescription() : "logoContentDescription");
+        toolbar.setLogoDescription(contentDescription);
+        ArrayList<View> potentialViews = new ArrayList<View>();
+        toolbar.findViewsWithText(potentialViews,contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        View logoIcon = null;
+
+        if(potentialViews.size() > 0){
+            logoIcon = potentialViews.get(0);
+        }
+
+        if(hadContentDescription)
+            toolbar.setLogoDescription(null);
+
+        return logoIcon;
 
     }
 
@@ -98,6 +138,8 @@ public class Glavni_Izbornik extends AppCompatActivity {
         return true;
     }
 
+
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
@@ -110,4 +152,5 @@ public class Glavni_Izbornik extends AppCompatActivity {
         }
         return true;
     }
+     */
 }

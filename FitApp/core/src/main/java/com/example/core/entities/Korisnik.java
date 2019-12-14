@@ -15,15 +15,23 @@ public class Korisnik {
     private String ime;
     private String prezime;
     private String email;
-    private char spol;
+    private String spol;
     private float visina;
     private float masa;
+
+    private String datumRodenja;
     @Nullable
     private String google_id;
     @Nullable
     private float cilj_mase;
     @Nullable
     private float cilj_tjednog_mrsavljenja;
+
+    @Override
+    public String toString(){
+        return String.format(ime + " " + prezime + " " + email+ " " + spol+ " " + visina+ " " + masa+ " " + datumRodenja+ " " + google_id
+                + " " +cilj_mase+ " " + cilj_tjednog_mrsavljenja);
+    }
 
     public void setIme(String ime) {
         this.ime = ime;
@@ -37,7 +45,7 @@ public class Korisnik {
         this.email = email;
     }
 
-    public void setSpol(char spol) {
+    public void setSpol(String spol) {
         this.spol = spol;
     }
 
@@ -81,7 +89,7 @@ public class Korisnik {
         return email;
     }
 
-    public char getSpol() {
+    public String getSpol() {
         return spol;
     }
 
@@ -105,19 +113,28 @@ public class Korisnik {
         return cilj_tjednog_mrsavljenja;
     }
 
+    public String getDatumRodenja() {
+        return datumRodenja;
+    }
+
+    public void setDatumRodenja(String datumRodenja) {
+        this.datumRodenja = datumRodenja;
+    }
+
     public Korisnik parseKorisnik(Response<RetroKorisnik> response){
         Korisnik korisnik = new Korisnik();
+
         korisnik.id = response.body().getId();
         korisnik.ime = response.body().getIme();
         korisnik.prezime = response.body().getPrezime();
         korisnik.email = response.body().getEmail();
-        korisnik.spol = response.body().getSpol().charAt(0);
+        korisnik.spol = response.body().getSpol();
         korisnik.visina = response.body().getVisina();
-        // TODO: Dodati masu (i getMasa) u RetroKorisnik
-        // korisnik.masa = response.body().getMasa();
+        korisnik.masa = response.body().getMasa();
         korisnik.cilj_mase = response.body().getCiljMase();
         korisnik.cilj_tjednog_mrsavljenja = response.body().getCiljTjednogMrsavljenja();
-        korisnik.cilj_tjednog_mrsavljenja = response.body().getCiljTjednogMrsavljenja();
+        korisnik.datumRodenja = response.body().getDatumRodenja();
+        korisnik.google_id= response.body().getGoogle_id();
 
         return korisnik;
     }

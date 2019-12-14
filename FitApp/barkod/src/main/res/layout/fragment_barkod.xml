@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+
+    <!-- Barcode Reader fragment -->
+    <fragment
+        android:id="@+id/barcode_fragment"
+        android:name="info.androidhive.barcode.BarcodeReader"
+        android:layout_width="match_parent"
+        android:layout_height="686dp"
+        app:auto_focus="true"
+        app:use_flash="false" />
+
+    <!-- Scanner overlay animation -->
+    <info.androidhive.barcode.ScannerOverlay
+        android:layout_width="match_parent"
+        android:layout_height="684dp"
+        android:background="#44000000"
+        app:line_color="#7323DC"
+        app:line_speed="6"
+        app:line_width="4"
+        app:square_height="200"
+        app:square_width="200">
+    </info.androidhive.barcode.ScannerOverlay>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="684dp"
+        android:gravity="bottom"
+        android:padding="10pt"
+        android:textSize="15sp"
+        android:text="Place the blue line at a barcode"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF">
+    </TextView>
+
+    <EditText
+        android:id="@+id/enter_barcode"
+        android:layout_below="@id/barcode_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:hint="Enter barcode here"
+        android:textSize="15sp"
+        android:background="@null">
+    </EditText>
+
+</RelativeLayout>

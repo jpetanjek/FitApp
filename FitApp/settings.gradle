@@ -1,2 +1,2 @@
-include ':app', ':registracija', ':core', ':database', ':webservice', ':repository', ':barcode-reader', ':unos_hrane', ':barkod'
+include ':app', ':registracija', ':core', ':database', ':webservice', ':repository', ':barcode-reader', ':unos_hrane', ':barkod', ':unos_odabrane_hrane'
 rootProject.name='FitApp'

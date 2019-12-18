@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/conf_list_footer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp">
+    <TextView
+        android:id="@+id/tvAddExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:background="@drawable/btn2_background"
+        android:maxLines="1"
+        android:layout_toStartOf="@id/tvRestTime"
+        android:layout_marginEnd="15dp"
+        android:padding="7dp"
+        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:id="@+id/tvRestTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30 sec of rest"
+        android:background="@drawable/btn2_background"
+        android:maxLines="1"
+        android:layout_centerHorizontal="true"
+        android:padding="7dp"
+        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+</RelativeLayout>

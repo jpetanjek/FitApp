@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.DnsResolver;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -50,7 +53,6 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
     private OnFragmentInteractionListener mListener;
     private onScannedObjectListener mObjectListener;
 
-
     public BarkodFragment() {
         System.out.println("Kreiran fragment!");
     }
@@ -85,7 +87,6 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_barkod, container, false);
-
         barcodeReader = (BarcodeReader) getChildFragmentManager().findFragmentById(R.id.barcode_fragment);
         barcodeReader.setListener(this);
         System.out.println("Izrađen view!");
@@ -125,19 +126,6 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
                 @Override
                 public void run() {
                     if(!CurrentActivity.getActivity().isFinishing()){
-                        NumberOfServingsDialog cdd=new NumberOfServingsDialog(getActivity() ,Integer.valueOf(String.valueOf(1)));
-                        cdd.setDialogResult(new NumberOfServingsDialog.OnMyDialogResult() {
-                            @Override
-                            public void finish(String result) {
-                                NamirnicaDAL.UnesiKorisnikovObrok(CurrentActivity.getActivity(),CurrentFood.getNamirnicaObroka());
-                                getActivity().getSupportFragmentManager().popBackStack();
-                                if(mListener != null){
-                                    mListener.onFragmentInteraction(true);
-                                }
-                            }
-                        });
-                        cdd.show();
-/*
                         new AlertDialog.Builder(getContext())
                                 .setTitle("Dodavanje namirnice u obrok!")
                                 .setMessage("Želite li staviti "+dohvacenaNamirnica.getNaziv()+" u obrok "+obrok)
@@ -160,8 +148,6 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
 
                                     }
                                 }).show();
-
- */
                     }
                 }
             });

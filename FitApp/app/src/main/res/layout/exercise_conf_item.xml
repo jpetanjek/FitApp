@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <EditText
+            android:id="@+id/tvRedniBroj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="111"
+            android:background="@drawable/btn2_background"
+            android:maxLines="1"
+            android:layout_marginEnd="40dp"
+            android:layout_toStartOf="@id/tvMasa"
+            android:padding="7dp"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <EditText
+            android:id="@+id/tvMasa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60 kg"
+            android:background="@drawable/btn2_background"
+            android:layout_centerHorizontal="true"
+            android:padding="7dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <EditText
+            android:id="@+id/tvBrojPonavljanja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tvMasa"
+            android:layout_marginStart="40dp"
+            android:text="10 reps"
+            android:padding="7dp"
+            android:background="@drawable/btn2_background"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

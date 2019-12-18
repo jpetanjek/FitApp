@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:padding="5dp">
 
-        <EditText
+
+        <TextView
             android:id="@+id/tvRedniBroj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,34 +21,62 @@
             android:background="@drawable/btn2_background"
             android:maxLines="1"
             android:layout_marginEnd="40dp"
-            android:layout_toStartOf="@id/tvMasa"
+            android:layout_toStartOf="@id/OkvirMasa"
             android:padding="7dp"
             android:ellipsize="end"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-        <EditText
-            android:id="@+id/tvMasa"
+        <RelativeLayout
+            android:id="@+id/OkvirMasa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="60 kg"
-            android:background="@drawable/btn2_background"
             android:layout_centerHorizontal="true"
-            android:padding="7dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            android:background="@drawable/btn2_background"
+            android:padding="7dp">
 
-        <EditText
-            android:id="@+id/tvBrojPonavljanja"
+            <EditText
+                android:id="@+id/tvMasa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="60"
+                android:background="@color/gray"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <TextView
+                android:layout_toEndOf="@id/tvMasa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  kg"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_toEndOf="@id/OkvirMasa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/tvMasa"
             android:layout_marginStart="40dp"
-            android:text="10 reps"
-            android:padding="7dp"
             android:background="@drawable/btn2_background"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            />
+            android:padding="7dp">
+
+            <EditText
+                android:id="@+id/tvBrojPonavljanja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:background="@color/gray"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:layout_toEndOf="@id/tvBrojPonavljanja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  reps"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

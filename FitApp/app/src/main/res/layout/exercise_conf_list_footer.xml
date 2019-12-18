@@ -13,21 +13,37 @@
         android:text="+"
         android:background="@drawable/btn2_background"
         android:maxLines="1"
-        android:layout_toStartOf="@id/tvRestTime"
+        android:layout_toStartOf="@id/OkvirRestTime"
         android:layout_marginEnd="15dp"
         android:padding="7dp"
         android:ellipsize="end"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/OkvirRestTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn2_background"
+        android:padding="7dp">
+
+    <EditText
         android:id="@+id/tvRestTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="30 sec of rest"
-        android:background="@drawable/btn2_background"
+        android:text="30"
+        android:background="@color/gray"
         android:maxLines="1"
-        android:layout_centerHorizontal="true"
-        android:padding="7dp"
         android:ellipsize="end"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:layout_toEndOf="@id/tvRestTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  secs of rest"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+
+    </RelativeLayout>
 </RelativeLayout>

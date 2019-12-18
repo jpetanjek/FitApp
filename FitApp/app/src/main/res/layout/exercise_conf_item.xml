@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp">
 
-        <TextView
+        <EditText
             android:id="@+id/tvRedniBroj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,13 +20,13 @@
             android:background="@drawable/btn2_background"
             android:maxLines="1"
             android:layout_marginEnd="40dp"
-            android:layout_toStartOf="@id/tvTezina"
+            android:layout_toStartOf="@id/tvMasa"
             android:padding="7dp"
             android:ellipsize="end"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-        <TextView
-            android:id="@+id/tvTezina"
+        <EditText
+            android:id="@+id/tvMasa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="60 kg"
@@ -37,11 +37,11 @@
             android:ellipsize="end"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-        <TextView
+        <EditText
             android:id="@+id/tvBrojPonavljanja"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/tvTezina"
+            android:layout_toEndOf="@id/tvMasa"
             android:layout_marginStart="40dp"
             android:text="10 reps"
             android:padding="7dp"

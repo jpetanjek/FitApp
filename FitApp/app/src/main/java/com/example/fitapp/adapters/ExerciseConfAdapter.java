@@ -18,18 +18,23 @@ import java.util.ArrayList;
 public class ExerciseConfAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<ExerciseConfItem> lista;
+    private ArrayList<ExerciseConfItem> lista = new ArrayList<ExerciseConfItem>();
 
-    public ExerciseConfAdapter(Context context)
+    public ExerciseConfAdapter(Context context, ArrayList<ExerciseConfItem> lista)
     {
         this.context = context;
-        lista = new ArrayList<ExerciseConfItem>();
+
+        if(lista == null){
+            for (int i=0; i<3; i++){
+                ExerciseConfItem item = new ExerciseConfItem(i+1,12, 10);
+                this.lista.add(item);
+            }
+        }
+        else
+            this.lista = lista;
+
 
         // Dodavanje 3 zapisa konfiguracije (početna)
-        for (int i=0; i<3; i++){
-            ExerciseConfItem item = new ExerciseConfItem(i+1,12, 10);
-            lista.add(item);
-        }
 
     }
 
@@ -48,6 +53,10 @@ public class ExerciseConfAdapter extends BaseAdapter {
         return i;
     }
 
+    public ArrayList<ExerciseConfItem> getLista(){
+        return lista;
+    }
+
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null)
@@ -57,14 +66,14 @@ public class ExerciseConfAdapter extends BaseAdapter {
         ExerciseConfItem currentItem = (ExerciseConfItem) getItem(position);
 
         // get the TextView for item name and item description
-        EditText tvRedniBroj = (EditText) convertView.findViewById(R.id.tvRedniBroj);
+        TextView tvRedniBroj = (TextView) convertView.findViewById(R.id.tvRedniBroj);
         EditText tvMasa = (EditText) convertView.findViewById(R.id.tvMasa);
         EditText tvBrojPonavljanja = (EditText) convertView.findViewById(R.id.tvBrojPonavljanja);
 
         //sets the text for item name and item description from the current item object
         tvRedniBroj.setText( Integer.toString( currentItem.getRedniBroj() ) );
-        tvMasa.setText( Float.toString( currentItem.getMasa() ) + " kg" );
-        tvBrojPonavljanja.setText( Integer.toString( currentItem.getBrojPonavljanja() ) + " reps"  );
+        tvMasa.setText( Float.toString( currentItem.getMasa() ) );
+        tvBrojPonavljanja.setText( Integer.toString( currentItem.getBrojPonavljanja() ) );
 
         return convertView;
     }

@@ -33,7 +33,10 @@
         android:layout_height="wrap_content"
         android:text="30"
         android:background="@color/gray"
+        android:inputType="number"
+        android:selectAllOnFocus="true"
         android:maxLines="1"
+        android:minEms="1"
         android:ellipsize="end"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 

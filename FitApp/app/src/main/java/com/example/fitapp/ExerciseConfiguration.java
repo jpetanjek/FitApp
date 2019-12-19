@@ -5,9 +5,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +35,6 @@ public class ExerciseConfiguration extends AppCompatActivity {
 
 
         // Popunjavanje listviewa
-
         final ListView lvOdabirVjezbi = findViewById(R.id.lvOdabirVjezbi);
 
         final ExerciseConfAdapter exerciseConfAdapter = new ExerciseConfAdapter(this, null);
@@ -40,6 +42,9 @@ public class ExerciseConfiguration extends AppCompatActivity {
 
         View footerView = getLayoutInflater().inflate(R.layout.exercise_conf_list_footer, null);
         lvOdabirVjezbi.addFooterView(footerView);
+
+        EditText tvRestTime = footerView.findViewById(R.id.tvRestTime);
+        exerciseConfAdapter.kontrolaUnosa(tvRestTime);
 
         // Dodavanje itema u listu (klikom na +)
         TextView tvAddExercise = findViewById(R.id.tvAddExercise);
@@ -50,9 +55,15 @@ public class ExerciseConfiguration extends AppCompatActivity {
                 ArrayList<ExerciseConfAdapter.ExerciseConfItem> lista = exerciseConfAdapter.getLista();
                 ExerciseConfAdapter.ExerciseConfItem newItem = exerciseConfAdapter.new ExerciseConfItem(lista.size()+1, 12, 10);
                 lista.add(newItem);
-                lvOdabirVjezbi.setAdapter(exerciseConfAdapter);
+                exerciseConfAdapter.setLista(lista);
+
+                // Postavljanje na dno
+                lvOdabirVjezbi.smoothScrollToPosition(lista.size());
             }
         });
 
+
+
     }
+
 }

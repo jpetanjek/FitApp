@@ -59,9 +59,9 @@ public class Vjezba {
         this.met = met;
     }
 
-    public Integer setRepetition_lenght() {return repetition_lenght;}
+    public Integer getRepetition_lenght() { return repetition_lenght; }
 
-    public void  getRepetition_lenght(Integer repetition_lenght) {this.repetition_lenght = repetition_lenght;}
+    public void setRepetition_lenght(Integer repetition_lenght) { this.repetition_lenght = repetition_lenght; }
 
     public Integer izracunajPotroseneKalorije(Integer repetitions,Float tezina){
         //1 MET = 1 kcal/kg/hr

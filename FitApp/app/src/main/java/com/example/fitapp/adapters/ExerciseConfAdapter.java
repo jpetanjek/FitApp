@@ -1,6 +1,8 @@
 package com.example.fitapp.adapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,9 @@ import com.example.fitapp.ExerciseConfiguration;
 import com.example.fitapp.R;
 
 import java.util.ArrayList;
+import java.util.logging.Handler;
+
+import butterknife.OnTextChanged;
 
 public class ExerciseConfAdapter extends BaseAdapter {
 
@@ -53,6 +58,11 @@ public class ExerciseConfAdapter extends BaseAdapter {
         return i;
     }
 
+    public void setLista(ArrayList<ExerciseConfItem> lista){
+        this.lista = lista;
+        notifyDataSetChanged();
+    }
+
     public ArrayList<ExerciseConfItem> getLista(){
         return lista;
     }
@@ -75,7 +85,37 @@ public class ExerciseConfAdapter extends BaseAdapter {
         tvMasa.setText( Float.toString( currentItem.getMasa() ) );
         tvBrojPonavljanja.setText( Integer.toString( currentItem.getBrojPonavljanja() ) );
 
+        // Kontrola
+        kontrolaUnosa(tvMasa);
+        kontrolaUnosa(tvBrojPonavljanja);
+
         return convertView;
+    }
+
+    public void kontrolaUnosa(final EditText e){
+
+        e.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() == 0){
+                    s.append("0");
+                }
+                else if(s.length() > 3)
+                    // Rezanje zadnjeg znaka
+                    e.setText(s.toString().substring(0, s.length() - 1));
+            }
+        });
+
+
     }
 
     public class ExerciseConfItem{

@@ -3,33 +3,28 @@ package com.example.fitapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.fitapp.adapters.ExerciseConfAdapter;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class ExerciseConfiguration extends AppCompatActivity {
+    private String nazivVjezbe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_configuration);
 
-        String nazivVjezbe = getIntent().getExtras().getString("nazivVjezbe");
-
+        nazivVjezbe = getIntent().getExtras().getString("nazivVjezbe");
         Toolbar toolbar = findViewById(R.id.toolbar1);
         toolbar.setTitle(nazivVjezbe);
 
@@ -61,6 +56,20 @@ public class ExerciseConfiguration extends AppCompatActivity {
                 lvOdabirVjezbi.smoothScrollToPosition(lista.size());
             }
         });
+
+
+        // Pokretanje Exercise instructora
+        final Button start = findViewById(R.id.btnStart);
+        start.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent = new Intent(ExerciseConfiguration.this, ExerciseInstructor.class);
+                 intent.putExtra("nazivVjezbe", nazivVjezbe);
+                 startActivity(intent);
+             }
+         }
+        );
+
 
 
 

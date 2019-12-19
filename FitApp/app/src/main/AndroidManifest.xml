@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExerciseConfiguration"></activity>
+        <activity android:name=".ExerciseInstructor"></activity>
+        <activity android:name=".ExerciseConfiguration" />
         <activity android:name=".AddSelectedFood" />
         <activity android:name=".AddFoodToMeal" />
         <activity android:name=".fragments.BarcodeFragmentTestActivity" />

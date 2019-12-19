@@ -55,6 +55,7 @@
         android:src="@drawable/ic_olympic_weightlifting_" />
 
     <Button
+        android:id="@+id/btnStart"
         android:layout_below="@id/ivSlika"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

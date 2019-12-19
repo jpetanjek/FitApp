@@ -12,6 +12,8 @@ public class KorisnikVjezba {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private int sesija;
+
     @ForeignKey(entity = Korisnik.class,parentColumns = "id",childColumns = "idKorisnik")
     private int idKorisnik;
 
@@ -22,6 +24,14 @@ public class KorisnikVjezba {
     //private Date datumPocetka;
     private boolean planirano;
     private String idGoogleKalendar;
+
+    public int getSesija() {
+        return sesija;
+    }
+
+    public void setSesija(int sesija) {
+        this.sesija = sesija;
+    }
 
     public int getId() {
         return id;

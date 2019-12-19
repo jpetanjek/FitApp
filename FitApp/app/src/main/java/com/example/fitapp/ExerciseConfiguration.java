@@ -6,17 +6,26 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.core.entities.AtributiVjezbiSnage;
+import com.example.core.entities.Korisnik;
+import com.example.core.entities.KorisnikVjezba;
+import com.example.core.entities.Vjezba;
+import com.example.database.MyDatabase;
 import com.example.fitapp.adapters.ExerciseConfAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExerciseConfiguration extends AppCompatActivity {
+    private int idVjezbe;
     private String nazivVjezbe;
 
     @Override
@@ -63,9 +72,40 @@ public class ExerciseConfiguration extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+
+                 ArrayList<Integer> listaKorisnikVjezbeId = new ArrayList<Integer>();
+
+                 // Za svaki element liste, zapisati podatke o konfiguraciji u KorisnikVjezbe i AtributiVjezbeSnage
+                 for (ExerciseConfAdapter.ExerciseConfItem item: exerciseConfAdapter.getLista()) {
+
+                     Korisnik korisnik = MyDatabase.getInstance(ExerciseConfiguration.this).getKorisnikDAO().dohvatiKorisnika();
+                     Vjezba vjezba = MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().dohvatiVjezbu(1);
+
+                     KorisnikVjezba korisnikVjezba = new KorisnikVjezba();
+                     korisnikVjezba.setIdKorisnik(korisnik.getId());
+                     korisnikVjezba.setIdVjezba(vjezba.getId());
+                     korisnikVjezba.setIdGoogleKalendar("nista");
+                     korisnikVjezba.setPlanirano(false);
+
+                     long[] id = MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().unosKorisnikoveVjezbe(korisnikVjezba);
+                     listaKorisnikVjezbeId.add( (int) id[0] );
+
+
+
+                     AtributiVjezbiSnage atributiVjezbiSnage = new AtributiVjezbiSnage();
+                     atributiVjezbiSnage.setKorisnikVjezbaId(korisnikVjezba.getId());
+                     atributiVjezbiSnage.setKalorijaPotroseno(0);
+                     atributiVjezbiSnage.setBrojPonavljanja(item.getBrojPonavljanja());
+                     atributiVjezbiSnage.setMasaPonavljanja(item.getMasa());
+                     atributiVjezbiSnage.setTrajanjeUSekundama(15);
+
+                 }
+
                  Intent intent = new Intent(ExerciseConfiguration.this, ExerciseInstructor.class);
                  intent.putExtra("nazivVjezbe", nazivVjezbe);
+                 intent.putExtra("listaKorisnikVjezbeId", (ArrayList<Integer>) listaKorisnikVjezbeId);
                  startActivity(intent);
+
              }
          }
         );

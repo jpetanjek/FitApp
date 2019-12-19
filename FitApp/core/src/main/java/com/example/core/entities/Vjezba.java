@@ -18,6 +18,15 @@ public class Vjezba {
     private String upute;
     private Float met;
     private Integer repetition_lenght;
+    private int ikona;
+
+    public int getIkona() {
+        return ikona;
+    }
+
+    public void setIkona(int ikona) {
+        this.ikona = ikona;
+    }
 
     public int getId() {
         return id;

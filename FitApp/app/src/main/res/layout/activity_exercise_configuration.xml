@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ExerciseSelection"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:logo="@drawable/ic_arrow_back_black_24dp"
+        app:titleMarginStart="30dp"
+        app:title="Exercise selection"
+        app:titleTextColor="@color/black"
+        />
+
+        <LinearLayout
+            android:id="@+id/lista"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/toolbar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/lvOdabirVjezbi"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                tools:listitem="@layout/exercise_conf_item">
+            </ListView>
+
+
+
+        </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/ivSlika"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/lista"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_olympic_weightlifting_" />
+
+    <Button
+        android:layout_below="@id/ivSlika"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:height="10dp"
+        android:text="START"/>
+
+</RelativeLayout>

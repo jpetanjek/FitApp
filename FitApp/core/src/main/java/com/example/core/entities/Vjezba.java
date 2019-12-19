@@ -17,6 +17,7 @@ public class Vjezba {
     private String naziv;
     private String upute;
     private Float met;
+    private Integer repetition_lenght;
 
     public int getId() {
         return id;
@@ -56,5 +57,16 @@ public class Vjezba {
 
     public void setMet(Float met) {
         this.met = met;
+    }
+
+    public Integer getRepetition_lenght() { return repetition_lenght; }
+
+    public void setRepetition_lenght(Integer repetition_lenght) { this.repetition_lenght = repetition_lenght; }
+
+    public Integer izracunajPotroseneKalorije(Integer repetitions,Float tezina){
+        //1 MET = 1 kcal/kg/hr
+        Integer returnme;
+        returnme=((repetition_lenght*repetitions)/3600)* Math.round(tezina);
+        return  returnme;
     }
 }

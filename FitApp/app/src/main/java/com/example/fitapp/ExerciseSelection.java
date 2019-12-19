@@ -48,7 +48,7 @@ public class ExerciseSelection extends AppCompatActivity {
         String mTitle[] = {"Plan exercises","Running", "Walking", "Rowing", "Deadlift", "Shoulder press", "Bench press", "Squat","Biking"};
         int images[] = {R.drawable.ic_history,R.drawable.ic_running, R.drawable.ic_person_walking, R.drawable.ic_man_in_canoe, R.drawable.ic_olympic_weightlifting_, R.drawable.ic_weightlifting, R.drawable.ic_upper_chest_training, R.drawable.ic_exercising_man,R.drawable.ic_bicycle_rider};
 
-        ListView listView = findViewById(R.id.exerciseListView);
+        final ListView listView = findViewById(R.id.exerciseListView);
 
             VjezbeAdapter adapter = new VjezbeAdapter(this, mTitle, images);
             listView.setAdapter(adapter);
@@ -74,6 +74,9 @@ public class ExerciseSelection extends AppCompatActivity {
                             break;
                         case 5:
                             Toast.makeText(ExerciseSelection.this, "Shoulder press description", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ExerciseSelection.this, ExerciseConfiguration.class);
+                            intent.putExtra("nazivVjezbe", listView.getItemAtPosition(position).toString());
+                            startActivity(intent);
                             break;
                         case 6:
                             Toast.makeText(ExerciseSelection.this, "Bench press description", Toast.LENGTH_SHORT).show();

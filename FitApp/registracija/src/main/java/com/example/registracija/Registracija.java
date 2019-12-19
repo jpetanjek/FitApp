@@ -20,6 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.example.core.entities.Vjezba;
+import com.example.database.MyDatabase;
+
 import com.bumptech.glide.Glide;
 import com.example.webservice.JsonApi;
 import com.example.webservice.RetrofitInstance;
@@ -317,9 +320,61 @@ public class Registracija extends AppCompatActivity {
                                 }
                             });
 
-                            //još ga nadodati u lokalnu bazu¸¸
+                    Vjezba newVjezba1 = new Vjezba();
+                    newVjezba1.setId(1);
+                    newVjezba1.setMet(new Float(4));
+                    newVjezba1.setNaziv("Running");
+                    newVjezba1.setTipVjezbe(1);
+                    newVjezba1.setUpute("a");
+                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba1);
 
+                    Vjezba newVjezba2 = new Vjezba();
+                    newVjezba2.setId(2);
+                    newVjezba2.setMet(new Float(4));
+                    newVjezba2.setNaziv("Walking");
+                    newVjezba2.setTipVjezbe(1);
+                    newVjezba2.setUpute("a");
+                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba2);
 
+                    Vjezba newVjezba3= new Vjezba();
+                    newVjezba3.setId(3);
+                    newVjezba3.setMet(new Float(4));
+                    newVjezba3.setNaziv("Rowing");
+                    newVjezba3.setTipVjezbe(1);
+                    newVjezba3.setUpute("a");
+                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba3);
+
+                    Vjezba newVjezba4= new Vjezba();
+                    newVjezba4.setId(4);
+                    newVjezba4.setMet(new Float(4));
+                    newVjezba4.setNaziv("Shoulder press");
+                    newVjezba4.setTipVjezbe(1);
+                    newVjezba4.setUpute("a");
+                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba4);
+
+                    Vjezba newVjezba5= new Vjezba();
+                    newVjezba5.setId(5);
+                    newVjezba5.setMet(new Float(4));
+                    newVjezba5.setNaziv("Squating");
+                    newVjezba5.setTipVjezbe(1);
+                    newVjezba5.setUpute("Benchpress");
+                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba5);
+
+                    Vjezba newVjezba6= new Vjezba();
+                    newVjezba6.setId(6);
+                    newVjezba6.setMet(new Float(4));
+                    newVjezba6.setNaziv("M");
+                    newVjezba6.setTipVjezbe(1);
+                    newVjezba6.setUpute("a");
+                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba6);
+
+                    Vjezba newVjezba7= new Vjezba();
+                    newVjezba7.setId(7);
+                    newVjezba7.setMet(new Float(4));
+                    newVjezba7.setNaziv("Squating");
+                    newVjezba7.setTipVjezbe(1);
+                    newVjezba7.setUpute("a");
+                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba7);
                 }
                 else{
                     System.out.println("error");

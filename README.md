@@ -3,5 +3,7 @@ Molimo da svi koji misle testirati aplikaciju prvo konfiguriraju projekt online 
 https://developers.google.com/identity/sign-in/android/start-integrating
 
 Potrebno je generirati SHA ključ preko signingReport dostupnog preko gradle
+
 Dostupno na desnom rubu ekrana, FitApp/app/Tasks/android/signingReport
 
+Ovime vam se omogučuje registriracija preko Googla, detaljnije upute dostupne u dokumentaciji.

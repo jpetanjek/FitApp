@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"No Internet connection. Connect to an available network and try again.",Toast.LENGTH_LONG).show();
             finish(); //Calling this method to close this activity when internet is not available.
         }
-        
+
         dohvatiSveNamirnice();
 
         /*

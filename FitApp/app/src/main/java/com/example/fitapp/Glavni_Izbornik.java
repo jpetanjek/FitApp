@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.database.MyDatabase;
 import com.example.fitapp.viewmodels.NamirniceObrokaViewModel;
 import com.example.repository.NamirnicaDAL;
 
@@ -119,6 +120,9 @@ public class Glavni_Izbornik extends AppCompatActivity {
         int ukupniBrojKalorija = namirniceObrokaViewModel.getUkupniBrojKalorija(dohvatiStringDatuma());
         TextView brojKalorija = findViewById(R.id.actual_food);
         brojKalorija.setText(String.valueOf(ukupniBrojKalorija));
+
+        TextView tezinaKorisnika = findViewById(R.id.weight);
+        tezinaKorisnika.setText(String.valueOf(MyDatabase.getInstance(this).getKorisnikDAO().dohvatiKorisnika().getMasa()));
     }
 
     public static View getToolbarLogoView(Toolbar toolbar){

@@ -25,12 +25,15 @@ public class ExerciseInstructor extends AppCompatActivity {
         //toolbar.setTitle(toolbar.getTitle() + nazivVjezbe);
 
         listaKorisnikVjezbeId = getIntent().getIntegerArrayListExtra("listaKorisnikVjezbeId");
+
+        int idSeta = getIntent().getExtras().getInt("idSeta");
+
         String naziv = toolbar.getTitle().toString();
+        naziv = naziv.concat(" id_seta: ");
+        naziv = naziv.concat( Integer.toString(idSeta) );
         for(int item: listaKorisnikVjezbeId){
             naziv = naziv.concat( " id:");
             naziv = naziv.concat(Integer.toString(item));
-            Log.v("UNESENO2", Integer.toString(item));
-
         }
         toolbar.setTitle(naziv);
     }

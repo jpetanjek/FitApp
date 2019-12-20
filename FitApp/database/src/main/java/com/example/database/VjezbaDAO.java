@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.core.entities.KorisnikVjezba;
+import com.example.core.entities.Setovi;
 import com.example.core.entities.TipVjezbe;
 import com.example.core.entities.Vjezba;
 
@@ -65,4 +66,10 @@ public interface VjezbaDAO {
 
     @Query("SELECT * FROM korisnik_vjezba WHERE id = :idKorisnikoveVjezbe")
     public KorisnikVjezba dohvatiKorisnikovuVjezbu(int idKorisnikoveVjezbe);
+
+
+    // CRUD Setovi
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public long[] unosSeta(Setovi... setovi);
 }

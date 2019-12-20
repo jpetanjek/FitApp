@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.core.entities.Vjezba;
+import com.example.database.MyDatabase;
 import com.example.fitapp.viewmodels.NamirniceObrokaViewModel;
 import com.example.repository.NamirnicaDAL;
 
@@ -53,9 +55,6 @@ public class Glavni_Izbornik extends AppCompatActivity {
                 }
             }
         });
-
-
-
 
         Button btnFoodDiary = findViewById(R.id.btnFoodDiary);
         btnFoodDiary.setOnClickListener(new View.OnClickListener() {

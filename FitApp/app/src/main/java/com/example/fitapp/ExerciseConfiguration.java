@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,16 +28,24 @@ import java.util.List;
 public class ExerciseConfiguration extends AppCompatActivity {
     private int idVjezbe;
     private String nazivVjezbe;
+    private ImageView ikonaVjezbe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_configuration);
 
-        nazivVjezbe = getIntent().getExtras().getString("nazivVjezbe");
+        nazivVjezbe = getIntent().getExtras().getString("naziv");
+        idVjezbe = getIntent().getExtras().getInt("idVjezbe");
+        int referencaIkone = MyDatabase.getInstance(getApplicationContext())
+                .getVjezbaDAO()
+                .dohvatiVjezbu(idVjezbe)
+                .getIkona();
+        ikonaVjezbe = findViewById(R.id.ivSlika);
+        ikonaVjezbe.setImageResource(referencaIkone);
+
         Toolbar toolbar = findViewById(R.id.toolbar1);
         toolbar.setTitle(nazivVjezbe);
-
 
         // Popunjavanje listviewa
         final ListView lvOdabirVjezbi = findViewById(R.id.lvOdabirVjezbi);

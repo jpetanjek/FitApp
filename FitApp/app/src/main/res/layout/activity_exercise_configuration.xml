@@ -52,7 +52,7 @@
         android:layout_below="@id/lista"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:src="@drawable/ic_olympic_weightlifting_" />
+         />
 
     <Button
         android:id="@+id/btnStart"

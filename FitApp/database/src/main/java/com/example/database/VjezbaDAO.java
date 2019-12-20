@@ -47,6 +47,9 @@ public interface VjezbaDAO {
     @Query("SELECT * FROM vjezba")
     public List<Vjezba> dohvatiSveVjezbe();
 
+    @Query("SELECT count(*) FROM vjezba")
+    public int dohvatiBrojVjezbi();
+
     @Query("SELECT * FROM vjezba WHERE id = :idVjezbe")
     public Vjezba dohvatiVjezbu(int idVjezbe);
 
@@ -66,6 +69,7 @@ public interface VjezbaDAO {
 
     @Query("SELECT * FROM korisnik_vjezba WHERE id = :idKorisnikoveVjezbe")
     public KorisnikVjezba dohvatiKorisnikovuVjezbu(int idKorisnikoveVjezbe);
+
 
 
     // CRUD Setovi

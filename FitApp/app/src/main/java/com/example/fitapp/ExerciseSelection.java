@@ -132,30 +132,39 @@ public class ExerciseSelection extends AppCompatActivity {
             switch (vjezba.getNaziv()){
                 case "Plan exercises description":
                     vjezba.setIkona(R.drawable.ic_history);
+                    MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().azuriranjeVjezbe(vjezba);
                     break;
                 case "Running":
                     vjezba.setIkona(R.drawable.ic_running);
+                    MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().azuriranjeVjezbe(vjezba);
                     break;
                 case "Walking":
                     vjezba.setIkona(R.drawable.ic_person_walking);
+                    MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().azuriranjeVjezbe(vjezba);
                     break;
                 case "Rowing":
                     vjezba.setIkona(R.drawable.ic_man_in_canoe);
+                    MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().azuriranjeVjezbe(vjezba);
                     break;
                 case "Deadlift":
                     vjezba.setIkona(R.drawable.ic_olympic_weightlifting_);
+                    MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().azuriranjeVjezbe(vjezba);
                     break;
                 case "Shoulder press":
                     vjezba.setIkona(R.drawable.ic_weightlifting);
+                    MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().azuriranjeVjezbe(vjezba);
                     break;
                 case "Bench press":
                     vjezba.setIkona(R.drawable.ic_upper_chest_training);
+                    MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().azuriranjeVjezbe(vjezba);
                     break;
                 case "Squating":
                     vjezba.setIkona(R.drawable.ic_exercising_man);
+                    MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().azuriranjeVjezbe(vjezba);
                     break;
                 case "Biking":
                     vjezba.setIkona(R.drawable.ic_bicycle_rider);
+                    MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().azuriranjeVjezbe(vjezba);
                     break;
             }
         }

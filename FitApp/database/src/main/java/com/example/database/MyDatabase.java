@@ -12,10 +12,11 @@ import com.example.core.entities.Korisnik;
 import com.example.core.entities.KorisnikVjezba;
 import com.example.core.entities.Namirnica;
 import com.example.core.entities.NamirniceObroka;
+import com.example.core.entities.Setovi;
 import com.example.core.entities.TipVjezbe;
 import com.example.core.entities.Vjezba;
 
-@Database(version = MyDatabase.VERSION,entities = {Korisnik.class, Namirnica.class, Vjezba.class, TipVjezbe.class, KorisnikVjezba.class, NamirniceObroka.class , AtributiVjezbiSnage.class, AtributiKardioVjezbi.class},exportSchema = false)
+@Database(version = MyDatabase.VERSION,entities = {Korisnik.class, Namirnica.class, Vjezba.class, Setovi.class, TipVjezbe.class, KorisnikVjezba.class, NamirniceObroka.class , AtributiVjezbiSnage.class, AtributiKardioVjezbi.class},exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
     public static final String NAME = "FitAppBaza";
     public static final int VERSION = 1;

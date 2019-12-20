@@ -41,14 +41,14 @@
 
     <EditText
         android:id="@+id/enter_barcode"
-        android:layout_below="@id/barcode_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/barcode_fragment"
+        android:background="@null"
+        android:hint="Enter barcode here"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:hint="Enter barcode here"
         android:textSize="15sp"
-        android:background="@null">
-    </EditText>
+        android:visibility="invisible"></EditText>
 
 </RelativeLayout>

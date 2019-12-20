@@ -105,6 +105,14 @@ public class Glavni_Izbornik extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);

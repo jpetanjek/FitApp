@@ -2,10 +2,13 @@ package com.example.fitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.Toast;
 
 import static com.example.database.MyDatabase.getInstance;
 
@@ -44,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(!isNetworkAvailable(this)) {
+            Toast.makeText(this,"No Internet connection. Connect to an available network and try again.",Toast.LENGTH_LONG).show();
+            finish(); //Calling this method to close this activity when internet is not available.
+        }
 
         dohvatiSveNamirnice();
 
@@ -223,7 +230,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     public void dohvatiSveNamirnice(){
 
         Retrofit retrofit = RetrofitInstance.getInstance();
@@ -248,6 +254,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().isConnected())
+            return true;
+        else
+            return false;
+    }
 
 }
 

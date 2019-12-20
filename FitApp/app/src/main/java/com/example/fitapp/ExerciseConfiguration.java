@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.core.entities.AtributiVjezbiSnage;
 import com.example.core.entities.Korisnik;
 import com.example.core.entities.KorisnikVjezba;
+import com.example.core.entities.Setovi;
 import com.example.core.entities.Vjezba;
 import com.example.database.MyDatabase;
 import com.example.fitapp.adapters.ExerciseConfAdapter;
@@ -24,9 +25,11 @@ import com.example.fitapp.adapters.ExerciseConfAdapter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ExerciseConfiguration extends AppCompatActivity {
     private int idVjezbe;
+    private int idSeta;
     private String nazivVjezbe;
     private ImageView ikonaVjezbe;
 
@@ -56,7 +59,7 @@ public class ExerciseConfiguration extends AppCompatActivity {
         View footerView = getLayoutInflater().inflate(R.layout.exercise_conf_list_footer, null);
         lvOdabirVjezbi.addFooterView(footerView);
 
-        EditText tvRestTime = footerView.findViewById(R.id.tvRestTime);
+        final EditText tvRestTime = footerView.findViewById(R.id.tvRestTime);
         exerciseConfAdapter.kontrolaUnosa(tvRestTime);
 
         // Dodavanje itema u listu (klikom na +)
@@ -82,24 +85,28 @@ public class ExerciseConfiguration extends AppCompatActivity {
              @Override
              public void onClick(View v) {
 
+
+                 Korisnik korisnik = MyDatabase.getInstance(ExerciseConfiguration.this).getKorisnikDAO().dohvatiKorisnika();
+                 Vjezba vjezba = MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().dohvatiVjezbu(1);
+                 Setovi set = new Setovi();
+
+                 // Kreiranje novog seta
+                 set.setTrajanjePauze( Integer.parseInt( tvRestTime.getText().toString() ) );
+                 set.setIdKorisnik(korisnik.getId());
+                 long[] noviSet = MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().unosSeta(set);
+                 idSeta = (int) noviSet[0];
+
                  ArrayList<Integer> listaKorisnikVjezbeId = new ArrayList<Integer>();
 
                  // Za svaki element liste, zapisati podatke o konfiguraciji u KorisnikVjezbe i AtributiVjezbeSnage
                  for (ExerciseConfAdapter.ExerciseConfItem item: exerciseConfAdapter.getLista()) {
 
-                     Korisnik korisnik = MyDatabase.getInstance(ExerciseConfiguration.this).getKorisnikDAO().dohvatiKorisnika();
-                     Vjezba vjezba = MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().dohvatiVjezbu(1);
-
                      KorisnikVjezba korisnikVjezba = new KorisnikVjezba();
-                     korisnikVjezba.setIdKorisnik(korisnik.getId());
                      korisnikVjezba.setIdVjezba(vjezba.getId());
-                     korisnikVjezba.setIdGoogleKalendar("nista");
-                     korisnikVjezba.setPlanirano(false);
-
+                     korisnikVjezba.setIdSet(set.getId());
                      long[] id = MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().unosKorisnikoveVjezbe(korisnikVjezba);
+
                      listaKorisnikVjezbeId.add( (int) id[0] );
-
-
 
                      AtributiVjezbiSnage atributiVjezbiSnage = new AtributiVjezbiSnage();
                      atributiVjezbiSnage.setKorisnikVjezbaId(korisnikVjezba.getId());
@@ -112,6 +119,8 @@ public class ExerciseConfiguration extends AppCompatActivity {
 
                  Intent intent = new Intent(ExerciseConfiguration.this, ExerciseInstructor.class);
                  intent.putExtra("nazivVjezbe", nazivVjezbe);
+                 intent.putExtra("idSeta", idSeta);
+                 Log.v("UNESENO:", Integer.toString(idSeta));
                  intent.putExtra("listaKorisnikVjezbeId", (ArrayList<Integer>) listaKorisnikVjezbeId);
                  startActivity(intent);
 

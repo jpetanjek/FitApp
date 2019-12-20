@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.core.entities.AtributiVjezbiSnage;
 import com.example.core.entities.KorisnikVjezba;
 import com.example.core.entities.Setovi;
 import com.example.core.entities.TipVjezbe;
@@ -67,9 +68,20 @@ public interface VjezbaDAO {
     @Query("SELECT * FROM korisnik_vjezba WHERE id = :idKorisnikoveVjezbe")
     public KorisnikVjezba dohvatiKorisnikovuVjezbu(int idKorisnikoveVjezbe);
 
+    @Query("SELECT * FROM korisnik_vjezba WHERE idSet = :idSet")
+    public List<KorisnikVjezba> dohvatiVjezbeSeta(int idSet);
+
 
     // CRUD Setovi
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] unosSeta(Setovi... setovi);
+
+    //PROVJERITI
+    @Query("SELECT * FROM `set` WHERE id = :idSet")
+    public Setovi dohvatiSet(int idSet);
+
+    //AtributiVjezbiSnage
+    @Query("SELECT * FROM atributi_vjezbi_snage WHERE korisnikVjezbaId = :vjezbaId")
+    public AtributiVjezbiSnage dohvatiAtributeVjezbeSnagePoVjezbi(int vjezbaId);
 }

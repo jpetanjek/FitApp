@@ -10,9 +10,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.core.entities.AtributiVjezbiSnage;
+import com.example.core.entities.KorisnikVjezba;
+import com.example.core.entities.Setovi;
+import com.example.core.entities.Vjezba;
+import com.example.database.MyDatabase;
+
 import java.util.List;
 
 import features.Text2Speech;
+
+import static com.example.database.MyDatabase.getInstance;
 
 public class ExerciseInstructor extends AppCompatActivity {
     private String nazivVjezbe;
@@ -23,6 +31,12 @@ public class ExerciseInstructor extends AppCompatActivity {
     private CountDownTimer countDownTimer=null;
     private TextView tvCountDown;
     private Text2Speech text2Speech;
+
+    private List<KorisnikVjezba> listaKorniskVjezbi;
+    private List<Vjezba> vjezba;
+    private List<AtributiVjezbiSnage> atributiVjezbiSnage;
+    private Integer brojTrenutneVjezbe;
+    private Setovi setovi;
 
 
     @Override
@@ -45,6 +59,20 @@ public class ExerciseInstructor extends AppCompatActivity {
 
         int idSeta = getIntent().getExtras().getInt("idSeta");
 
+        //Dohvacanje vjezbi po id seta iz bundle
+        MyDatabase myDatabase = getInstance(ExerciseInstructor.this);
+        listaKorniskVjezbi = myDatabase.getVjezbaDAO().dohvatiVjezbeSeta(idSeta);
+        setovi = myDatabase.getVjezbaDAO().dohvatiSet(idSeta);
+
+
+        for(int i=0;i < listaKorniskVjezbi.size(); i++){
+            //Dohvacanje trajanje repa
+            vjezba.add(myDatabase.getVjezbaDAO().dohvatiVjezbu(listaKorniskVjezbi.get(i).getIdVjezba()));
+            atributiVjezbiSnage.add(myDatabase.getVjezbaDAO().dohvatiAtributeVjezbeSnagePoVjezbi(listaKorniskVjezbi.get(i).getId()));
+        }
+        brojTrenutneVjezbe = 0;
+
+
         String naziv = toolbar.getTitle().toString();
         naziv = naziv.concat(" id_seta: ");
         naziv = naziv.concat( Integer.toString(idSeta) );
@@ -63,7 +91,8 @@ public class ExerciseInstructor extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTimer(10);
+                //trajanje rep*broj rep + 10 sekundi za pripremu pozicije
+                startTimer(atributiVjezbiSnage.get(brojTrenutneVjezbe).getTrajanjeUSekundama()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+10);
             }
         });
 
@@ -84,8 +113,10 @@ public class ExerciseInstructor extends AppCompatActivity {
 
     }
 
-    private void startTimer(int trajanjeTimera){
-        trajanjeTimera = trajanjeTimera * 1000;
+    private void startTimer(final int trajanjeTimera){
+        //trajanjeTimera = trajanjeTimera * 1000;
+
+
         countDownTimer = new CountDownTimer(trajanjeTimera,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -94,7 +125,7 @@ public class ExerciseInstructor extends AppCompatActivity {
                 long hours = minutes/ 60;
                 String sati = new String();
                 String minute = new String();
-                String sekunde = new String();
+                //String sekunde = new String();
                 if(hours<=0){
                     sati = "00";
                 }
@@ -102,7 +133,17 @@ public class ExerciseInstructor extends AppCompatActivity {
                     minute = "00";
                 }
 
-                tvCountDown.setText(hours+":"+minute+":"+String.valueOf(seconds));
+                if(millisUntilFinished / 1000 == trajanjeTimera-1){
+                    //izgovori da se korisnik pripremi
+                }
+                if(millisUntilFinished / 1000 == trajanjeTimera-10){
+                    //izgovori podatke o pripremi
+                }
+                if(millisUntilFinished / 1000 == 10 && trajanjeTimera > 20){
+                    //izgovori 10 seconds untill finish
+                }
+
+                tvCountDown.setText(sati+":"+minute+":"+String.valueOf(seconds));
             }
 
             @Override
@@ -110,6 +151,9 @@ public class ExerciseInstructor extends AppCompatActivity {
                 //TODO
                 //on timer finish
                 tvCountDown.setText("00:00:00");
+                //izgovori x seconds rest time i ponovo pokreni timer sa tim restom, pa prijedi na sljedecu vjezbu
+                setovi.getTrajanjePauze();
+                brojTrenutneVjezbe++;
             }
         };
         countDownTimer.start();

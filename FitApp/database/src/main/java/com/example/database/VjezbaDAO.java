@@ -82,10 +82,11 @@ public interface VjezbaDAO {
     public long[] unosSeta(Setovi... setovi);
 
     //PROVJERITI
-    @Query("SELECT * FROM `set` WHERE id = :idSet")
+    @Query("SELECT * FROM setovi WHERE id = :idSet")
     public Setovi dohvatiSet(int idSet);
 
     //AtributiVjezbiSnage
     @Query("SELECT * FROM atributi_vjezbi_snage WHERE korisnikVjezbaId = :vjezbaId")
     public AtributiVjezbiSnage dohvatiAtributeVjezbeSnagePoVjezbi(int vjezbaId);
+
 }

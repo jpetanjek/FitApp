@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "set")
+@Entity(tableName = "setovi")
 public class Setovi {
     @PrimaryKey(autoGenerate = true)
     private int id;

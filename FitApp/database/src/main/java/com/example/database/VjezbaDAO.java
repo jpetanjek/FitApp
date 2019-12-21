@@ -48,6 +48,9 @@ public interface VjezbaDAO {
     @Query("SELECT * FROM vjezba")
     public List<Vjezba> dohvatiSveVjezbe();
 
+    @Query("SELECT count(*) FROM vjezba")
+    public int dohvatiBrojVjezbi();
+
     @Query("SELECT * FROM vjezba WHERE id = :idVjezbe")
     public Vjezba dohvatiVjezbu(int idVjezbe);
 
@@ -72,16 +75,18 @@ public interface VjezbaDAO {
     public List<KorisnikVjezba> dohvatiVjezbeSeta(int idSet);
 
 
+
     // CRUD Setovi
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] unosSeta(Setovi... setovi);
 
     //PROVJERITI
-    @Query("SELECT * FROM `set` WHERE id = :idSet")
+    @Query("SELECT * FROM setovi WHERE id = :idSet")
     public Setovi dohvatiSet(int idSet);
 
     //AtributiVjezbiSnage
     @Query("SELECT * FROM atributi_vjezbi_snage WHERE korisnikVjezbaId = :vjezbaId")
     public AtributiVjezbiSnage dohvatiAtributeVjezbeSnagePoVjezbi(int vjezbaId);
+
 }

@@ -329,77 +329,82 @@ public class Registracija extends AppCompatActivity {
                                 }
                             });
 
-                    Vjezba newVjezba = new Vjezba();
-                    newVjezba.setId(1);
-                    newVjezba.setMet(new Float(0));
-                    newVjezba.setNaziv("Plan exercises description");
-                    newVjezba.setTipVjezbe(1);
-                    newVjezba.setUpute("");
-                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba);
+                    if(MyDatabase.getInstance(Registracija.this).getVjezbaDAO().dohvatiBrojVjezbi()==0){
+                        Vjezba newVjezba = new Vjezba();
+                        newVjezba.setId(1);
+                        newVjezba.setMet(new Float(0));
+                        newVjezba.setNaziv("Plan exercises description");
+                        newVjezba.setTipVjezbe(1);
+                        newVjezba.setUpute("");
+                        MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba);
 
-                    Vjezba newVjezba1 = new Vjezba();
-                    newVjezba1.setId(2);
-                    newVjezba1.setMet(new Float(9));
-                    newVjezba1.setNaziv("Running");
-                    newVjezba1.setTipVjezbe(1);
-                    newVjezba1.setUpute("Good runners condition their whole bodies. The arms drive the legs.");
-                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba1);
+                        Vjezba newVjezba1 = new Vjezba();
+                        newVjezba1.setId(2);
+                        newVjezba1.setMet(new Float(9));
+                        newVjezba1.setNaziv("Running");
+                        newVjezba1.setTipVjezbe(1);
+                        newVjezba1.setUpute("Good runners condition their whole bodies. The arms drive the legs.");
+                        MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba1);
 
-                    Vjezba newVjezba2 = new Vjezba();
-                    newVjezba2.setId(3);
-                    newVjezba2.setMet(new Float(4.8));
-                    newVjezba2.setNaziv("Walking");
-                    newVjezba2.setTipVjezbe(1);
-                    newVjezba2.setUpute("Start slowly, do a few warm-up exercises and stretches first. Don't walk immediately after a big meal. Start with a 20 minute walk then increase gradually.");
-                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba2);
+                        Vjezba newVjezba2 = new Vjezba();
+                        newVjezba2.setId(3);
+                        newVjezba2.setMet(new Float(4.8));
+                        newVjezba2.setNaziv("Walking");
+                        newVjezba2.setTipVjezbe(1);
+                        newVjezba2.setUpute("Start slowly, do a few warm-up exercises and stretches first. Don't walk immediately after a big meal. Start with a 20 minute walk then increase gradually.");
+                        MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba2);
 
-                    Vjezba newVjezba3= new Vjezba();
-                    newVjezba3.setId(4);
-                    newVjezba3.setMet(new Float(6));
-                    newVjezba3.setNaziv("Rowing");
-                    newVjezba3.setTipVjezbe(1);
-                    newVjezba3.setUpute("Drive With Your Legs.");
-                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba3);
+                        Vjezba newVjezba3= new Vjezba();
+                        newVjezba3.setId(4);
+                        newVjezba3.setMet(new Float(6));
+                        newVjezba3.setNaziv("Rowing");
+                        newVjezba3.setTipVjezbe(1);
+                        newVjezba3.setUpute("Drive With Your Legs.");
+                        MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba3);
 
-                    Vjezba newVjezba4= new Vjezba();
-                    newVjezba4.setId(5);
-                    newVjezba4.setMet(new Float(6));
-                    newVjezba4.setNaziv("Deadlift");
-                    newVjezba4.setTipVjezbe(1);
-                    newVjezba4.setUpute("Bend your knees until your shins touch the bar. Lift your chest up and straighten your lower back. Take a big breath, hold it, and stand up with the weight.");
-                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba4);
+                        Vjezba newVjezba4= new Vjezba();
+                        newVjezba4.setId(5);
+                        newVjezba4.setMet(new Float(6));
+                        newVjezba4.setNaziv("Deadlift");
+                        newVjezba4.setTipVjezbe(1);
+                        newVjezba4.setUpute("Bend your knees until your shins touch the bar. Lift your chest up and straighten your lower back. Take a big breath, hold it, and stand up with the weight.");
+                        MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba4);
 
-                    Vjezba newVjezba5= new Vjezba();
-                    newVjezba5.setId(6);
-                    newVjezba5.setMet(new Float(6));
-                    newVjezba5.setNaziv("Shoulder press");
-                    newVjezba5.setTipVjezbe(1);
-                    newVjezba5.setUpute("Once the bar clears your head, push your shoulders back, move your head slightly forward and lock-out the bar directly over the top of your head.");
-                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba5);
+                        Vjezba newVjezba5= new Vjezba();
+                        newVjezba5.setId(6);
+                        newVjezba5.setMet(new Float(6));
+                        newVjezba5.setNaziv("Shoulder press");
+                        newVjezba5.setTipVjezbe(1);
+                        newVjezba5.setUpute("Once the bar clears your head, push your shoulders back, move your head slightly forward and lock-out the bar directly over the top of your head.");
+                        MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba5);
 
-                    Vjezba newVjezba6= new Vjezba();
-                    newVjezba6.setId(7);
-                    newVjezba6.setMet(new Float(6));
-                    newVjezba6.setNaziv("Bench press");
-                    newVjezba6.setTipVjezbe(1);
-                    newVjezba6.setUpute("Keep your chest up throughout the movement. Elbows should be tucked and end up at approximately 45 degrees from your side.");
-                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba6);
+                        Vjezba newVjezba6= new Vjezba();
+                        newVjezba6.setId(7);
+                        newVjezba6.setMet(new Float(6));
+                        newVjezba6.setNaziv("Bench press");
+                        newVjezba6.setTipVjezbe(1);
+                        newVjezba6.setUpute("Keep your chest up throughout the movement. Elbows should be tucked and end up at approximately 45 degrees from your side.");
+                        MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba6);
 
-                    Vjezba newVjezba7= new Vjezba();
-                    newVjezba7.setId(8);
-                    newVjezba7.setMet(new Float(5));
-                    newVjezba7.setNaziv("Squating");
-                    newVjezba7.setTipVjezbe(1);
-                    newVjezba7.setUpute("Squat down by pushing your knees to the side while moving hips back. Break parallel by Squatting down until your hips are lower than your knees. Stand with your hips and knees locked at the top.");
-                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba7);
+                        Vjezba newVjezba7= new Vjezba();
+                        newVjezba7.setId(8);
+                        newVjezba7.setMet(new Float(5));
+                        newVjezba7.setNaziv("Squating");
+                        newVjezba7.setTipVjezbe(1);
+                        newVjezba7.setUpute("Squat down by pushing your knees to the side while moving hips back. Break parallel by Squatting down until your hips are lower than your knees. Stand with your hips and knees locked at the top.");
+                        MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba7);
 
-                    Vjezba newVjezba8= new Vjezba();
-                    newVjezba8.setId(9);
-                    newVjezba8.setMet(new Float(7.5));
-                    newVjezba8.setNaziv("Biking");
-                    newVjezba8.setTipVjezbe(1);
-                    newVjezba8.setUpute("Don't pedal in high gear for extended periods of time. Keep your head up.");
-                    MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba8);
+                        Vjezba newVjezba8= new Vjezba();
+                        newVjezba8.setId(9);
+                        newVjezba8.setMet(new Float(7.5));
+                        newVjezba8.setNaziv("Biking");
+                        newVjezba8.setTipVjezbe(1);
+                        newVjezba8.setUpute("Don't pedal in high gear for extended periods of time. Keep your head up.");
+                        MyDatabase.getInstance(Registracija.this).getVjezbaDAO().unosVjezbe(newVjezba8);
+                        System.out.println("Kreirane vjezbe");
+                    }
+
+
                 }
                 else{
                     System.out.println("error");

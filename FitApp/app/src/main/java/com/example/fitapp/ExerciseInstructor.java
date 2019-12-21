@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.core.entities.AtributiVjezbiSnage;
@@ -31,13 +32,14 @@ public class ExerciseInstructor extends AppCompatActivity {
     private CountDownTimer countDownTimer=null;
     private TextView tvCountDown;
     private Text2Speech text2Speech;
+    private ImageView ikonaVjezbe;
 
     private List<KorisnikVjezba> listaKorniskVjezbi;
     private List<Vjezba> vjezba;
     private List<AtributiVjezbiSnage> atributiVjezbiSnage;
     private Integer brojTrenutneVjezbe;
     private Setovi setovi;
-
+    private Vjezba vjezbaIzvodenja;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         tvCountDown = findViewById(R.id.tvCountdownTimer);
         text2Speech = Text2Speech.getInstance(this);
         btnText2Speech = findViewById(R.id.btnT2sUpute);
+        ikonaVjezbe = findViewById(R.id.ivIkona);
 
         nazivVjezbe = getIntent().getExtras().getString("nazivVjezbe");
         Toolbar toolbar = findViewById(R.id.toolbar1);
@@ -64,6 +67,8 @@ public class ExerciseInstructor extends AppCompatActivity {
         listaKorniskVjezbi = myDatabase.getVjezbaDAO().dohvatiVjezbeSeta(idSeta);
         setovi = myDatabase.getVjezbaDAO().dohvatiSet(idSeta);
 
+
+        postaviSlikuVjezbe();
 
         for(int i=0;i < listaKorniskVjezbi.size(); i++){
             //Dohvacanje trajanje repa
@@ -81,6 +86,12 @@ public class ExerciseInstructor extends AppCompatActivity {
             naziv = naziv.concat(Integer.toString(item));
         }
         toolbar.setTitle(naziv);
+    }
+
+    private void postaviSlikuVjezbe() {
+        int identifikatorVjezbe = getIntent().getExtras().getInt("idVjezbe");
+        vjezbaIzvodenja = MyDatabase.getInstance(this).getVjezbaDAO().dohvatiVjezbu(identifikatorVjezbe);
+        ikonaVjezbe.setImageResource(vjezbaIzvodenja.getIkona());
     }
 
 

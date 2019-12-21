@@ -120,6 +120,7 @@ public class ExerciseConfiguration extends AppCompatActivity {
                  Intent intent = new Intent(ExerciseConfiguration.this, ExerciseInstructor.class);
                  intent.putExtra("nazivVjezbe", nazivVjezbe);
                  intent.putExtra("idSeta", idSeta);
+                 intent.putExtra("idVjezbe",idVjezbe);
                  Log.v("UNESENO:", Integer.toString(idSeta));
                  intent.putExtra("listaKorisnikVjezbeId", (ArrayList<Integer>) listaKorisnikVjezbeId);
                  startActivity(intent);

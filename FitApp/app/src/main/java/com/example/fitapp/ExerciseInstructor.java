@@ -3,6 +3,7 @@ package com.example.fitapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -197,7 +198,8 @@ public class ExerciseInstructor extends AppCompatActivity {
 
                 if(zaustavljenoVrijeme==false && pauza==false){
                     //broji kalorije
-                    ivCalories.setText(vjezba.get(brojTrenutneVjezbe).izracunajPotroseneKalorije( trajanjeTimeraSek/1000 - (int) millisUntilFinished/1000+vrijemeOstalihVjezbi, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()).toString());
+                    String brKalorija = String.format("%.2f",vjezba.get(brojTrenutneVjezbe).izracunajPotroseneKalorije( trajanjeTimeraSek/1000 - (int) millisUntilFinished/1000+vrijemeOstalihVjezbi, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()));
+                    ivCalories.setText(brKalorija);
                 }
 
                 if(millisUntilFinished / 1000 == trajanjeTimeraSek-1 && zaustavljenoVrijeme==false && pauza==false){
@@ -248,6 +250,13 @@ public class ExerciseInstructor extends AppCompatActivity {
                 //ako je zadnja vjezba u setu
                 if(brojTrenutneVjezbe==listaKorniskVjezbi.size()){
                     //prijedi na ekran izvjestaja
+                    Bundle bundle = new Bundle();
+                    bundle.putString("brKalorija",ivCalories.getText().toString());
+                    bundle.putInt("vrijemeVjezbi",vrijemeOstalihVjezbi);
+                    bundle.putInt("vrijemePauzi",0);
+                    Intent intent = new Intent();
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
                 if(pauza==false && zaustavljenoVrijeme==false){
                     brojTrenutneVjezbe++;

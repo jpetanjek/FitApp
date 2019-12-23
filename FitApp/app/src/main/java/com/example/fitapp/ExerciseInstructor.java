@@ -19,6 +19,8 @@ import com.example.database.MyDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import features.Text2Speech;
 
@@ -119,7 +121,7 @@ public class ExerciseInstructor extends AppCompatActivity {
             public void onClick(View v) {
                 //trajanje rep*broj rep + 10 sekundi za pripremu pozicije
                 if (pauzirano == false){
-                    startTimer(atributiVjezbiSnage.get(brojTrenutneVjezbe).getTrajanjeUSekundama()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
+                    startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
                 }else{
                     //Resume
                     startTimer((int) preostaloVrijeme+5);
@@ -142,7 +144,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         btnText2Speech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                text2Speech.govori("I love Stapic!");
+                text2Speech.govori(vjezbaIzvodenja.getUpute());
             }
         });
 
@@ -150,58 +152,50 @@ public class ExerciseInstructor extends AppCompatActivity {
     }
 
     private void startTimer(final int trajanjeTimera){
-        //trajanjeTimera = trajanjeTimera * 1000;
+        final int trajanjeTimeraSek = trajanjeTimera * 1000;
 
 
-        countDownTimer = new CountDownTimer(trajanjeTimera,1000) {
+        countDownTimer = new CountDownTimer(trajanjeTimeraSek,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                long seconds = millisUntilFinished / 1000;
-                long minutes = seconds / 60;
-                long hours = minutes/ 60;
-                String sati = new String();
-                String minute = new String();
-
                 preostaloVrijeme = millisUntilFinished;
 
-                //String sekunde = new String();
-                if(hours<=0){
-                    sati = "00";
-                }
-                if(minutes<=0){
-                    minute = "00";
-                }
-
-                if(millisUntilFinished / 1000 == trajanjeTimera-1 && pauzirano==false){
+                if(millisUntilFinished / 1000 == trajanjeTimeraSek-1 && pauzirano==false){
                     //izgovori da se korisnik pripremi
                     text2Speech.govori("Get in position to start executing " + vjezba.get(brojTrenutneVjezbe).getNaziv());
                 }
-                if(millisUntilFinished / 1000 == trajanjeTimera-5 && pauzirano==false){
+                if(millisUntilFinished / 1000 == trajanjeTimeraSek-5 && pauzirano==false){
                     //pocetak vjezbe
                     text2Speech.govori("Start executing " + vjezba.get(brojTrenutneVjezbe).getNaziv());
                 }
-                if(millisUntilFinished / 1000 == trajanjeTimera-10 && trajanjeTimera > 30 && pauzirano==false){
+                if(millisUntilFinished / 1000 == trajanjeTimeraSek-10 && trajanjeTimeraSek > 30 && pauzirano==false){
                     //izgovori podatke o pripremi
                     text2Speech.govori(vjezba.get(brojTrenutneVjezbe).getUpute());
                 }
-                if(millisUntilFinished / 1000 == 10 && trajanjeTimera > 40 && pauzirano==false){
+                if(millisUntilFinished / 1000 == 10 && trajanjeTimeraSek > 40 && pauzirano==false){
                     //izgovori 10 seconds untill finish
                     text2Speech.govori("10 seconds untill finished");
                 }
-                if(millisUntilFinished / 1000 == trajanjeTimera/2 && trajanjeTimera > 50 && pauzirano==false){
+                if(millisUntilFinished / 1000 == trajanjeTimeraSek/2 && trajanjeTimeraSek > 50 && pauzirano==false){
                     text2Speech.govori("You are half way there");
                 }
 
                 //pauzirano
-                if(millisUntilFinished /  1000 == trajanjeTimera -1 && pauzirano==true){
+                if(millisUntilFinished /  1000 == trajanjeTimeraSek -1 && pauzirano==true){
                     text2Speech.govori("Starting resting period of " + trajanjeTimera + "seconds, remember to breath");
                 }
-                if(millisUntilFinished /1000 == 10 && trajanjeTimera > 20 && pauzirano==true){
+                if(millisUntilFinished /1000 == 10 && trajanjeTimeraSek > 20 && pauzirano==true){
                     text2Speech.govori("10 seconds until resting period is over");
                 }
 
 
-                tvCountDown.setText(sati+":"+minute+":"+String.valueOf(seconds));
+                //tvCountDown.setText(sati+":"+minute+":"+String.valueOf(seconds));
+                tvCountDown.setText(
+                        String.format(Locale.getDefault(),"%02d:%02d:%02d",
+                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)%60,
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)%60,
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)%60)
+                );
             }
 
             @Override

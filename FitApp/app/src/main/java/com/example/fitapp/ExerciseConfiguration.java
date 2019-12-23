@@ -73,6 +73,8 @@ public class ExerciseConfiguration extends AppCompatActivity {
                 lista.add(newItem);
                 exerciseConfAdapter.setLista(lista);
 
+                Log.v("NAKON", Integer.toString( exerciseConfAdapter.getLista().size() ) );
+
                 // Postavljanje na dno
                 lvOdabirVjezbi.smoothScrollToPosition(lista.size());
             }
@@ -85,6 +87,7 @@ public class ExerciseConfiguration extends AppCompatActivity {
              @Override
              public void onClick(View v) {
                  Korisnik korisnik = MyDatabase.getInstance(ExerciseConfiguration.this).getKorisnikDAO().dohvatiKorisnika();
+
 
                  // Kreiranje novog seta ako nije prosljeđen
                  Setovi set = new Setovi();
@@ -106,7 +109,7 @@ public class ExerciseConfiguration extends AppCompatActivity {
                      listaKorisnikVjezbeId.add( (int) id[0] ); // Svi ID od korisnikVježbe u setu
 
                      AtributiVjezbiSnage atributiVjezbiSnage = new AtributiVjezbiSnage();
-                     atributiVjezbiSnage.setKorisnikVjezbaId(korisnikVjezba.getId());
+                     atributiVjezbiSnage.setKorisnikVjezbaId( (int) id[0] );
                      atributiVjezbiSnage.setKalorijaPotroseno(0);
                      atributiVjezbiSnage.setBrojPonavljanja(item.getBrojPonavljanja());
                      atributiVjezbiSnage.setMasaPonavljanja(item.getMasa());

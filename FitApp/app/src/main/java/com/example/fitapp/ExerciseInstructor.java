@@ -3,6 +3,7 @@ package com.example.fitapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -142,7 +143,6 @@ public class ExerciseInstructor extends AppCompatActivity {
                 stopTimer();
             }
         });
-
         //gumb pauza
         pauseTimer();
 
@@ -169,7 +169,8 @@ public class ExerciseInstructor extends AppCompatActivity {
                 preostaloVrijeme = millisUntilFinished;
 
                 if(pauzirano==false){
-                    ivCalories.setText(vjezba.get(brojTrenutneVjezbe).izracunajPotroseneKalorije( trajanjeTimeraSek/1000 - (int) millisUntilFinished/1000+vrijemeOstalihVjezbi, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()).toString());
+                    String brKalorija = String.format("%.2f",vjezba.get(brojTrenutneVjezbe).izracunajPotroseneKalorije( trajanjeTimeraSek/1000 - (int) millisUntilFinished/1000+vrijemeOstalihVjezbi, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()));
+                    ivCalories.setText(brKalorija);
                 }
 
                 if(millisUntilFinished / 1000 == trajanjeTimeraSek-1 && pauzirano==false){
@@ -219,7 +220,13 @@ public class ExerciseInstructor extends AppCompatActivity {
                 //izgovori x seconds rest time i ponovo pokreni timer sa tim restom, pa prijedi na sljedecu vjezbu
                 //ako je zadnja vjezba u setu
                 if(brojTrenutneVjezbe==listaKorniskVjezbi.size()){
-                    //prijedi na ekran izvjestaja
+                    Bundle bundle = new Bundle();
+                    bundle.putString("brKalorija",ivCalories.getText().toString());
+                    bundle.putInt("vrijemeVjezbi",vrijemeOstalihVjezbi);
+                    bundle.putInt("vrijemePauzi",0);
+                    Intent intent = new Intent();
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
                 brojTrenutneVjezbe++;
                 //pokreni pauzu

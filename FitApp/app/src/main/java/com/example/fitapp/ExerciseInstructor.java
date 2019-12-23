@@ -39,14 +39,18 @@ public class ExerciseInstructor extends AppCompatActivity {
     private Text2Speech text2Speech;
     private ImageView ikonaVjezbe;
 
+    private Button btnPause;
+    private Button btnResume;
+
     private List<KorisnikVjezba> listaKorniskVjezbi;
     private List<Vjezba> vjezba;
     private List<AtributiVjezbiSnage> atributiVjezbiSnage;
     private Integer brojTrenutneVjezbe;
     private Setovi setovi;
 
-    private boolean stanjeVjezbe;
-    private boolean pauzirano;
+    private boolean zaustavljenoVrijeme;
+    private boolean pauza;
+
     private long preostaloVrijeme;
 
     private Vjezba vjezbaIzvodenja;
@@ -68,6 +72,10 @@ public class ExerciseInstructor extends AppCompatActivity {
         text2Speech = Text2Speech.getInstance(this);
         btnText2Speech = findViewById(R.id.btnT2sUpute);
         ikonaVjezbe = findViewById(R.id.ivIkona);
+
+        btnResume = findViewById(R.id.btnResume);
+        btnPause = findViewById(R.id.btnPause);
+
 
         nazivVjezbe = getIntent().getExtras().getString("nazivVjezbe");
         Toolbar toolbar = findViewById(R.id.toolbar1);
@@ -118,21 +126,40 @@ public class ExerciseInstructor extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        pauzirano = false;
-        //stanje vjezbe 0=vjezba 1=pauzra
-        stanjeVjezbe = false;
+        pauza = false;
+        //stanje vjezbe 0=vjezba 1=pauza
+        zaustavljenoVrijeme = false;
+
+        btnPause.setVisibility(View.GONE);
+        btnResume.setVisibility(View.GONE);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //trajanje rep*broj rep + 10 sekundi za pripremu pozicije
-                if (pauzirano == false){
-                    startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
-                }else{
-                    //Resume
-                    startTimer((int) preostaloVrijeme+5);
-                    pauzirano = false;
-                }
+                startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
+                btnStart.setVisibility(View.GONE);
+                btnPause.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTimer((int) preostaloVrijeme/1000+5);
+                zaustavljenoVrijeme=false;
+                btnResume.setVisibility(View.GONE);
+                btnPause.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zaustavljenoVrijeme=true;
+                btnPause.setVisibility(View.GONE);
+                btnResume.setVisibility(View.VISIBLE);
+                pauseTimer();
             }
         });
 
@@ -168,36 +195,37 @@ public class ExerciseInstructor extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 preostaloVrijeme = millisUntilFinished;
 
-                if(pauzirano==false){
+                if(zaustavljenoVrijeme==false && pauza==false){
+                    //broji kalorije
                     ivCalories.setText(vjezba.get(brojTrenutneVjezbe).izracunajPotroseneKalorije( trajanjeTimeraSek/1000 - (int) millisUntilFinished/1000+vrijemeOstalihVjezbi, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()).toString());
                 }
 
-                if(millisUntilFinished / 1000 == trajanjeTimeraSek-1 && pauzirano==false){
+                if(millisUntilFinished / 1000 == trajanjeTimeraSek-1 && zaustavljenoVrijeme==false && pauza==false){
 
                     //izgovori da se korisnik pripremi
                     text2Speech.govori("Get in position to start executing " + vjezba.get(brojTrenutneVjezbe).getNaziv());
                 }
-                if(millisUntilFinished / 1000 == trajanjeTimeraSek-5 && pauzirano==false){
+                if(millisUntilFinished / 1000 == trajanjeTimeraSek-5 &&zaustavljenoVrijeme==false && pauza==false){
                     //pocetak vjezbe
                     text2Speech.govori("Start executing " + vjezba.get(brojTrenutneVjezbe).getNaziv());
                 }
-                if(millisUntilFinished / 1000 == trajanjeTimeraSek-10 && trajanjeTimeraSek > 30 && pauzirano==false){
+                if(millisUntilFinished / 1000 == trajanjeTimeraSek-10 && trajanjeTimeraSek > 30 && zaustavljenoVrijeme==false && pauza==false){
                     //izgovori podatke o pripremi
                     text2Speech.govori(vjezba.get(brojTrenutneVjezbe).getUpute());
                 }
-                if(millisUntilFinished / 1000 == 10 && trajanjeTimeraSek > 40 && pauzirano==false){
+                if(millisUntilFinished / 1000 == 10 && trajanjeTimeraSek > 40 && zaustavljenoVrijeme==false && pauza==false){
                     //izgovori 10 seconds untill finish
                     text2Speech.govori("10 seconds untill finished");
                 }
-                if(millisUntilFinished / 1000 == trajanjeTimeraSek/2 && trajanjeTimeraSek > 50 && pauzirano==false){
+                if(millisUntilFinished / 1000 == trajanjeTimeraSek/2 && trajanjeTimeraSek > 50 && zaustavljenoVrijeme==false && pauza==false){
                     text2Speech.govori("You are half way there");
                 }
 
                 //pauzirano
-                if(millisUntilFinished /  1000 == trajanjeTimeraSek -1 && pauzirano==true){
+                if(millisUntilFinished /  1000 == trajanjeTimeraSek -1 && pauza==true && zaustavljenoVrijeme==false){
                     text2Speech.govori("Starting resting period of " + trajanjeTimera + "seconds, remember to breath");
                 }
-                if(millisUntilFinished /1000 == 10 && trajanjeTimeraSek > 20 && pauzirano==true){
+                if(millisUntilFinished /1000 == 10 && trajanjeTimeraSek > 20 && pauza==true && zaustavljenoVrijeme==false){
                     text2Speech.govori("10 seconds until resting period is over");
                 }
 
@@ -221,14 +249,16 @@ public class ExerciseInstructor extends AppCompatActivity {
                 if(brojTrenutneVjezbe==listaKorniskVjezbi.size()){
                     //prijedi na ekran izvjestaja
                 }
-                brojTrenutneVjezbe++;
+                if(pauza==false && zaustavljenoVrijeme==false){
+                    brojTrenutneVjezbe++;
+                }
                 //pokreni pauzu
-                if(pauzirano==false){
+                if(pauza==false){
                     vrijemeOstalihVjezbi+=trajanjeTimera;
                     startTimer(setovi.getTrajanjePauze());
-                    pauzirano=true;
+                    pauza=true;
                 }else{
-                    pauzirano=false;
+                    pauza=false;
                 }
             }
         };
@@ -240,14 +270,14 @@ public class ExerciseInstructor extends AppCompatActivity {
     private void pauseTimer(){
         if(countDownTimer!= null){
             countDownTimer.cancel();
-            pauzirano = true;
+            zaustavljenoVrijeme = true;
         }
     }
 
     private void stopTimer(){
         if(countDownTimer!= null){
             countDownTimer.cancel();
-            pauzirano = false;
+            zaustavljenoVrijeme = false;
         }
 
     }

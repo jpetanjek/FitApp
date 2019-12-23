@@ -16,6 +16,7 @@ import com.example.core.entities.KorisnikVjezba;
 import com.example.core.entities.Setovi;
 import com.example.core.entities.Vjezba;
 import com.example.database.MyDatabase;
+import com.example.repository.KorisnikDAL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class ExerciseInstructor extends AppCompatActivity {
     private Button btnText2Speech;
     private CountDownTimer countDownTimer=null;
     private TextView tvCountDown;
+    private TextView ivCalories;
     private Text2Speech text2Speech;
     private ImageView ikonaVjezbe;
 
@@ -47,6 +49,9 @@ public class ExerciseInstructor extends AppCompatActivity {
 
     private Vjezba vjezbaIzvodenja;
 
+    private int vrijemeOstalihVjezbi;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         btnStart = findViewById(R.id.btnStartTimer);
         btnFinish = findViewById(R.id.btnFinish);
         tvCountDown = findViewById(R.id.tvCountdownTimer);
+        ivCalories = findViewById(R.id.ivCalories);
         text2Speech = Text2Speech.getInstance(this);
         btnText2Speech = findViewById(R.id.btnT2sUpute);
         ikonaVjezbe = findViewById(R.id.ivIkona);
@@ -119,7 +125,9 @@ public class ExerciseInstructor extends AppCompatActivity {
             public void onClick(View v) {
                 //trajanje rep*broj rep + 10 sekundi za pripremu pozicije
                 if (pauzirano == false){
-                    startTimer(atributiVjezbiSnage.get(brojTrenutneVjezbe).getTrajanjeUSekundama()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
+                    startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
+                    System.out.println(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght());
+                    System.out.println(atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja());
                 }else{
                     //Resume
                     startTimer((int) preostaloVrijeme+5);
@@ -149,8 +157,8 @@ public class ExerciseInstructor extends AppCompatActivity {
 
     }
 
-    private void startTimer(final int trajanjeTimera){
-        //trajanjeTimera = trajanjeTimera * 1000;
+    private void startTimer(final int trajanjeTimera1){
+        final int trajanjeTimera = trajanjeTimera1 * 1000;
 
 
         countDownTimer = new CountDownTimer(trajanjeTimera,1000) {
@@ -170,6 +178,10 @@ public class ExerciseInstructor extends AppCompatActivity {
                 }
                 if(minutes<=0){
                     minute = "00";
+                }
+
+                if(pauzirano==false){
+                    ivCalories.setText(vjezba.get(brojTrenutneVjezbe).izracunajPotroseneKalorije( trajanjeTimera/1000 - (int) millisUntilFinished/1000+vrijemeOstalihVjezbi, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()).toString());
                 }
 
                 if(millisUntilFinished / 1000 == trajanjeTimera-1 && pauzirano==false){
@@ -217,6 +229,7 @@ public class ExerciseInstructor extends AppCompatActivity {
                 brojTrenutneVjezbe++;
                 //pokreni pauzu
                 if(pauzirano==false){
+                    vrijemeOstalihVjezbi+=trajanjeTimera;
                     startTimer(setovi.getTrajanjePauze());
                     pauzirano=true;
                 }else{

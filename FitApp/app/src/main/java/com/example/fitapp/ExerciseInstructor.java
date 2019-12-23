@@ -168,6 +168,10 @@ public class ExerciseInstructor extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 preostaloVrijeme = millisUntilFinished;
 
+                if(pauzirano==false){
+                    ivCalories.setText(vjezba.get(brojTrenutneVjezbe).izracunajPotroseneKalorije( trajanjeTimeraSek/1000 - (int) millisUntilFinished/1000+vrijemeOstalihVjezbi, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()).toString());
+                }
+
                 if(millisUntilFinished / 1000 == trajanjeTimeraSek-1 && pauzirano==false){
 
                     //izgovori da se korisnik pripremi

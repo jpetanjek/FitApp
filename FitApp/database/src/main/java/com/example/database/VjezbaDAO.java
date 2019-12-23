@@ -89,4 +89,10 @@ public interface VjezbaDAO {
     @Query("SELECT * FROM atributi_vjezbi_snage WHERE korisnikVjezbaId = :vjezbaId")
     public AtributiVjezbiSnage dohvatiAtributeVjezbeSnagePoVjezbi(int vjezbaId);
 
+
+    // CRUD atributi_vjezbe_snage
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public long[] unosAtributaVjezbeSnage(AtributiVjezbiSnage... atributiVjezbiSnage);
+
 }

@@ -109,7 +109,7 @@ public class ExerciseConfAdapter extends BaseAdapter {
                 if(s.length() == 0){
                     s.append("0");
                 }
-                else if(s.length() > 3)
+                else if(s.length() > 5)
                     // Rezanje zadnjeg znaka
                     e.setText(s.toString().substring(0, s.length() - 1));
             }

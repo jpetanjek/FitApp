@@ -84,13 +84,10 @@ public class ExerciseConfiguration extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-
-
                  Korisnik korisnik = MyDatabase.getInstance(ExerciseConfiguration.this).getKorisnikDAO().dohvatiKorisnika();
-                 Vjezba vjezba = MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().dohvatiVjezbu(1);
-                 Setovi set = new Setovi();
 
-                 // Kreiranje novog seta
+                 // Kreiranje novog seta ako nije prosljeđen
+                 Setovi set = new Setovi();
                  set.setTrajanjePauze( Integer.parseInt( tvRestTime.getText().toString() ) );
                  set.setIdKorisnik(korisnik.getId());
                  long[] noviSet = MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().unosSeta(set);
@@ -102,29 +99,30 @@ public class ExerciseConfiguration extends AppCompatActivity {
                  for (ExerciseConfAdapter.ExerciseConfItem item: exerciseConfAdapter.getLista()) {
 
                      KorisnikVjezba korisnikVjezba = new KorisnikVjezba();
-                     korisnikVjezba.setIdVjezba(vjezba.getId());
-                     korisnikVjezba.setIdSet(set.getId());
+                     korisnikVjezba.setIdVjezba(idVjezbe);
+                     korisnikVjezba.setIdSet(idSeta);
                      long[] id = MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().unosKorisnikoveVjezbe(korisnikVjezba);
 
-                     listaKorisnikVjezbeId.add( (int) id[0] );
+                     listaKorisnikVjezbeId.add( (int) id[0] ); // Svi ID od korisnikVježbe u setu
 
                      AtributiVjezbiSnage atributiVjezbiSnage = new AtributiVjezbiSnage();
                      atributiVjezbiSnage.setKorisnikVjezbaId(korisnikVjezba.getId());
                      atributiVjezbiSnage.setKalorijaPotroseno(0);
                      atributiVjezbiSnage.setBrojPonavljanja(item.getBrojPonavljanja());
                      atributiVjezbiSnage.setMasaPonavljanja(item.getMasa());
-                     atributiVjezbiSnage.setTrajanjeUSekundama(15);
+                     atributiVjezbiSnage.setTrajanjeUSekundama(0);
 
+                     MyDatabase.getInstance(ExerciseConfiguration.this).getVjezbaDAO().unosAtributaVjezbeSnage(atributiVjezbiSnage);
                  }
+
 
                  Intent intent = new Intent(ExerciseConfiguration.this, ExerciseInstructor.class);
                  intent.putExtra("nazivVjezbe", nazivVjezbe);
                  intent.putExtra("idSeta", idSeta);
                  intent.putExtra("idVjezbe",idVjezbe);
-                 Log.v("UNESENO:", Integer.toString(idSeta));
                  intent.putExtra("listaKorisnikVjezbeId", (ArrayList<Integer>) listaKorisnikVjezbeId);
                  startActivity(intent);
-
+                 ExerciseConfiguration.this.finish();
              }
          }
         );

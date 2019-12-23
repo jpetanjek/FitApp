@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba1.setMet(new Float(9));
             newVjezba1.setNaziv("Running");
             newVjezba1.setTipVjezbe(1);
+            newVjezba1.setRepetition_lenght(5);
             newVjezba1.setUpute("Good runners condition their whole bodies. The arms drive the legs.");
             newVjezba1.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba1);
@@ -178,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba2.setMet(new Float(4.8));
             newVjezba2.setNaziv("Walking");
             newVjezba2.setTipVjezbe(1);
+            newVjezba2.setRepetition_lenght(5);
             newVjezba2.setUpute("Start slowly, do a few warm-up exercises and stretches first. Don't walk immediately after a big meal. Start with a 20 minute walk then increase gradually.");
             newVjezba2.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba2);
@@ -187,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba3.setMet(new Float(6));
             newVjezba3.setNaziv("Rowing");
             newVjezba3.setTipVjezbe(1);
+            newVjezba3.setRepetition_lenght(5);
             newVjezba3.setUpute("Drive With Your Legs.");
             newVjezba3.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba3);
@@ -196,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba4.setMet(new Float(6));
             newVjezba4.setNaziv("Deadlift");
             newVjezba4.setTipVjezbe(1);
+            newVjezba4.setRepetition_lenght(5);
             newVjezba4.setUpute("Bend your knees until your shins touch the bar. Lift your chest up and straighten your lower back. Take a big breath, hold it, and stand up with the weight.");
             newVjezba4.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba4);
@@ -205,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba5.setMet(new Float(6));
             newVjezba5.setNaziv("Shoulder press");
             newVjezba5.setTipVjezbe(1);
+            newVjezba5.setRepetition_lenght(5);
             newVjezba5.setUpute("Once the bar clears your head, push your shoulders back, move your head slightly forward and lock-out the bar directly over the top of your head.");
             newVjezba5.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba5);
@@ -214,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba6.setMet(new Float(6));
             newVjezba6.setNaziv("Bench press");
             newVjezba6.setTipVjezbe(1);
+            newVjezba6.setRepetition_lenght(5);
             newVjezba6.setUpute("Keep your chest up throughout the movement. Elbows should be tucked and end up at approximately 45 degrees from your side.");
             newVjezba6.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba6);
@@ -223,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba7.setMet(new Float(5));
             newVjezba7.setNaziv("Squating");
             newVjezba7.setTipVjezbe(1);
+            newVjezba7.setRepetition_lenght(5);
             newVjezba7.setUpute("Squat down by pushing your knees to the side while moving hips back. Break parallel by Squatting down until your hips are lower than your knees. Stand with your hips and knees locked at the top.");
             newVjezba7.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba7);
@@ -232,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba8.setMet(new Float(7.5));
             newVjezba8.setNaziv("Biking");
             newVjezba8.setTipVjezbe(1);
+            newVjezba8.setRepetition_lenght(5);
             newVjezba8.setUpute("Don't pedal in high gear for extended periods of time. Keep your head up.");
             newVjezba8.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba8);

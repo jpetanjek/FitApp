@@ -17,6 +17,7 @@ import com.example.core.entities.Setovi;
 import com.example.core.entities.Vjezba;
 import com.example.database.MyDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import features.Text2Speech;
@@ -75,13 +76,17 @@ public class ExerciseInstructor extends AppCompatActivity {
 
 
         postaviSlikuVjezbe();
+        Log.v("TUSAM", "TU");
 
+        vjezba = new ArrayList<Vjezba>();
+        atributiVjezbiSnage = new ArrayList<AtributiVjezbiSnage>();
         for(int i=0;i < listaKorniskVjezbi.size(); i++){
             //Dohvacanje trajanje repa
             vjezba.add(myDatabase.getVjezbaDAO().dohvatiVjezbu(listaKorniskVjezbi.get(i).getIdVjezba()));
             atributiVjezbiSnage.add(myDatabase.getVjezbaDAO().dohvatiAtributeVjezbeSnagePoVjezbi(listaKorniskVjezbi.get(i).getId()));
         }
         brojTrenutneVjezbe = 0;
+
 
 
         String naziv = toolbar.getTitle().toString();

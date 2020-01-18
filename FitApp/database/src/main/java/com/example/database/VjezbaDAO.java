@@ -69,11 +69,13 @@ public interface VjezbaDAO {
     public List<KorisnikVjezba> dohvatiSveKorisnikoveVjezbe();
 
     @Query("SELECT * FROM korisnik_vjezba WHERE id = :idKorisnikoveVjezbe")
-    public KorisnikVjezba dohvatiKorisnikovuVjezbu(int idKorisnikoveVjezbe);
+    public KorisnikVjezba dohvatiKorisnikovuVjezbu(long idKorisnikoveVjezbe);
 
     @Query("SELECT * FROM korisnik_vjezba WHERE idSet = :idSet")
     public List<KorisnikVjezba> dohvatiVjezbeSeta(int idSet);
 
+    @Query("INSERT INTO korisnik_vjezba (idVjezba) VALUES (:vjezba)")
+    public long createEmpty(int vjezba);
 
 
     // CRUD Setovi

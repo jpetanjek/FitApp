@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExerciseReport"></activity>
+        <activity android:name=".RunningConfiguration"></activity>
+        <activity android:name=".ExerciseReport" />
         <activity android:name=".ExerciseInstructor" />
         <activity android:name=".ExerciseConfiguration" />
         <activity android:name=".AddSelectedFood" />

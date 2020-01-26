@@ -19,7 +19,7 @@ public class RunningConfiguration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_configuration);
 
-        kardioViewModel = ViewModelProviders.of(this).get(kardioViewModel.getClass());
+        kardioViewModel = ViewModelProviders.of(this).get(AtributiKardioViewModel.class);
 
         //vjezbaId dobaviti iz bundle
         int vjezbaId=3;

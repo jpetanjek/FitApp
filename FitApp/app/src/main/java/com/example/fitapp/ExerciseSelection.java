@@ -82,9 +82,9 @@ public class ExerciseSelection extends AppCompatActivity {
                             break;
                         case 1:
                             Toast.makeText(ExerciseSelection.this, "Running description", Toast.LENGTH_SHORT).show();
-                            Intent intentRunning = new Intent(ExerciseSelection.this, ExerciseConfiguration.class);
-                            intentRunning.putExtra("idVjezbe",objektiVjezbi.get(position).getId());
-                            intentRunning.putExtra("naziv",objektiVjezbi.get(position).getNaziv());
+                            Intent intentRunning = new Intent(ExerciseSelection.this, RunningConfiguration.class);
+                            //intentRunning.putExtra("idVjezbe",objektiVjezbi.get(position).getId());
+                            //intentRunning.putExtra("naziv",objektiVjezbi.get(position).getNaziv());
                             startActivity(intentRunning);
                             break;
                         case 2:

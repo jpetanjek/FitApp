@@ -74,14 +74,17 @@ public interface VjezbaDAO {
     @Query("SELECT * FROM korisnik_vjezba WHERE idSet = :idSet")
     public List<KorisnikVjezba> dohvatiVjezbeSeta(int idSet);
 
-    @Query("INSERT INTO korisnik_vjezba (idVjezba) VALUES (:vjezba)")
-    public long createEmpty(int vjezba);
+    @Query("INSERT INTO korisnik_vjezba (idVjezba, idSet) VALUES (:vjezba , :idSet)")
+    public long createEmpty(int vjezba, int idSet);
 
 
     // CRUD Setovi
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] unosSeta(Setovi... setovi);
+
+    @Query("INSERT INTO setovi (idKorisnik,planirano,trajanjePauze) VALUES (:idKorisnik,0,0)")
+    public long createEmptySet(int idKorisnik);
 
     //PROVJERITI
     @Query("SELECT * FROM setovi WHERE id = :idSet")

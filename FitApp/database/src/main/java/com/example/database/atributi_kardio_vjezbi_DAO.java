@@ -27,6 +27,6 @@ public interface atributi_kardio_vjezbi_DAO {
     @Query("SELECT * FROM atributi_kardio_vjezbi WHERE id=:Id")
     public LiveData<AtributiKardioVjezbi> readById(String Id);
 
-    @Query("INSERT INTO atributi_kardio_vjezbi (korisnikVjezbaId) VALUES (:korisnikVjezbaId)")
+    @Query("INSERT INTO atributi_kardio_vjezbi (korisnikVjezbaId,udaljenostPlanirana, udaljenostOtrcana, trajanje, kalorijaPotroseno) VALUES (:korisnikVjezbaId,0,0,0,0)")
     public long createEmpty(int korisnikVjezbaId);
 }

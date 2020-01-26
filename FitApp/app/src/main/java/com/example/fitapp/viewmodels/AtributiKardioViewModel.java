@@ -52,7 +52,7 @@ public class AtributiKardioViewModel extends AndroidViewModel {
 
     //korisnik vjezba
     public KorisnikVjezba createEmptyKorisnikVjezba(int vjezbaId){
-        return KorisnikVjezbaDAL.CreateEmpty(vjezbaId,context);
+        return KorisnikVjezbaDAL.CreateEmpty(vjezbaId,KorisnikVjezbaDAL.CreateEmptySetovi(context).getId(),context);
     }
 
 }

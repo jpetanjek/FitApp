@@ -32,7 +32,6 @@ public class ExerciseInstructor extends AppCompatActivity {
     private String nazivVjezbe;
     private List<Integer> listaKorisnikVjezbeId;
     private Button btnStart;
-    private Button btnFinish;
     private Button btnText2Speech;
     private CountDownTimer countDownTimer=null;
     private TextView tvCountDown;
@@ -58,8 +57,6 @@ public class ExerciseInstructor extends AppCompatActivity {
 
     private int vrijemeOstalihVjezbi;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +64,6 @@ public class ExerciseInstructor extends AppCompatActivity {
 
         //povezivanje varijabli za viewomvima
         btnStart = findViewById(R.id.btnStartTimer);
-        btnFinish = findViewById(R.id.btnFinish);
         tvCountDown = findViewById(R.id.tvCountdownTimer);
         ivCalories = findViewById(R.id.ivCalories);
         text2Speech = Text2Speech.getInstance(this);
@@ -91,9 +87,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         listaKorniskVjezbi = myDatabase.getVjezbaDAO().dohvatiVjezbeSeta(idSeta);
         setovi = myDatabase.getVjezbaDAO().dohvatiSet(idSeta);
 
-
         postaviSlikuVjezbe();
-        Log.v("TUSAM", "TU");
 
         vjezba = new ArrayList<Vjezba>();
         atributiVjezbiSnage = new ArrayList<AtributiVjezbiSnage>();
@@ -103,17 +97,6 @@ public class ExerciseInstructor extends AppCompatActivity {
             atributiVjezbiSnage.add(myDatabase.getVjezbaDAO().dohvatiAtributeVjezbeSnagePoVjezbi(listaKorniskVjezbi.get(i).getId()));
         }
         brojTrenutneVjezbe = 0;
-
-
-
-        String naziv = toolbar.getTitle().toString();
-        naziv = naziv.concat(" id_seta: ");
-        naziv = naziv.concat( Integer.toString(idSeta) );
-        for(int item: listaKorisnikVjezbeId){
-            naziv = naziv.concat( " id:");
-            naziv = naziv.concat(Integer.toString(item));
-        }
-        toolbar.setTitle(naziv);
     }
 
     private void postaviSlikuVjezbe() {
@@ -137,7 +120,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //trajanje rep*broj rep + 10 sekundi za pripremu pozicije
+                //trajanje rep*broj rep + 5 sekundi za pripremu pozicije
                 startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
                 btnStart.setVisibility(View.GONE);
                 btnPause.setVisibility(View.VISIBLE);
@@ -164,16 +147,8 @@ public class ExerciseInstructor extends AppCompatActivity {
             }
         });
 
-        btnFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopTimer();
-            }
-        });
-
         //gumb pauza
         pauseTimer();
-
 
         btnText2Speech.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,8 +163,6 @@ public class ExerciseInstructor extends AppCompatActivity {
 
     private void startTimer(final int trajanjeTimera){
         final int trajanjeTimeraSek = trajanjeTimera * 1000;
-
-
 
         countDownTimer = new CountDownTimer(trajanjeTimeraSek,1000) {
             @Override
@@ -254,9 +227,10 @@ public class ExerciseInstructor extends AppCompatActivity {
                     bundle.putString("brKalorija",ivCalories.getText().toString());
                     bundle.putInt("vrijemeVjezbi",vrijemeOstalihVjezbi);
                     bundle.putInt("vrijemePauzi",0);
-                    Intent intent = new Intent();
+                    Intent intent = new Intent(ExerciseInstructor.this, ExerciseReport.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    ExerciseInstructor.this.finish();
                 }
                 if(pauza==false && zaustavljenoVrijeme==false){
                     brojTrenutneVjezbe++;
@@ -267,6 +241,7 @@ public class ExerciseInstructor extends AppCompatActivity {
                     startTimer(setovi.getTrajanjePauze());
                     pauza=true;
                 }else{
+                    startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
                     pauza=false;
                 }
             }

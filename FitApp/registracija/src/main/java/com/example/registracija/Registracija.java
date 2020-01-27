@@ -21,8 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.example.core.entities.Vjezba;
-import com.example.database.MyDatabase;
 
 import com.bumptech.glide.Glide;
 import com.example.webservice.JsonApi;

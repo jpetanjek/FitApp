@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fitapp.fragments.AccelerometerRunning;
-import com.example.fitapp.fragments.GPSRunning;
 import com.example.fitapp.managers.NamirnicaManager;
 import com.example.fitapp.managers.RunningManager;
 import com.jjoe64.graphview.series.DataPoint;
@@ -49,8 +48,6 @@ public class RunningInstructor extends AppCompatActivity {
         runningManager.setupManager(this);
 
         AccelerometerRunning akcelerometarTrcanje = new AccelerometerRunning();
-        GPSRunning gpsRunning = new GPSRunning();
-        //runningManager.startModule(gpsRunning);
         runningManager.startModule(akcelerometarTrcanje);
     }
 

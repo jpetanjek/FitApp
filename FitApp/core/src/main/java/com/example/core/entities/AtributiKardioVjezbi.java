@@ -15,7 +15,16 @@ public class AtributiKardioVjezbi {
     @ColumnInfo(index = true)
     private int korisnikVjezbaId;
 
-    private float brojMetara;
+    public float getUdaljenostPlanirana() {
+        return udaljenostPlanirana;
+    }
+
+    public void setUdaljenostPlanirana(float udaljenostPlanirana) {
+        this.udaljenostPlanirana = udaljenostPlanirana;
+    }
+
+    private float udaljenostPlanirana;
+    private float udaljenostOtrcana;
     private int trajanje;
     private int kalorijaPotroseno;
 
@@ -35,13 +44,14 @@ public class AtributiKardioVjezbi {
         this.korisnikVjezbaId = korisnikVjezbaId;
     }
 
-    public float getBrojMetara() {
-        return brojMetara;
+    public float getUdaljenostOtrcana() {
+        return udaljenostOtrcana;
     }
 
-    public void setBrojMetara(float brojMetara) {
-        this.brojMetara = brojMetara;
+    public void setUdaljenostOtrcana(float udaljenostOtrcana) {
+        this.udaljenostOtrcana = udaljenostOtrcana;
     }
+
 
     public int getTrajanje() {
         return trajanje;

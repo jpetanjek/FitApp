@@ -18,6 +18,15 @@ public class Vjezba {
     private String upute;
     private Float met;
     private Integer repetition_lenght;
+    private int ikona;
+
+    public int getIkona() {
+        return ikona;
+    }
+
+    public void setIkona(int ikona) {
+        this.ikona = ikona;
+    }
 
     public int getId() {
         return id;
@@ -63,10 +72,12 @@ public class Vjezba {
 
     public void setRepetition_lenght(Integer repetition_lenght) { this.repetition_lenght = repetition_lenght; }
 
-    public Integer izracunajPotroseneKalorije(Integer repetitions,Float tezina){
+    public Float izracunajPotroseneKalorije(Integer sekunde,Float tezina){
         //1 MET = 1 kcal/kg/hr
-        Integer returnme;
-        returnme=((repetition_lenght*repetitions)/3600)* Math.round(tezina);
+        Float returnme;
+        returnme=(sekunde*tezina*met)/3600;
+        System.out.println(returnme);
+
         return  returnme;
     }
 }

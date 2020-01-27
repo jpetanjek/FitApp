@@ -34,9 +34,6 @@ public interface NamirnicaDAO {
     @Query("SELECT * FROM namirnica")
     public List<Namirnica> dohvatiSveNamirnice();
 
-    @Query("SELECT * FROM namirnica n JOIN namirnice_u_obroku nuo ON n.id = nuo.idNamirnica WHERE nuo.obrok = :vrstaObroka ")
-    public List<Namirnica> dohvatiNamirniceIzObroka(String vrstaObroka);
-
     @Query("SELECT * FROM namirnica WHERE naziv  LIKE '%' || :unos || '%'")
     public List<Namirnica> dohvatiNamirnicePoImenu(String unos);
 

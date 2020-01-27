@@ -83,6 +83,13 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
+        Button btnStepChart = findViewById(R.id.stepChart);
+        btnStepChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Glavni_Izbornik.this,RunningInstructor.class));
+            }
+        });
 
 /*
         Button button = (Button) findViewById(R.id.registracija);

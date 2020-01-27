@@ -56,6 +56,7 @@ public class ExerciseInstructor extends AppCompatActivity {
     private Vjezba vjezbaIzvodenja;
 
     private int vrijemeOstalihVjezbi;
+    private float ukupanBrojKalorija;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         setovi = myDatabase.getVjezbaDAO().dohvatiSet(idSeta);
 
         postaviSlikuVjezbe();
+        ukupanBrojKalorija=0;
 
         vjezba = new ArrayList<Vjezba>();
         atributiVjezbiSnage = new ArrayList<AtributiVjezbiSnage>();
@@ -121,7 +123,7 @@ public class ExerciseInstructor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //trajanje rep*broj rep + 5 sekundi za pripremu pozicije
-                startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
+                startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja());
                 btnStart.setVisibility(View.GONE);
                 btnPause.setVisibility(View.VISIBLE);
             }
@@ -171,8 +173,10 @@ public class ExerciseInstructor extends AppCompatActivity {
 
                 if(zaustavljenoVrijeme==false && pauza==false){
                     //broji kalorije
-                    String brKalorija = String.format("%.2f",vjezba.get(brojTrenutneVjezbe).izracunajPotroseneKalorije( trajanjeTimeraSek/1000 - (int) millisUntilFinished/1000+vrijemeOstalihVjezbi, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()));
-                    ivCalories.setText(brKalorija);
+                    ukupanBrojKalorija +                                                          = (vjezba.get(brojTrenutneVjezbe)
+                            .izracunajPotroseneKalorije( 1, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()));
+
+                    ivCalories.setText( String.format ("%.2f", ukupanBrojKalorija) );
                 }
 
                 if(millisUntilFinished / 1000 == trajanjeTimeraSek-1 && zaustavljenoVrijeme==false && pauza==false){
@@ -241,7 +245,7 @@ public class ExerciseInstructor extends AppCompatActivity {
                     startTimer(setovi.getTrajanjePauze());
                     pauza=true;
                 }else{
-                    startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja()+5);
+                    startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja());
                     pauza=false;
                 }
             }

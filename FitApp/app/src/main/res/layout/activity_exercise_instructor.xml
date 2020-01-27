@@ -128,7 +128,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="11dp"
         android:layout_marginEnd="121dp"
-        android:text="82"
+        android:text="0"
         android:textSize="24sp" />
 
     <ImageView

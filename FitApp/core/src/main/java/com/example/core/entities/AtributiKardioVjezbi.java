@@ -52,13 +52,6 @@ public class AtributiKardioVjezbi {
         this.udaljenostOtrcana = udaljenostOtrcana;
     }
 
-    public float getudaljenostPlanirana() {
-        return udaljenostPlanirana;
-    }
-
-    public void setudaljenostPlanirana(float brojMetara) {
-        this.udaljenostPlanirana = brojMetara;
-    }
 
     public int getTrajanje() {
         return trajanje;

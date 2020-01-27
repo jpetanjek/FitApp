@@ -28,7 +28,7 @@ public class AtributiKardioVjezbiDAL {
 
     //LIVE
 
-    public static LiveData<AtributiKardioVjezbi> ReadById(String id, Context context){
+    public static AtributiKardioVjezbi ReadById(int id, Context context){
         return MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().readById(id);
     }
 
@@ -38,7 +38,7 @@ public class AtributiKardioVjezbiDAL {
 
     public static LiveData<AtributiKardioVjezbi> CreateEmpty(Context context, int korisnikVjezbaId) {
         long id = MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().createEmpty(korisnikVjezbaId);
-        return MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().readById(String.valueOf(id));
+        return MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().readByIdLive(String.valueOf(id));
     }
 
     //ASYNC

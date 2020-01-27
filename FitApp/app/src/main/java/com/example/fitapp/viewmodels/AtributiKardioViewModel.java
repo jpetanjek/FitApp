@@ -42,7 +42,7 @@ public class AtributiKardioViewModel extends AndroidViewModel {
         AtributiKardioVjezbiDAL.Update(context,atributiKardioVjezbi);
     }
 
-    public LiveData<AtributiKardioVjezbi> ReadById(String id){
+    public AtributiKardioVjezbi ReadById(int id){
         return AtributiKardioVjezbiDAL.ReadById(id,context);
     }
 

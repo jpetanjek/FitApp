@@ -12,16 +12,13 @@ public class KorisnikVjezba {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ForeignKey(entity = Korisnik.class,parentColumns = "id",childColumns = "idKorisnik")
-    private int idKorisnik;
+    @ForeignKey(entity = Setovi.class,parentColumns = "id",childColumns = "idSet")
+    private int idSet;
 
     @ForeignKey(entity = Vjezba.class,parentColumns = "id",childColumns = "idVjezba")
     private int idVjezba;
 
-
-    //private Date datumPocetka;
-    private boolean planirano;
-    private String idGoogleKalendar;
+    private String datumVrijemePocetka;
 
     public int getId() {
         return id;
@@ -31,12 +28,12 @@ public class KorisnikVjezba {
         this.id = id;
     }
 
-    public int getIdKorisnik() {
-        return idKorisnik;
+    public int getIdSet() {
+        return idSet;
     }
 
-    public void setIdKorisnik(int idKorisnik) {
-        this.idKorisnik = idKorisnik;
+    public void setIdSet(int idSet) {
+        this.idSet = idSet;
     }
 
     public int getIdVjezba() {
@@ -47,29 +44,11 @@ public class KorisnikVjezba {
         this.idVjezba = idVjezba;
     }
 
-    /*
-    public Date getDatumPocetka() {
-        return datumPocetka;
+    public String getDatumVrijemePocetka() {
+        return datumVrijemePocetka;
     }
 
-    public void setDatumPocetka(Date datumPocetka) {
-        this.datumPocetka = datumPocetka;
-    }
-     */
-
-    public boolean isPlanirano() {
-        return planirano;
-    }
-
-    public void setPlanirano(boolean planirano) {
-        this.planirano = planirano;
-    }
-
-    public String getIdGoogleKalendar() {
-        return idGoogleKalendar;
-    }
-
-    public void setIdGoogleKalendar(String idGoogleKalendar) {
-        this.idGoogleKalendar = idGoogleKalendar;
+    public void setDatumVrijemePocetka(String datumVrijemePocetka) {
+        this.datumVrijemePocetka = datumVrijemePocetka;
     }
 }

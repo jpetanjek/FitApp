@@ -41,6 +41,8 @@ public class ExerciseInstructor extends AppCompatActivity {
 
     private Button btnPause;
     private Button btnResume;
+    private Button btnFinish;
+
 
     private List<KorisnikVjezba> listaKorniskVjezbi;
     private List<Vjezba> vjezba;
@@ -73,6 +75,7 @@ public class ExerciseInstructor extends AppCompatActivity {
 
         btnResume = findViewById(R.id.btnResume);
         btnPause = findViewById(R.id.btnPause);
+        btnFinish = findViewById(R.id.btnFinish);
 
 
         nazivVjezbe = getIntent().getExtras().getString("nazivVjezbe");
@@ -149,6 +152,13 @@ public class ExerciseInstructor extends AppCompatActivity {
             }
         });
 
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zavrsiVjezbu();
+            }
+        });
+
         //gumb pauza
         pauseTimer();
 
@@ -173,7 +183,7 @@ public class ExerciseInstructor extends AppCompatActivity {
 
                 if(zaustavljenoVrijeme==false && pauza==false){
                     //broji kalorije
-                    ukupanBrojKalorija +                                                          = (vjezba.get(brojTrenutneVjezbe)
+                    ukupanBrojKalorija += (vjezba.get(brojTrenutneVjezbe)
                             .izracunajPotroseneKalorije( 1, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()));
 
                     ivCalories.setText( String.format ("%.2f", ukupanBrojKalorija) );
@@ -227,14 +237,7 @@ public class ExerciseInstructor extends AppCompatActivity {
                 //ako je zadnja vjezba u setu
                 if(brojTrenutneVjezbe==listaKorniskVjezbi.size()){
                     //prijedi na ekran izvjestaja
-                    Bundle bundle = new Bundle();
-                    bundle.putString("brKalorija",ivCalories.getText().toString());
-                    bundle.putInt("vrijemeVjezbi",vrijemeOstalihVjezbi);
-                    bundle.putInt("vrijemePauzi",0);
-                    Intent intent = new Intent(ExerciseInstructor.this, ExerciseReport.class);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    ExerciseInstructor.this.finish();
+                    zavrsiVjezbu();
                 }
                 if(pauza==false && zaustavljenoVrijeme==false){
                     brojTrenutneVjezbe++;
@@ -253,8 +256,6 @@ public class ExerciseInstructor extends AppCompatActivity {
         countDownTimer.start();
     }
 
-
-
     private void pauseTimer(){
         if(countDownTimer!= null){
             countDownTimer.cancel();
@@ -267,7 +268,17 @@ public class ExerciseInstructor extends AppCompatActivity {
             countDownTimer.cancel();
             zaustavljenoVrijeme = false;
         }
+    }
 
+    private void zavrsiVjezbu(){
+        Bundle bundle = new Bundle();
+        bundle.putString("brKalorija",ivCalories.getText().toString());
+        bundle.putInt("vrijemeVjezbi",vrijemeOstalihVjezbi);
+        bundle.putInt("vrijemePauzi",0);
+        Intent intent = new Intent(ExerciseInstructor.this, ExerciseReport.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        ExerciseInstructor.this.finish();
     }
 
 }

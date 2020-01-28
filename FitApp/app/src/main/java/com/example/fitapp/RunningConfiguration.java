@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,12 +39,15 @@ public class RunningConfiguration extends AppCompatActivity {
         minus = findViewById(R.id.minus);
         start = findViewById(R.id.startButton);
 
+        //bundle za id vjezbe
+        int idVjezba = getIntent().getExtras().getInt("idVjezbe");
+
         kardioViewModel = ViewModelProviders.of(this).get(AtributiKardioViewModel.class);
 
 
-        //vjezbaId je 1 za trcanje
-        int vjezbaId=1;
-        KorisnikVjezba korisnikVjezba = kardioViewModel.createEmptyKorisnikVjezba(vjezbaId);
+        //vjezbaId je 2 za trcanje
+        //int vjezbaId=2;
+        KorisnikVjezba korisnikVjezba = kardioViewModel.createEmptyKorisnikVjezba(idVjezba);
 
         atributiKardioVjezbi = kardioViewModel.createEmpty(korisnikVjezba.getId());
 
@@ -85,6 +89,10 @@ public class RunningConfiguration extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(RunningConfiguration.this, RunningInstructorV2.class);
+                intent.putExtra("idAtributiKardio", atributiKardioVjezbi.getValue().getId());
+                intent.putExtra("idVjezba", idVjezba);
+                startActivity(intent);
             }
         });
     }

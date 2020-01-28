@@ -1,5 +1,7 @@
 package com.example.core.entities;
 
+import android.os.SystemClock;
+
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -137,5 +139,15 @@ public class Korisnik {
         korisnik.google_id= response.body().getGoogle_id();
 
         return korisnik;
+    }
+
+    public float potroseneKalorije(int vrijeme, float mets){
+        float sati= (float) (vrijeme/1000.0/3600.0);
+        System.out.println("potroseneKalorije");
+        System.out.println(sati);
+        System.out.println(mets);
+        System.out.println(getMasa());
+        System.out.println(mets*getMasa()*sati);
+        return  (mets*getMasa()*sati);
     }
 }

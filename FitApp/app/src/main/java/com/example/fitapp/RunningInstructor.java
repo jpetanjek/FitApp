@@ -10,6 +10,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fitapp.fragments.AccelerometerRunning;
+import com.example.fitapp.fragments.GPSRunning;
 import com.example.fitapp.managers.NamirnicaManager;
 import com.example.fitapp.managers.RunningManager;
 import com.jjoe64.graphview.series.DataPoint;
@@ -48,7 +50,15 @@ public class RunningInstructor extends AppCompatActivity {
         runningManager.setupManager(this);
 
         AccelerometerRunning akcelerometarTrcanje = new AccelerometerRunning();
-        runningManager.startModule(akcelerometarTrcanje);
+        GPSRunning gpsRunning = new GPSRunning();
+        runningManager.startModule(gpsRunning);
+
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            runningManager.startModule(gpsRunning);
+        }else{
+            runningManager.startModule(akcelerometarTrcanje);
+        }
     }
 
     @Override

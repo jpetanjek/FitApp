@@ -438,6 +438,7 @@
                             android:textAllCaps="false" />
 
                         <Button
+                            android:id="@+id/stepChart"
                             android:layout_width="104dp"
                             android:layout_height="43dp"
                             android:layout_weight="1"

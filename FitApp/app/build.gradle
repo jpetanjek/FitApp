@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -81,5 +85,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_version"
     implementation "androidx.cardview:cardview:$recyclerview_version"
     implementation 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
+    implementation 'com.jjoe64:graphview:4.2.1'
     compile project(path: ':unos_hrane')
 }

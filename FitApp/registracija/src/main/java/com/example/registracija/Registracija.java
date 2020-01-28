@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 import com.example.webservice.JsonApi;
@@ -48,6 +50,14 @@ public class Registracija extends AppCompatActivity {
     Float weightGainLossGoal;
     String gender;
     String datumRodenja;
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -316,10 +326,6 @@ public class Registracija extends AppCompatActivity {
                                     System.out.println("Ne radi");
                                 }
                             });
-
-                            //još ga nadodati u lokalnu bazu¸¸
-
-
                 }
                 else{
                     System.out.println("error");
@@ -339,9 +345,6 @@ public class Registracija extends AppCompatActivity {
                     positiveButtonLL.weight=10;
                     positiveButtonLL.gravity = Gravity.CENTER;
                     neutralButton.setLayoutParams(positiveButtonLL);
-
-
-
 
                 }
 

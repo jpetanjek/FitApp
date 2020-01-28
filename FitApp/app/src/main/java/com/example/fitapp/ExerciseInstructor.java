@@ -20,6 +20,8 @@ import com.example.database.MyDatabase;
 import com.example.repository.KorisnikDAL;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -57,7 +59,9 @@ public class ExerciseInstructor extends AppCompatActivity {
 
     private Vjezba vjezbaIzvodenja;
 
+    private Date pocetakSeta;
     private int vrijemeOstalihVjezbi;
+    private int ukupnoTrajanjeVjezbanja;
     private float ukupanBrojKalorija;
 
     @Override
@@ -93,6 +97,8 @@ public class ExerciseInstructor extends AppCompatActivity {
 
         postaviSlikuVjezbe();
         ukupanBrojKalorija=0;
+        pocetakSeta = Calendar.getInstance().getTime();
+        ukupnoTrajanjeVjezbanja=0;
 
         vjezba = new ArrayList<Vjezba>();
         atributiVjezbiSnage = new ArrayList<AtributiVjezbiSnage>();
@@ -135,7 +141,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         btnResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTimer((int) preostaloVrijeme/1000+5);
+                startTimer((int) preostaloVrijeme/1000);
                 zaustavljenoVrijeme=false;
                 btnResume.setVisibility(View.GONE);
                 btnPause.setVisibility(View.VISIBLE);
@@ -185,6 +191,7 @@ public class ExerciseInstructor extends AppCompatActivity {
                     //broji kalorije
                     ukupanBrojKalorija += (vjezba.get(brojTrenutneVjezbe)
                             .izracunajPotroseneKalorije( 1, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()));
+                    ukupnoTrajanjeVjezbanja++;
 
                     ivCalories.setText( String.format ("%.2f", ukupanBrojKalorija) );
                 }
@@ -273,8 +280,9 @@ public class ExerciseInstructor extends AppCompatActivity {
     private void zavrsiVjezbu(){
         Bundle bundle = new Bundle();
         bundle.putString("brKalorija",ivCalories.getText().toString());
-        bundle.putInt("vrijemeVjezbi",vrijemeOstalihVjezbi);
+        bundle.putInt("vrijemeVjezbi",ukupnoTrajanjeVjezbanja);
         bundle.putInt("vrijemePauzi",0);
+        bundle.putString("pocetakSeta", pocetakSeta.toString());
         Intent intent = new Intent(ExerciseInstructor.this, ExerciseReport.class);
         intent.putExtras(bundle);
         startActivity(intent);

@@ -173,7 +173,7 @@ public class ExerciseInstructor extends AppCompatActivity {
 
                 if(zaustavljenoVrijeme==false && pauza==false){
                     //broji kalorije
-                    ukupanBrojKalorija +                                                          = (vjezba.get(brojTrenutneVjezbe)
+                    ukupanBrojKalorija += (vjezba.get(brojTrenutneVjezbe)
                             .izracunajPotroseneKalorije( 1, KorisnikDAL.Trenutni(getApplicationContext()).getMasa()));
 
                     ivCalories.setText( String.format ("%.2f", ukupanBrojKalorija) );

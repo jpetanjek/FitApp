@@ -25,11 +25,11 @@ public interface atributi_kardio_vjezbi_DAO {
     public LiveData<AtributiKardioVjezbi> readByKorisnikVjezba(String korisnikVjezbaId);
 
     @Query("SELECT * FROM atributi_kardio_vjezbi WHERE id=:Id")
-    public LiveData<AtributiKardioVjezbi> readByIdLive(String Id);
+    public LiveData<AtributiKardioVjezbi> readByIdLive(int Id);
 
     @Query("SELECT * FROM atributi_kardio_vjezbi WHERE id=:Id")
     public AtributiKardioVjezbi readById(int Id);
 
-    @Query("INSERT INTO atributi_kardio_vjezbi (korisnikVjezbaId,udaljenostPlanirana, udaljenostOtrcana, trajanje, kalorijaPotroseno) VALUES (:korisnikVjezbaId,0,0,0,0)")
+    @Query("INSERT INTO atributi_kardio_vjezbi (korisnikVjezbaId,udaljenostPlanirana, udaljenostOtrcana, trajanje, kalorijaPotroseno) VALUES (:korisnikVjezbaId,1,0,0,0)")
     public long createEmpty(int korisnikVjezbaId);
 }

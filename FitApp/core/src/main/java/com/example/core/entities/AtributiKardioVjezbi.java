@@ -26,7 +26,7 @@ public class AtributiKardioVjezbi {
     private float udaljenostPlanirana;
     private float udaljenostOtrcana;
     private int trajanje;
-    private int kalorijaPotroseno;
+    private float kalorijaPotroseno;
 
     public int getId() {
         return id;
@@ -61,11 +61,11 @@ public class AtributiKardioVjezbi {
         this.trajanje = trajanje;
     }
 
-    public int getKalorijaPotroseno() {
+    public float getKalorijaPotroseno() {
         return kalorijaPotroseno;
     }
 
-    public void setKalorijaPotroseno(int kalorijaPotroseno) {
+    public void setKalorijaPotroseno(float kalorijaPotroseno) {
         this.kalorijaPotroseno = kalorijaPotroseno;
     }
 }

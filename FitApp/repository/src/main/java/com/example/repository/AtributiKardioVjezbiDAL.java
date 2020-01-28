@@ -25,11 +25,14 @@ public class AtributiKardioVjezbiDAL {
         new DeleteAsyncTask(context).execute(atributiKardioVjezbis);
     }
 
+    public static AtributiKardioVjezbi ReadById(int id, Context context){
+        return MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().readById(id);
+    }
 
     //LIVE
 
-    public static AtributiKardioVjezbi ReadById(int id, Context context){
-        return MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().readById(id);
+    public static LiveData<AtributiKardioVjezbi> ReadByIdLIVE(int id, Context context){
+        return MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().readByIdLive(id);
     }
 
     public static LiveData<AtributiKardioVjezbi> ReadByKorisnikVjezbaId(String korisnikVjezbaId, Context context){
@@ -38,7 +41,7 @@ public class AtributiKardioVjezbiDAL {
 
     public static LiveData<AtributiKardioVjezbi> CreateEmpty(Context context, int korisnikVjezbaId) {
         long id = MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().createEmpty(korisnikVjezbaId);
-        return MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().readByIdLive(String.valueOf(id));
+        return MyDatabase.getInstance(context).getAtributiKardioVjezbioDAO().readByIdLive((int)id);
     }
 
     //ASYNC

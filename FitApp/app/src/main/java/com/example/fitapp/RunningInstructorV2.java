@@ -45,7 +45,7 @@ import managers.RunningInterface;
 public class RunningInstructorV2 extends AppCompatActivity {
     private Chronometer chronometer;
     private long pauseOffset;
-    private boolean GPS_DOZVOLJEN;
+    private LocationManager lm;
 
     //ViewModel
     private AtributiKardioViewModel kardioViewModel;
@@ -71,15 +71,16 @@ public class RunningInstructorV2 extends AppCompatActivity {
         setContentView(R.layout.activity_running_instructor_v2);
 
         CurrentActivity.setActivity(this);
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
 
-            //int check = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-           // if(check!= PackageManager.PERMISSION_GRANTED){
-            //    ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},42);
-           // }
-            //LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            //modulTrcanja = new GPSTrcanje(GPS_DOZVOLJEN,locationManager);
+            int check = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+            if(check!= PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},42);
+            }else{
+                modulTrcanja = new GPSTrcanje(true,lm);
+                modulTrcanja.update();
+            }
         }else{
             modulTrcanja = new Akcelerometar();
         }
@@ -116,7 +117,9 @@ public class RunningInstructorV2 extends AppCompatActivity {
                 update.setTrajanje((int) (SystemClock.elapsedRealtime()-chronometer.getBase()));
 
 
-                modulTrcanja.update();
+                if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                    modulTrcanja.update();
+                }
                 Log.e("STEPS:",String.valueOf(modulTrcanja.getDistance()));
                 update.setUdaljenostOtrcana(modulTrcanja.getDistance());
                 kardioViewModel.update(update);
@@ -197,7 +200,8 @@ public class RunningInstructorV2 extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 42 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            GPS_DOZVOLJEN = true;
+            modulTrcanja = new GPSTrcanje(true,lm);
+            modulTrcanja.update();
         }
     }
 }

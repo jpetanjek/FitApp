@@ -1,68 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RunningReport">
 
-    <Chronometer
-        android:id="@+id/chronometer"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarAddFood"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
-        android:layout_marginEnd="284dp"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:logo="@drawable/ic_arrow_back_black_24dp"
+        app:title="@string/Running"
+        app:titleMarginStart="30dp"
+        app:titleTextColor="@color/black"
+        tools:layout_editor_absoluteX="0dp" />
 
-    <TextView
-        android:id="@+id/datumPocetak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="80dp"
-        android:text="Datum Pocetka"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/glavni"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarAddFood"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/datumKraj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="108dp"
-        android:text="Datum Kraj"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/prvi"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginTop="10dp"
+            android:gravity="bottom|center"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
 
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="136dp"
-        android:text="Kilometri"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:id="@+id/prvi_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/pace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="164dp"
-        android:text="Pace"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <Chronometer
+                    android:id="@+id/chronometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="45sp" />
 
-    <TextView
-        android:id="@+id/kalorijeIspis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="192dp"
-        android:text="Kalorije"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/cardview_dark_background"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="45sp"
+                    android:text="min " />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/prvi_2"
+                android:layout_below="@id/prvi_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/prvi_2_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="80dp">
+
+                    <TextView
+                        android:id="@+id/distance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:text="0.0" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:textSize="20sp"
+                        android:textColor="@color/cardview_dark_background"
+                        android:text="km" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/prvi_2_2"
+                    android:layout_below="@id/prvi_2_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/pace2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:text="0.0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="km/h"
+                        android:textSize="20sp"
+                        android:textColor="@color/cardview_dark_background" />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drugi_0"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/prvi"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/cardview_dark_background"
+                android:text="Workout details " />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---------------------------------------------------------" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/drugi_01"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/drugi_0"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="Start: " />
+            <TextView
+                android:id="@+id/datumPocetak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Datum Pocetka" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drugi_02"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/drugi_01"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="End: " />
+            <TextView
+                android:id="@+id/datumKraj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Datum Kraj" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drugi"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/drugi_02"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="Distance: " />
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Distance" />
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="km" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/treci"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/drugi"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="Total calories:" />
+
+            <TextView
+                android:id="@+id/kalorijeIspis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="KalorijeIspis" />
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="kcal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cetvrti"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/treci"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="Avg. pace" />
+
+            <TextView
+                android:id="@+id/pace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Pace" />
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="km/h" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

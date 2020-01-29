@@ -21,5 +21,7 @@
     <string name="elapsed_time">Elapsed time:&#160;</string>
     <string name="time_per_km">Seconds per kilometer&#160;</string>
     <string name="appbar_scrolling_view_behavior">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="running">running</string>
+    <string name="Running">Running</string>
 
 </resources>

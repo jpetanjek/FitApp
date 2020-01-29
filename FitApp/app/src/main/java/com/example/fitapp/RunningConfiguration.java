@@ -22,6 +22,8 @@ import com.example.repository.NamirnicaDAL;
 
 import java.util.Calendar;
 
+import adapter.CurrentActivity;
+
 public class RunningConfiguration extends AppCompatActivity {
     private AtributiKardioViewModel kardioViewModel;
     private LiveData<AtributiKardioVjezbi> atributiKardioVjezbi;
@@ -98,7 +100,9 @@ public class RunningConfiguration extends AppCompatActivity {
                 intent.putExtra("idAtributiKardio", atributiKardioVjezbi.getValue().getId());
                 intent.putExtra("idVjezba", idVjezba);
                 intent.putExtra("idKorisnikVjezba", korisnikVjezba.getId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         });
     }

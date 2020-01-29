@@ -122,7 +122,7 @@ public class RunningInstructorV2 extends AppCompatActivity {
                 AtributiKardioVjezbi update = AtributiKardioVjezbiDAL.ReadById(idAtributKardio,getApplicationContext());
                 //sa korisnika izracun
                 update.setKalorijaPotroseno(kardioViewModel.brojKalorija((int) (SystemClock.elapsedRealtime()-chronometer.getBase()),idVjezba));
-                update.setTrajanje((int) (SystemClock.elapsedRealtime()-chronometer.getBase()));
+                update.setTrajanje((int) (SystemClock.elapsedRealtime()-chronometer.getBase())/1000);
 
                 if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
                     modulTrcanja.update();
@@ -204,18 +204,23 @@ public class RunningInstructorV2 extends AppCompatActivity {
     }
 
     public void resetChronometer() {
-        chronometer.setBase(SystemClock.elapsedRealtime());
-        pauseOffset = 0;
+
         //prebaci se na novu aktivnost
         KorisnikVjezba korisnikVjezba = kardioViewModel.readById(idKorisnikVjezba);
-        korisnikVjezba.setDatumVrijemePocetka(String.valueOf(Calendar.getInstance().getTime()));
+        korisnikVjezba.setDatumVrijemeKraja(String.valueOf(Calendar.getInstance().getTime()));
         kardioViewModel.updateKorisnikVjezba(korisnikVjezba);
 
-        Intent intent = new Intent(RunningInstructorV2.this, RunningInstructorV2.class);
+        Intent intent = new Intent(RunningInstructorV2.this, RunningReport.class);
         intent.putExtra("idAtributiKardio", idAtributKardio);
         intent.putExtra("idVjezba", idVjezba);
         intent.putExtra("idKorisnikVjezba", idKorisnikVjezba);
+        intent.putExtra("base", SystemClock.elapsedRealtime() - pauseOffset);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        finish();
+
+        //chronometer.setBase(SystemClock.elapsedRealtime());
+        //pauseOffset = 0;
     }
 
     @Override

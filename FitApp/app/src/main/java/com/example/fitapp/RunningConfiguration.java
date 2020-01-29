@@ -97,6 +97,7 @@ public class RunningConfiguration extends AppCompatActivity {
                 Intent intent = new Intent(RunningConfiguration.this, RunningInstructorV2.class);
                 intent.putExtra("idAtributiKardio", atributiKardioVjezbi.getValue().getId());
                 intent.putExtra("idVjezba", idVjezba);
+                intent.putExtra("idKorisnikVjezba", korisnikVjezba.getId());
                 startActivity(intent);
             }
         });

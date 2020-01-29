@@ -67,6 +67,10 @@ public class AtributiKardioViewModel extends AndroidViewModel {
         KorisnikVjezbaDAL.update(update,context);
     }
 
+    public KorisnikVjezba readById(int idKorisnikVjezba){
+        return KorisnikVjezbaDAL.readById(idKorisnikVjezba,context);
+    }
+
     //vjezba
     public Vjezba readVjezba(int id){
         return KorisnikVjezbaDAL.readVjezba(id,context);

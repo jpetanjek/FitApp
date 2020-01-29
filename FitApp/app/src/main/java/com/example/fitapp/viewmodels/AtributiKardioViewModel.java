@@ -8,10 +8,14 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.core.entities.AtributiKardioVjezbi;
+import com.example.core.entities.Korisnik;
 import com.example.core.entities.KorisnikVjezba;
 import com.example.core.entities.NamirniceObroka;
+import com.example.core.entities.Vjezba;
+import com.example.database.MyDatabase;
 import com.example.database.VjezbaDAO;
 import com.example.repository.AtributiKardioVjezbiDAL;
+import com.example.repository.KorisnikDAL;
 import com.example.repository.KorisnikVjezbaDAL;
 import com.example.repository.NamirnicaDAL;
 
@@ -46,6 +50,10 @@ public class AtributiKardioViewModel extends AndroidViewModel {
         return AtributiKardioVjezbiDAL.ReadById(id,context);
     }
 
+    public LiveData<AtributiKardioVjezbi> ReadByIdLIVE(int id){
+        return AtributiKardioVjezbiDAL.ReadByIdLIVE(id,context);
+    }
+
     public LiveData<AtributiKardioVjezbi> ReadByKorisnikVjezbaId(String id){
         return AtributiKardioVjezbiDAL.ReadByKorisnikVjezbaId(id,context);
     }
@@ -55,4 +63,13 @@ public class AtributiKardioViewModel extends AndroidViewModel {
         return KorisnikVjezbaDAL.CreateEmpty(vjezbaId,KorisnikVjezbaDAL.CreateEmptySetovi(context).getId(),context);
     }
 
+    //vjezba
+    public Vjezba readVjezba(int id){
+        return KorisnikVjezbaDAL.readVjezba(id,context);
+    }
+
+    //korisnik
+    public float brojKalorija(int vrijeme,int idVjezbe){
+        return KorisnikDAL.Trenutni(context).potroseneKalorije(vrijeme,readVjezba(idVjezbe).getMet());
+    }
 }

@@ -506,13 +506,14 @@
                                     android:orientation="horizontal"
                                     android:gravity="center">
 
-                                    <Button
+                                    <!--<Button
                                         android:layout_width="match_parent"
                                         android:layout_height="43dp"
                                         android:layout_weight="1"
                                         android:background="@drawable/btn2_background"
                                         android:text="Measure"
                                         android:textAllCaps="false" />
+                                     -->
 
                                 </LinearLayout>
                             </LinearLayout>

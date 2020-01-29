@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.core.entities.Vjezba;
+import com.example.database.MyDatabase;
 import com.example.fitapp.viewmodels.NamirniceObrokaViewModel;
 import com.example.repository.NamirnicaDAL;
 
@@ -54,9 +56,6 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
-
-
-
         Button btnFoodDiary = findViewById(R.id.btnFoodDiary);
         btnFoodDiary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,14 +63,6 @@ public class Glavni_Izbornik extends AppCompatActivity {
                 Intent intent = new Intent(Glavni_Izbornik.this, FoodDiary.class);
                 startActivity(intent);
 
-            }
-        });
-        Button btnBarkodSkener = findViewById(R.id.btnBarkodSkener);
-        btnBarkodSkener.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(Glavni_Izbornik.this,BarkodSkenerActivity.class));
-                startActivity(new Intent(Glavni_Izbornik.this,AddFoodToMeal.class));
             }
         });
 
@@ -83,7 +74,13 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
-
+        Button btnMeasure = findViewById(R.id.btnMeasure);
+        btnMeasure.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Glavni_Izbornik.this,Profil.class));
+            }
+        });
 /*
         Button button = (Button) findViewById(R.id.registracija);
 
@@ -105,12 +102,23 @@ public class Glavni_Izbornik extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
         int ukupniBrojKalorija = namirniceObrokaViewModel.getUkupniBrojKalorija(dohvatiStringDatuma());
         TextView brojKalorija = findViewById(R.id.actual_food);
         brojKalorija.setText(String.valueOf(ukupniBrojKalorija));
+
+        TextView tezinaKorisnika = findViewById(R.id.weight);
+        tezinaKorisnika.setText(String.valueOf(MyDatabase.getInstance(this).getKorisnikDAO().dohvatiKorisnika().getMasa()));
     }
 
     public static View getToolbarLogoView(Toolbar toolbar){

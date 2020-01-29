@@ -23,46 +23,61 @@
         app:titleTextColor="@color/black"
         />
 
-        <LinearLayout
-            android:id="@+id/lista"
-            android:layout_marginTop="15dp"
-            android:layout_below="@id/toolbar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ListView
-                android:id="@+id/lvOdabirVjezbi"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                tools:listitem="@layout/exercise_conf_item">
-            </ListView>
-
-
-
-        </LinearLayout>
-
-
-
-    <ImageView
-        android:id="@+id/ivSlika"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/lista"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-         />
-
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_below="@id/ivSlika"
+    <LinearLayout
+        android:id="@+id/lista"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/toolbar1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:background="@color/colorPrimary"
-        android:height="10dp"
-        android:text="START"/>
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/lvOdabirVjezbi"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            tools:listitem="@layout/exercise_conf_item">
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/treci"
+        android:layout_width="match_parent"
+        android:layout_height="351dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/lista"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/ivSlika"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zadnji"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/treci"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+
+            android:text="Start"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:background="@drawable/btn4_background" />
+    </LinearLayout>
 
 </RelativeLayout>

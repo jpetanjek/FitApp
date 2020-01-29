@@ -8,6 +8,7 @@
     <string name="search_for_food">Search for food</string>
     <string name="search_for_a_food">Search for a food</string>
     <string name="add_new_food">Add new food</string>
+
     <!-- Snackbar messages -->
     <string name="start">Tracking started!</string>
     <string name="granted">GPS access granted!</string>

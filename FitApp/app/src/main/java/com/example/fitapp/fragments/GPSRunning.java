@@ -277,4 +277,19 @@ public class GPSRunning extends Fragment implements RunningInterface {
     public Fragment getFragment() {
         return this;
     }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void reset() {
+
+    }
 }

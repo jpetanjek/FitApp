@@ -49,6 +49,7 @@ public class RunningInstructor extends AppCompatActivity {
         runningManager = RunningManager.getInstance();
         runningManager.setupManager(this);
 
+        /*
         AccelerometerRunning akcelerometarTrcanje = new AccelerometerRunning();
         GPSRunning gpsRunning = new GPSRunning();
         runningManager.startModule(gpsRunning);
@@ -59,6 +60,8 @@ public class RunningInstructor extends AppCompatActivity {
         }else{
             runningManager.startModule(akcelerometarTrcanje);
         }
+
+         */
     }
 
     @Override

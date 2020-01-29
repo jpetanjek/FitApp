@@ -1,24 +1,16 @@
-package com.example.fitapp.fragments;
+package com.example.fitapp.running;
 
 import android.content.Context;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
+import android.os.Handler;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.fitapp.DebugRunningInstructor;
 import com.example.fitapp.R;
@@ -29,11 +21,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import adapter.CurrentActivity;
 import managers.RunningInterface;
 
-
-public class AccelerometerRunning extends Fragment implements SensorEventListener, RunningInterface {
-
+public class Akcelerometar implements SensorEventListener, RunningInterface {
     /*SENZOR EVENT VARIJABLE */
 
     private static int SMOOTHING_WINDOW_SIZE = 20;
@@ -73,13 +64,8 @@ public class AccelerometerRunning extends Fragment implements SensorEventListene
     private int stepCounter = 0;
     private int lastStep = 0;
     private boolean showedGoalReach = false;
-
-    private View view;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+    public Akcelerometar(){
+        mSensorManager = (SensorManager) CurrentActivity.getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensorCount = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         mSensorAcc = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, mSensorCount, SensorManager.SENSOR_DELAY_UI);
@@ -90,50 +76,7 @@ public class AccelerometerRunning extends Fragment implements SensorEventListene
 
         stepCounter = (int) DebugRunningInstructor.mStepCounter;
         mHandler = new Handler();
-
     }
-    private void updateView(){
-        if(DebugRunningInstructor.mStepCounter > stepCounter) {
-            stepCounter = (int) DebugRunningInstructor.mStepCounter;
-        }
-        TextView ukupnaUdaljenost = view.findViewById(R.id.kalkuliranaUdaljenost);
-        TextView ukupanBrojKoraka = view.findViewById(R.id.brojKoraka);
-        String udaljenost = String.valueOf((int)mStepCounter*0.8); // Treba desti na dvije decimale!!
-        ukupnaUdaljenost.setText(udaljenost+" m");
-        ukupanBrojKoraka.setText(String.valueOf((int)mStepCounter));
-        lastStep = (int)mStepCounter;
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        stopRepeatingTask();
-    }
-    Runnable mStatusChecker = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                updateView();
-            } finally {
-                mHandler.postDelayed(mStatusChecker, 500);
-            }
-        }
-    };
-    private void stopRepeatingTask() {
-        mHandler.removeCallbacks(mStatusChecker);
-    }
-
-    private void startRepeatingTask() {
-        mStatusChecker.run();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_accelerometer_running,container,false);
-        startRepeatingTask();
-        return view;
-    }
-
 
     @Override
     public void onSensorChanged(SensorEvent e) {
@@ -177,9 +120,23 @@ public class AccelerometerRunning extends Fragment implements SensorEventListene
         peakDetection();
     }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+        Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                //JOZA VIEW
+            } finally {
+                mHandler.postDelayed(mStatusChecker, 500);
+            }
+        }
+    };
+    private void stopRepeatingTask() {
+        mHandler.removeCallbacks(mStatusChecker);
+    }
+
+    private void startRepeatingTask() {
+        mStatusChecker.run();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -221,18 +178,26 @@ public class AccelerometerRunning extends Fragment implements SensorEventListene
     }
 
     @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
     public float getDistance() {
-        return mStepCounter;
+        return mStepCounter*(float)(0.8);
     }
 
     @Override
     public Fragment getFragment() {
-        return this;
+        return null;
     }
 
     @Override
     public void update() {
-
+        if(DebugRunningInstructor.mStepCounter > stepCounter) {
+            stepCounter = (int) DebugRunningInstructor.mStepCounter;
+        }
+        lastStep = (int)mStepCounter;
     }
 
     @Override

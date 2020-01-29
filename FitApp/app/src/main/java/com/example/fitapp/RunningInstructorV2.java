@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.core.entities.AtributiKardioVjezbi;
 import com.example.core.entities.Korisnik;
+import com.example.core.entities.KorisnikVjezba;
 import com.example.database.VjezbaDAO;
 import com.example.fitapp.running.Akcelerometar;
 import com.example.fitapp.running.GPSTrcanje;
@@ -62,6 +64,11 @@ public class RunningInstructorV2 extends AppCompatActivity {
     private TextView distance;
     private TextView pace;
 
+    //bundle
+    int idAtributKardio;
+    int idVjezba;
+    int idKorisnikVjezba;
+
 
     private RunningInterface modulTrcanja;
 
@@ -99,8 +106,9 @@ public class RunningInstructorV2 extends AppCompatActivity {
         pace = findViewById(R.id.pace);
 
         //dohvacanje iz bundle
-        int idAtributKardio = getIntent().getExtras().getInt("idAtributiKardio");
-        int idVjezbe= getIntent().getExtras().getInt("idVjezba");
+        idAtributKardio = getIntent().getExtras().getInt("idAtributiKardio");
+        idVjezba = getIntent().getExtras().getInt("idVjezba");
+        idKorisnikVjezba = getIntent().getExtras().getInt("idKorisnikVjezba");
 
         //Inicijalizacija ViewModel
         kardioViewModel = ViewModelProviders.of(this).get(AtributiKardioViewModel.class);
@@ -113,8 +121,8 @@ public class RunningInstructorV2 extends AppCompatActivity {
                 //spremi preko viewmodela vrijeme
                 AtributiKardioVjezbi update = AtributiKardioVjezbiDAL.ReadById(idAtributKardio,getApplicationContext());
                 //sa korisnika izracun
-                update.setKalorijaPotroseno(kardioViewModel.brojKalorija((int) (SystemClock.elapsedRealtime()-chronometer.getBase()),idVjezbe));
-                update.setTrajanje((int) (SystemClock.elapsedRealtime()-chronometer.getBase()));
+                update.setKalorijaPotroseno(kardioViewModel.brojKalorija((int) (SystemClock.elapsedRealtime()-chronometer.getBase()),idVjezba));
+                update.setTrajanje((int) (SystemClock.elapsedRealtime()-chronometer.getBase())/1000);
 
                 if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
                     modulTrcanja.update();
@@ -169,7 +177,6 @@ public class RunningInstructorV2 extends AppCompatActivity {
             }
         });
 
-        resetChronometer();
         startChronometer();
     }
 
@@ -197,9 +204,23 @@ public class RunningInstructorV2 extends AppCompatActivity {
     }
 
     public void resetChronometer() {
-        chronometer.setBase(SystemClock.elapsedRealtime());
-        pauseOffset = 0;
+
         //prebaci se na novu aktivnost
+        KorisnikVjezba korisnikVjezba = kardioViewModel.readById(idKorisnikVjezba);
+        korisnikVjezba.setDatumVrijemeKraja(String.valueOf(Calendar.getInstance().getTime()));
+        kardioViewModel.updateKorisnikVjezba(korisnikVjezba);
+
+        Intent intent = new Intent(RunningInstructorV2.this, RunningReport.class);
+        intent.putExtra("idAtributiKardio", idAtributKardio);
+        intent.putExtra("idVjezba", idVjezba);
+        intent.putExtra("idKorisnikVjezba", idKorisnikVjezba);
+        intent.putExtra("base", SystemClock.elapsedRealtime() - pauseOffset);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+
+        //chronometer.setBase(SystemClock.elapsedRealtime());
+        //pauseOffset = 0;
     }
 
     @Override

@@ -6,52 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".RunningReport">
 
-    <TextView
-        android:id="@+id/textView4"
+    <Chronometer
+        android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="284dp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/datumPocetak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="80dp"
         android:text="Datum Pocetka"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/datumKraj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="132dp"
-        android:text="Trajanje"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="108dp"
+        android:text="Datum Kraj"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="136dp"
         android:text="Kilometri"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/pace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="164dp"
         android:text="Pace"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/kalorijeIspis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="284dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="192dp"
         android:text="Kalorije"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

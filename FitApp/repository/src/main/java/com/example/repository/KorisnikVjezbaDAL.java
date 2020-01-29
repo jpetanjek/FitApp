@@ -24,4 +24,8 @@ public class KorisnikVjezbaDAL {
     public static Vjezba readVjezba(int id, Context context){
         return MyDatabase.getInstance(context).getVjezbaDAO().dohvatiVjezbu(id);
     }
+
+    public static void update(KorisnikVjezba update, Context context) {
+        MyDatabase.getInstance(context).getVjezbaDAO().azuriranjeKorisnikoveVjezbe(update);
+    }
 }

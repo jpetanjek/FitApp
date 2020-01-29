@@ -63,6 +63,10 @@ public class AtributiKardioViewModel extends AndroidViewModel {
         return KorisnikVjezbaDAL.CreateEmpty(vjezbaId,KorisnikVjezbaDAL.CreateEmptySetovi(context).getId(),context);
     }
 
+    public void updateKorisnikVjezba(KorisnikVjezba update){
+        KorisnikVjezbaDAL.update(update,context);
+    }
+
     //vjezba
     public Vjezba readVjezba(int id){
         return KorisnikVjezbaDAL.readVjezba(id,context);

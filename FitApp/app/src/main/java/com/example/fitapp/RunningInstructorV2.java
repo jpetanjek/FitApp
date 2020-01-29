@@ -84,7 +84,6 @@ public class RunningInstructorV2 extends AppCompatActivity {
                 update.setKalorijaPotroseno(kardioViewModel.brojKalorija((int) (SystemClock.elapsedRealtime()-chronometer.getBase()),idVjezbe));
                 update.setTrajanje((int) (SystemClock.elapsedRealtime()-chronometer.getBase()));
 
-
                 kardioViewModel.update(update);
                 //SA MIGAC!!!!!!!!!!!
                 //update.setUdaljenostOtrcana();
@@ -104,7 +103,7 @@ public class RunningInstructorV2 extends AppCompatActivity {
                 //update pace - tempo km/h
                 pace.setText(String.valueOf(atributiKardioVjezbi.getUdaljenostOtrcana()/((SystemClock.elapsedRealtime()-chronometer.getBase())/3600)));
 
-                if(atributiKardioVjezbi.getUdaljenostPlanirana()*1000==atributiKardioVjezbi.getUdaljenostOtrcana()){
+                if(atributiKardioVjezbi.getUdaljenostPlanirana()*1000<=atributiKardioVjezbi.getUdaljenostOtrcana()){
                     resetChronometer();
                 }
             }
@@ -132,6 +131,7 @@ public class RunningInstructorV2 extends AppCompatActivity {
             }
         });
 
+        resetChronometer();
         startChronometer();
     }
 
@@ -141,7 +141,9 @@ public class RunningInstructorV2 extends AppCompatActivity {
             chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             chronometer.start();
             running = true;
-
+            pause.setVisibility(View.VISIBLE);
+            start.setVisibility(View.INVISIBLE);
+            stop.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -150,6 +152,9 @@ public class RunningInstructorV2 extends AppCompatActivity {
             chronometer.stop();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
+            pause.setVisibility(View.INVISIBLE);
+            start.setVisibility(View.VISIBLE);
+            stop.setVisibility(View.VISIBLE);
         }
     }
 

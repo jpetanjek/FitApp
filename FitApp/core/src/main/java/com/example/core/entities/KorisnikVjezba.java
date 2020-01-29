@@ -20,6 +20,16 @@ public class KorisnikVjezba {
 
     private String datumVrijemePocetka;
 
+    private String planiraniDatum;
+
+    public String getPlaniraniDatum() {
+        return planiraniDatum;
+    }
+
+    public void setPlaniraniDatum(String planiraniDatum) {
+        this.planiraniDatum = planiraniDatum;
+    }
+
     public int getId() {
         return id;
     }

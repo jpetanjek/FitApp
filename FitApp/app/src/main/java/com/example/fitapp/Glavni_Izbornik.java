@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.core.entities.Vjezba;
@@ -65,7 +66,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
 
             }
         });
-        Button btnBarkodSkener = findViewById(R.id.btnBarkodSkener);
+        /*Button btnBarkodSkener = findViewById(R.id.btnBarkodSkener);
         btnBarkodSkener.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +75,9 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
-        Button btnExerciseSelection = findViewById(R.id.btnExcerciseSelection);
+         */
+
+        ImageButton btnExerciseSelection = findViewById(R.id.btnExcerciseSelection);
         btnExerciseSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +85,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
+        /*
         Button btnStepChart = findViewById(R.id.stepChart);
         btnStepChart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,8 +93,8 @@ public class Glavni_Izbornik extends AppCompatActivity {
                 startActivity(new Intent(Glavni_Izbornik.this,RunningInstructor.class));
             }
         });
-
-/*
+        */
+        /*
         Button button = (Button) findViewById(R.id.registracija);
 
         button.setOnClickListener(new View.OnClickListener() {

@@ -1,74 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RunningConfiguration">
 
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="150dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarAddFood"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="104dp"
-        android:layout_marginBottom="28dp"
-        android:background="@drawable/btn_background"
-        android:text="Start"
-        android:textAllCaps="false"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:logo="@drawable/ic_arrow_back_black_24dp"
+        app:title="@string/running"
+        app:titleMarginStart="30dp"
+        app:titleTextColor="@color/black"
+        tools:layout_editor_absoluteX="0dp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
-        android:layout_marginEnd="140dp"
-        android:text="Distance target"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/Linlay1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarAddFood"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
-        android:layout_marginEnd="180dp"
-        android:text="km"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/prvi"
+            android:layout_width="match_parent"
+            android:layout_height="106dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/unosUdaljenosti"
-        android:layout_width="126dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="188dp"
-        android:layout_marginEnd="128dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:text="0.0"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distance target"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="24dp"
-        android:text="+"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/drugi"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_below="@id/prvi"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/minus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="280dp"
-        android:text="-"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/minusLay"
+                android:layout_width="131dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/minus"
+                    android:layout_width="53dp"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="5dp"
+
+
+                    android:background="@drawable/btn5_background"
+                    android:text="-"
+                    android:textSize="40sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/unosLay"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/unosUdaljenosti"
+                    android:layout_width="126dp"
+                    android:layout_height="61dp"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:text="0.0"
+                    android:textAlignment="center"
+                    android:textSize="36sp" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="km" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/plusLay"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="30dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/plus"
+                    android:layout_width="53dp"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="5dp"
+
+
+                    android:background="@drawable/btn5_background"
+                    android:text="+"
+                    android:textSize="40sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/treci"
+            android:layout_width="match_parent"
+            android:layout_height="351dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageButton
+                android:id="@+id/btnActive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/karta"
+                android:text="" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/zadnji"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/treci"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/startButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+
+                android:text="Start"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"
+
+                android:background="@drawable/btn4_background" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

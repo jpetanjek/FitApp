@@ -32,33 +32,73 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/dateSpace"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:background="@color/gray2"
+                android:gravity="center">
 
-                <Button
-                    android:id="@+id/btnDateDecrement"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Prethodni"/>
+                <LinearLayout
+                    android:id="@+id/minusLay"
+                    android:layout_width="131dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tvDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="dd.MM.yyyy"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"/>
+                    <ImageButton
+                        android:id="@+id/btnDateDecrement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/btn5_background"
+                        android:src="@drawable/prethodni"/>
 
-                <Button
-                    android:id="@+id/btnDateIncrement"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="Sljedeći"/>
-            </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/unosLay"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="dd.MM.yyyy"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/plusLay"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right">
+
+                        <ImageButton
+                            android:id="@+id/btnDateIncrement"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="15dp"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/btn5_background"
+                            android:src="@drawable/sljedeci"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,15 +114,33 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/namirnica_obroka_item"/>
 
-            <Button
-                android:id="@+id/btnAddBreakfast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:text="Add Breakfast"
-                android:background="@color/cardview_light_background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2">
+
+                <ImageButton
+                    android:id="@+id/btnAddBreakfast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add"
+                    />
+
+                <Button
+                    android:id="@+id/dodaj"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add food to breakfast"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,15 +156,31 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/namirnica_obroka_item"/>
 
-            <Button
-                android:id="@+id/btnAddLunch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:text="Add Lunch"
-                android:background="@color/cardview_light_background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2">
+
+                <ImageButton
+                    android:id="@+id/btnAddLunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add" />
+
+                <Button
+                    android:id="@+id/dodajRucak"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add food to lunch"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -122,15 +196,32 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/namirnica_obroka_item"/>
 
-            <Button
-                android:id="@+id/btnAddDinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:text="Add Dinner"
-                android:background="@color/cardview_light_background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2">
+
+                <ImageButton
+                    android:id="@+id/btnAddDinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add" />
+
+                <Button
+                    android:id="@+id/dodajVeceru"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add food to dinner"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,15 +237,33 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/namirnica_obroka_item"/>
 
-            <Button
-                android:id="@+id/btnAddSnack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:text="Add Snack"
-                android:background="@color/cardview_light_background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2"
+                >
+
+                <ImageButton
+                    android:id="@+id/btnAddSnack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add"
+                    />
+
+                <Button
+                    android:id="@+id/dodajUzinu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add food to dinner"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

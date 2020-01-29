@@ -8,5 +8,8 @@
     <string name="search_for_food">Search for food</string>
     <string name="search_for_a_food">Search for a food</string>
     <string name="add_new_food">Add new food</string>
+    <string name="running">Running</string>
+    <string name="prethodni"><![CDATA[<]]></string>
+    <string name="sljedeci"><![CDATA[>]]></string>
 
 </resources>

@@ -20,6 +20,16 @@ public class KorisnikVjezba {
 
     private String datumVrijemePocetka;
 
+    public String getDatumVrijemeKraja() {
+        return datumVrijemeKraja;
+    }
+
+    public void setDatumVrijemeKraja(String datumVrijemeKraja) {
+        this.datumVrijemeKraja = datumVrijemeKraja;
+    }
+
+    private String datumVrijemeKraja;
+
     public int getId() {
         return id;
     }

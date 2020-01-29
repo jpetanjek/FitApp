@@ -8,8 +8,18 @@
     <string name="search_for_food">Search for food</string>
     <string name="search_for_a_food">Search for a food</string>
     <string name="add_new_food">Add new food</string>
-    <string name="running">Running</string>
-    <string name="prethodni"><![CDATA[<]]></string>
-    <string name="sljedeci"><![CDATA[>]]></string>
+
+    <!-- Snackbar messages -->
+    <string name="start">Tracking started!</string>
+    <string name="granted">GPS access granted!</string>
+    <string name="denied">GPS access denied…</string>
+
+    <!-- Statistics -->
+    <string name="current_speed">Current speed:&#160;</string>
+    <string name="total_distance">Total distance:&#160;</string>
+    <string name="average_speed">Average speed:&#160;</string>
+    <string name="elapsed_time">Elapsed time:&#160;</string>
+    <string name="time_per_km">Seconds per kilometer&#160;</string>
+    <string name="appbar_scrolling_view_behavior">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
 
 </resources>

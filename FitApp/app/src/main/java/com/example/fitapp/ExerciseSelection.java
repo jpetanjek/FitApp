@@ -79,6 +79,8 @@ public class ExerciseSelection extends AppCompatActivity {
                     switch (position){
                         case 0:
                             //Toast.makeText(ExerciseSelection.this, "Plan exercises description", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ExerciseSelection.this, ExerciseRegime.class);
+                            startActivity(intent);
                             break;
                         case 1:
                             //Toast.makeText(ExerciseSelection.this, "Running description", Toast.LENGTH_SHORT).show();

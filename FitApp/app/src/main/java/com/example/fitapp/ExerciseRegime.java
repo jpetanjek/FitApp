@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,7 +110,7 @@ public class ExerciseRegime extends AppCompatActivity {
         adapterFriday = new ExerciseRegimeAdapter();
         postaviRecycleViewe(recyclerViewFriday, adapterFriday);
 
-        recyclerViewSaturnday = findViewById(R.id.recycleviewSaturnday);
+        recyclerViewSaturnday = findViewById(R.id.recycleviewSaturday);
         adapterSaturnday = new ExerciseRegimeAdapter();
         postaviRecycleViewe(recyclerViewSaturnday, adapterSaturnday);
 
@@ -118,8 +119,8 @@ public class ExerciseRegime extends AppCompatActivity {
         postaviRecycleViewe(recyclerViewSunday, adapterSunday);
 
         final TextView tvDate = findViewById(R.id.tvDate);
-        Button btnDateDecrement = findViewById(R.id.btnDateDecrement);
-        Button btnDateIncrement = findViewById(R.id.btnDateIncrement);
+        ImageButton btnDateDecrement = findViewById(R.id.btnDateDecrement);
+        ImageButton btnDateIncrement = findViewById(R.id.btnDateIncrement);
         tvDate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -169,13 +170,13 @@ public class ExerciseRegime extends AppCompatActivity {
 
     private void dodajTrigereNaGumbove() {
 
-        final Button btnAddToMonday = findViewById(R.id.btnAddToMonday);
-        final Button btnAddToTuesday = findViewById(R.id.btnAddToTuesday);
-        final Button btnAddToWednesday = findViewById(R.id.btnAddToWednesday);
-        final Button btnAddToThursday = findViewById(R.id.btnAddToThursday);
-        final Button btnAddToFriday = findViewById(R.id.btnAddToFriday);
-        final Button btnAddToSaturnday = findViewById(R.id.btnAddToSaturnday);
-        final Button btnAddToSunday = findViewById(R.id.btnAddToSunday);
+        final ImageButton btnAddToMonday = findViewById(R.id.btnAddToMonday);
+        final ImageButton btnAddToTuesday = findViewById(R.id.btnAddToTuesday);
+        final ImageButton btnAddToWednesday = findViewById(R.id.btnAddToWednesday);
+        final ImageButton btnAddToThursday = findViewById(R.id.btnAddToThursday);
+        final ImageButton btnAddToFriday = findViewById(R.id.btnAddToFriday);
+        final ImageButton btnAddToSaturnday = findViewById(R.id.btnAddToSaturday);
+        final ImageButton btnAddToSunday = findViewById(R.id.btnAddToSunday);
 
         btnAddToMonday.setOnClickListener(new View.OnClickListener() {
             @Override

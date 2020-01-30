@@ -21,8 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.example.core.entities.Vjezba;
-import com.example.database.MyDatabase;
 
 import com.bumptech.glide.Glide;
 import com.example.webservice.JsonApi;
@@ -248,9 +246,9 @@ public class Registracija extends AppCompatActivity {
                 if(v.getId()==R.id.btnWeightLossOrGainGoal) {
                     //TODO - popraviti unose
                     final NumberPicker lossGainPick = new NumberPicker(Registracija.this);
-                    final String[] inputValues = {"-0.25","-0.5","-1.0","1.0","0.5","0.25"};
+                    final String[] inputValues = {"0.00","-0.25","-0.5","-1.0","1.0","0.5","0.25"};
                     lossGainPick.setDisplayedValues(inputValues);
-                    lossGainPick.setMaxValue(5);
+                    lossGainPick.setMaxValue(6);
                     lossGainPick.setMinValue(0);
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Registracija.this).setView(lossGainPick);

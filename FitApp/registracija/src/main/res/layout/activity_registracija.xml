@@ -100,8 +100,8 @@
                         android:id="@+id/btnGender"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="4dp"
                         android:layout_weight="1"
+                        android:layout_margin="4dp"
                         android:textAllCaps="false"
                         android:background="@drawable/btn2_background"
                         android:text="Gender" />

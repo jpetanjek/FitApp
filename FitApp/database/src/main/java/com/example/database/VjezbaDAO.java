@@ -69,17 +69,22 @@ public interface VjezbaDAO {
     public List<KorisnikVjezba> dohvatiSveKorisnikoveVjezbe();
 
     @Query("SELECT * FROM korisnik_vjezba WHERE id = :idKorisnikoveVjezbe")
-    public KorisnikVjezba dohvatiKorisnikovuVjezbu(int idKorisnikoveVjezbe);
+    public KorisnikVjezba dohvatiKorisnikovuVjezbu(long idKorisnikoveVjezbe);
 
     @Query("SELECT * FROM korisnik_vjezba WHERE idSet = :idSet")
     public List<KorisnikVjezba> dohvatiVjezbeSeta(int idSet);
 
+    @Query("INSERT INTO korisnik_vjezba (idVjezba, idSet) VALUES (:vjezba , :idSet)")
+    public long createEmpty(int vjezba, int idSet);
 
 
     // CRUD Setovi
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] unosSeta(Setovi... setovi);
+
+    @Query("INSERT INTO setovi (idKorisnik,planirano,trajanjePauze) VALUES (:idKorisnik,0,0)")
+    public long createEmptySet(int idKorisnik);
 
     //PROVJERITI
     @Query("SELECT * FROM setovi WHERE id = :idSet")
@@ -89,6 +94,11 @@ public interface VjezbaDAO {
     @Query("SELECT * FROM atributi_vjezbi_snage WHERE korisnikVjezbaId = :vjezbaId")
     public AtributiVjezbiSnage dohvatiAtributeVjezbeSnagePoVjezbi(int vjezbaId);
 
+    @Query("SELECT SUM(kalorijaPotroseno) FROM atributi_kardio_vjezbi,korisnik_vjezba WHERE atributi_kardio_vjezbi.id = korisnik_vjezba.id AND datumPocetka= :trenutniDatum")
+    public int dohvatiKalorijeKardio(String trenutniDatum);
+
+    @Query("SELECT SUM(kalorijaPotroseno) FROM atributi_vjezbi_snage,korisnik_vjezba WHERE atributi_vjezbi_snage.id = korisnik_vjezba.id AND datumPocetka= :trenutniDatum")
+    public int dohvatiKalorijeSnaga(String trenutniDatum);
 
     // CRUD atributi_vjezbe_snage
 

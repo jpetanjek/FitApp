@@ -20,6 +20,7 @@ public class KorisnikVjezba {
 
     private String datumVrijemePocetka;
 
+
     private String planiraniDatum;
 
     public String getPlaniraniDatum() {
@@ -29,6 +30,28 @@ public class KorisnikVjezba {
     public void setPlaniraniDatum(String planiraniDatum) {
         this.planiraniDatum = planiraniDatum;
     }
+
+
+    public String getDatumPocetka() {
+        return datumPocetka;
+    }
+
+    public void setDatumPocetka(String datumPocetka) {
+        this.datumPocetka = datumPocetka;
+    }
+
+    private String datumPocetka;
+
+    public String getDatumVrijemeKraja() {
+        return datumVrijemeKraja;
+    }
+
+    public void setDatumVrijemeKraja(String datumVrijemeKraja) {
+        this.datumVrijemeKraja = datumVrijemeKraja;
+    }
+
+    private String datumVrijemeKraja;
+
 
     public int getId() {
         return id;

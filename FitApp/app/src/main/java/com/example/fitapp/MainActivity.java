@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
             Vjezba newVjezba1 = new Vjezba();
             newVjezba1.setId(2);
-            newVjezba1.setMet(new Float(9));
+            newVjezba1.setMet(new Float(13.5));
             newVjezba1.setNaziv("Running");
             newVjezba1.setTipVjezbe(1);
             newVjezba1.setRepetition_lenght(5);

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.IntentCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import adapter.CurrentActivity;
 import features.Text2Speech;
 
 public class ExerciseSelection extends AppCompatActivity {
@@ -84,6 +86,14 @@ public class ExerciseSelection extends AppCompatActivity {
                             break;
                         case 1:
                             //Toast.makeText(ExerciseSelection.this, "Running description", Toast.LENGTH_SHORT).show();
+
+                            Intent intentRunning = new Intent(ExerciseSelection.this, RunningConfiguration.class);
+                            intentRunning.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intentRunning.putExtra("idVjezbe",objektiVjezbi.get(position).getId());
+                            //intentRunning.putExtra("naziv",objektiVjezbi.get(position).getNaziv());
+                            startActivity(intentRunning);
+                            finish();
+
                             break;
                         case 2:
                             //Toast.makeText(ExerciseSelection.this, "Walking description", Toast.LENGTH_SHORT).show();

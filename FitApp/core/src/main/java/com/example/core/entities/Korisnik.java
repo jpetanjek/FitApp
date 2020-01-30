@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Calendar;
+
 import RetroEntities.RetroKorisnik;
 import retrofit2.Response;
 
@@ -150,4 +152,22 @@ public class Korisnik {
         System.out.println(mets*getMasa()*sati);
         return  (mets*getMasa()*sati);
     }
+
+
+    public double pocetneKalorije(Korisnik korisnik){
+        double returnme = 1600;
+        int godinaRodenja = Integer.parseInt(korisnik.getDatumRodenja().substring(korisnik.getDatumRodenja().length()-4));
+        if(korisnik.getSpol()=="m"){
+            returnme=((10.0*korisnik.getMasa()+6.25*korisnik.getVisina()-5.0*(Calendar.getInstance().get(Calendar.YEAR) -godinaRodenja)+5)*1.2)+korisnik.getCilj_tjednog_mrsavljenja()*1000;
+        }else{
+            returnme=((10.0*korisnik.getMasa()+6.25*korisnik.getVisina()-5.0*(Calendar.getInstance().get(Calendar.YEAR) -godinaRodenja)-161)*1.2)+korisnik.getCilj_tjednog_mrsavljenja()*1000;
+        }
+
+        //-1, -0.5 , -0.25 , 0.25 , 0.5, 1
+        if(returnme<=1200){
+            returnme=1200;
+        }
+        return returnme;
+    }
+
 }

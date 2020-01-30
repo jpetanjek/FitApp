@@ -21,6 +21,8 @@ import com.example.database.VjezbaDAO;
 import com.example.repository.KorisnikDAL;
 import com.example.repository.VjezbaDAL;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -135,6 +137,7 @@ public class ExerciseInstructor extends AppCompatActivity {
             public void onClick(View v) {
                 //trajanje rep*broj rep + 5 sekundi za pripremu pozicije
                 startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja());
+                azurirajVjezbu();
                 btnStart.setVisibility(View.GONE);
                 btnPause.setVisibility(View.VISIBLE);
             }
@@ -164,6 +167,7 @@ public class ExerciseInstructor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 zavrsiVjezbu();
+                zapisiBrojKalorija();
             }
         });
 
@@ -258,6 +262,7 @@ public class ExerciseInstructor extends AppCompatActivity {
                     pauza=true;
                 }else{
                     startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja());
+                    azurirajVjezbu();
                     pauza=false;
                 }
             }
@@ -292,6 +297,37 @@ public class ExerciseInstructor extends AppCompatActivity {
          */
 
         ExerciseInstructor.this.finish();
+    }
+
+    public String dateToString(Date datum){
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy"); //Dan, datum mjesec sati minute
+        return dateFormat.format(datum);
+    }
+
+    public void azurirajVjezbu(){
+
+        int idVjezbe = listaKorniskVjezbi.get( brojTrenutneVjezbe ).getId();
+
+        KorisnikVjezba korisnikVjezba = MyDatabase.getInstance(ExerciseInstructor.this).getVjezbaDAO().dohvatiKorisnikovuVjezbu( idVjezbe );
+        Date trenutniDatum = new Date(System.currentTimeMillis());
+        korisnikVjezba.setDatumPocetka( dateToString(trenutniDatum) );
+
+        MyDatabase.getInstance(ExerciseInstructor.this).getVjezbaDAO().azuriranjeKorisnikoveVjezbe(korisnikVjezba);
+    }
+
+
+
+    public void zapisiBrojKalorija(){
+        int idVjezbe = listaKorniskVjezbi.get( brojTrenutneVjezbe ).getId();
+
+        AtributiVjezbiSnage atributiVjezbiSnage = MyDatabase.getInstance( ExerciseInstructor.this ).getVjezbaDAO().dohvatiAtributeVjezbeSnagePoVjezbi( idVjezbe );
+
+        if(brojTrenutneVjezbe == 0)
+            atributiVjezbiSnage.setKalorijaPotroseno( (int) ukupanBrojKalorija );
+        else
+            atributiVjezbiSnage.setKalorijaPotroseno( (int) ukupanBrojKalorija/brojTrenutneVjezbe );
+
+        MyDatabase.getInstance(ExerciseInstructor.this).getVjezbaDAO().azuriranjeAtributaVjezbeSnage(atributiVjezbiSnage);
     }
 
 }

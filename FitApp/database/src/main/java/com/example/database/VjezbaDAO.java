@@ -97,12 +97,15 @@ public interface VjezbaDAO {
     @Query("SELECT SUM(kalorijaPotroseno) FROM atributi_kardio_vjezbi,korisnik_vjezba WHERE atributi_kardio_vjezbi.id = korisnik_vjezba.id AND datumPocetka= :trenutniDatum")
     public int dohvatiKalorijeKardio(String trenutniDatum);
 
-    @Query("SELECT SUM(kalorijaPotroseno) FROM atributi_vjezbi_snage,korisnik_vjezba WHERE atributi_vjezbi_snage.id = korisnik_vjezba.id AND datumPocetka= :trenutniDatum")
+    @Query("SELECT SUM(kalorijaPotroseno) FROM atributi_vjezbi_snage,korisnik_vjezba WHERE atributi_vjezbi_snage.korisnikVjezbaId = korisnik_vjezba.id AND datumPocetka= :trenutniDatum")
     public int dohvatiKalorijeSnaga(String trenutniDatum);
 
     // CRUD atributi_vjezbe_snage
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] unosAtributaVjezbeSnage(AtributiVjezbiSnage... atributiVjezbiSnage);
+
+    @Update
+    public void azuriranjeAtributaVjezbeSnage(AtributiVjezbiSnage... atributiVjezbiSnages);
 
 }

@@ -74,7 +74,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
-        Button btnMeasure = findViewById(R.id.btnMeasure);
+        Button btnMeasure = findViewById(R.id.btnMeasurement);
         btnMeasure.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

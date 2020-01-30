@@ -36,6 +36,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import features.KalendarDogadaj;
+
 public class ExerciseRegime extends AppCompatActivity {
 
     private ExerciseRegimeViewModel exerciseRegimeViewModel;
@@ -241,6 +243,12 @@ public class ExerciseRegime extends AppCompatActivity {
 
                 exerciseRegimeViewModel.insert(korisnikVjezba);
                 adapter.setKorisnikVjezbas( exerciseRegimeViewModel.getAllKorisnikVjezba( dateToString(datum) ) );
+                Calendar cal = Calendar.getInstance();
+                long pocetnoVrijeme = cal.getTimeInMillis();
+                long zavrsnoVrijeme = pocetnoVrijeme + 60*60*1000;
+                String naslov = "Kreirana vježba za "+MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().dohvatiVjezbu(korisnikVjezba.getIdVjezba()).getNaziv();
+                String opis = "Kreirali ste događaj za planiranje vježbe "+MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().dohvatiVjezbu(korisnikVjezba.getIdVjezba()).getNaziv();
+                KalendarDogadaj.OtvoriDogadajKalendara(getApplicationContext(),pocetnoVrijeme,zavrsnoVrijeme,naslov,opis,KalendarDogadaj.KROZ_INTERVAL_POCETKA_I_KRAJA);
             }
         });
         builderSingle.show();

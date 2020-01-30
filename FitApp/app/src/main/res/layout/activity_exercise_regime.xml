@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:logo="@drawable/ic_arrow_back_black_24dp"
         app:titleMarginStart="30dp"
-        app:title="Food diary"
+        app:title="Exercise Regime"
         app:titleTextColor="@color/black"/>
 
     <androidx.core.widget.NestedScrollView

@@ -129,6 +129,14 @@ public class Glavni_Izbornik extends AppCompatActivity {
         });
 
          */
+
+        ImageButton rezim = findViewById(R.id.rezim);
+        rezim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Glavni_Izbornik.this, ExerciseRegime.class));
+            }
+        });
     }
 
     @Override

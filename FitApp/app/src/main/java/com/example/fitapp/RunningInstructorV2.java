@@ -144,10 +144,10 @@ public class RunningInstructorV2 extends AppCompatActivity {
                 kalorije.setText(String.valueOf(atributiKardioVjezbi.getKalorijaPotroseno()));
 
                 //update distance
-                distance.setText(String.valueOf(atributiKardioVjezbi.getUdaljenostOtrcana()));
+                distance.setText(String.valueOf(atributiKardioVjezbi.getUdaljenostOtrcana()/1000));
 
                 //update pace - tempo km/h
-                pace.setText(String.valueOf((atributiKardioVjezbi.getUdaljenostOtrcana()/1000)/((SystemClock.elapsedRealtime()-chronometer.getBase())/3600)));
+                pace.setText(String.valueOf((atributiKardioVjezbi.getUdaljenostOtrcana())/((SystemClock.elapsedRealtime()-chronometer.getBase())/3600)));
 
                 if(atributiKardioVjezbi.getUdaljenostPlanirana()*1000<=atributiKardioVjezbi.getUdaljenostOtrcana()){
                     resetChronometer();

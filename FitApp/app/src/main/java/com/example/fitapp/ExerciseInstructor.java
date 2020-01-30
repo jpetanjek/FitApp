@@ -311,7 +311,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         Intent intent = new Intent(ExerciseInstructor.this, ExerciseReport.class);
         intent.putExtras(bundle);
         startActivity(intent);
-        
+
         ExerciseInstructor.this.finish();
     }
 

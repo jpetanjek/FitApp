@@ -206,28 +206,26 @@ public class ExerciseRegime extends AppCompatActivity {
             }
         });
 
-        btnAddToSaturnday.setOnClickListener(new View.OnClickListener() {
+        btnAddToFriday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 prikaziOdabirVjezbe( dodajDaneDatumu(trenutniDatumPonedjeljka, 4), adapterFriday );
             }
         });
 
+        btnAddToSaturnday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prikaziOdabirVjezbe( dodajDaneDatumu(trenutniDatumPonedjeljka, 5), adapterSaturnday );
+            }
+        });
+
         btnAddToSunday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prikaziOdabirVjezbe( dodajDaneDatumu(trenutniDatumPonedjeljka, 5), adapterFriday );
+                prikaziOdabirVjezbe( dodajDaneDatumu(trenutniDatumPonedjeljka, 6), adapterSunday );
             }
         });
-
-        btnAddToFriday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prikaziOdabirVjezbe( dodajDaneDatumu(trenutniDatumPonedjeljka, 6), adapterFriday );
-            }
-        });
-
-
     }
 
     private void prikaziOdabirVjezbe(final Date datum, final ExerciseRegimeAdapter adapter ) {
@@ -260,14 +258,16 @@ public class ExerciseRegime extends AppCompatActivity {
                 korisnikVjezba.setPlaniraniDatum( dateToString(datum) );
                 korisnikVjezba.setIdVjezba( which + 2 );
 
-                int idVjezbe = (int) exerciseRegimeViewModel.insert(korisnikVjezba);
+                exerciseRegimeViewModel.insert(korisnikVjezba);
                 adapter.setKorisnikVjezbas( exerciseRegimeViewModel.getAllKorisnikVjezba( dateToString(datum) ) );
+
+                String nazivVjezbe = MyDatabase.getInstance(ExerciseRegime.this).getVjezbaDAO().dohvatiVjezbu( which + 2 ).getNaziv();
 
                 Calendar cal = Calendar.getInstance();
                 long pocetnoVrijeme = cal.getTimeInMillis();
                 long zavrsnoVrijeme = pocetnoVrijeme + 60*60*1000;
-                String naslov = "Kreirana vježba za "+MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().dohvatiVjezbu(idVjezbe).getNaziv();
-                String opis = "Kreirali ste događaj za planiranje vježbe "+MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().dohvatiVjezbu(idVjezbe).getNaziv();
+                String naslov = "Kreirana vježba za "+ nazivVjezbe;
+                String opis = "Kreirali ste događaj za planiranje vježbe "+ nazivVjezbe;
                 KalendarDogadaj.OtvoriDogadajKalendara(getApplicationContext(),pocetnoVrijeme,zavrsnoVrijeme,naslov,opis,KalendarDogadaj.KROZ_INTERVAL_POCETKA_I_KRAJA);
             }
         });

@@ -103,9 +103,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         btnPause = findViewById(R.id.btnPause);
         btnFinish = findViewById(R.id.btnFinish);
 
-
         nazivVjezbe = getIntent().getExtras().getString("nazivVjezbe");
-
 
         listaKorisnikVjezbeId = getIntent().getIntegerArrayListExtra("listaKorisnikVjezbeId");
 
@@ -136,7 +134,6 @@ public class ExerciseInstructor extends AppCompatActivity {
         vjezbaIzvodenja = MyDatabase.getInstance(this).getVjezbaDAO().dohvatiVjezbu(identifikatorVjezbe);
         ikonaVjezbe.setImageResource(vjezbaIzvodenja.getIkona());
     }
-
 
     @Override
     protected void onResume() {
@@ -197,10 +194,7 @@ public class ExerciseInstructor extends AppCompatActivity {
                 text2Speech.govori(vjezbaIzvodenja.getUpute());
             }
         });
-
-
     }
-
 
     private void startTimer(final int trajanjeTimera){
         final int trajanjeTimeraSek = trajanjeTimera * 1000;
@@ -302,7 +296,7 @@ public class ExerciseInstructor extends AppCompatActivity {
     }
 
     private void zavrsiVjezbu(){
-
+        /*
         Bundle bundle = new Bundle();
         bundle.putString("brKalorija",ivCalories.getText().toString());
         bundle.putInt("vrijemeVjezbi",ukupnoTrajanjeVjezbanja);
@@ -311,7 +305,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         Intent intent = new Intent(ExerciseInstructor.this, ExerciseReport.class);
         intent.putExtras(bundle);
         startActivity(intent);
-
+        */
         ExerciseInstructor.this.finish();
     }
 
@@ -330,8 +324,6 @@ public class ExerciseInstructor extends AppCompatActivity {
 
         MyDatabase.getInstance(ExerciseInstructor.this).getVjezbaDAO().azuriranjeKorisnikoveVjezbe(korisnikVjezba);
     }
-
-
 
     public void zapisiBrojKalorija(){
         int idVjezbe = listaKorniskVjezbi.get( brojTrenutneVjezbe ).getId();

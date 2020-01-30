@@ -20,7 +20,10 @@ import com.example.fitapp.viewmodels.AtributiKardioViewModel;
 import com.example.repository.AtributiKardioVjezbiDAL;
 import com.example.repository.NamirnicaDAL;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import adapter.CurrentActivity;
 
@@ -94,7 +97,16 @@ public class RunningConfiguration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 korisnikVjezba.setDatumVrijemePocetka(String.valueOf(Calendar.getInstance().getTime()));
+
+                System.out.println("SDF PRINT:");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+                String datum = sdf.format(new Date(System.currentTimeMillis()));
+                System.out.println(datum);
+
+
+                korisnikVjezba.setDatumPocetka(datum);
                 kardioViewModel.updateKorisnikVjezba(korisnikVjezba);
+
 
                 Intent intent = new Intent(RunningConfiguration.this, RunningInstructorV2.class);
                 intent.putExtra("idAtributiKardio", atributiKardioVjezbi.getValue().getId());

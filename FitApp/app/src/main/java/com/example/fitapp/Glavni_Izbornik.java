@@ -132,6 +132,13 @@ public class Glavni_Izbornik extends AppCompatActivity {
 
         TextView tezinaKorisnika = findViewById(R.id.weight);
         tezinaKorisnika.setText(String.valueOf(MyDatabase.getInstance(this).getKorisnikDAO().dohvatiKorisnika().getMasa()));
+
+
+        System.out.println(dohvatiStringDatuma());
+        System.out.println(MyDatabase.getInstance(this).getVjezbaDAO().dohvatiKalorijeKardio(dohvatiStringDatuma()));
+        TextView actual_exercise = findViewById(R.id.actual_exercise);
+        int total=MyDatabase.getInstance(this).getVjezbaDAO().dohvatiKalorijeKardio(dohvatiStringDatuma()) + MyDatabase.getInstance(this).getVjezbaDAO().dohvatiKalorijeSnaga(dohvatiStringDatuma());
+        actual_exercise.setText(String.valueOf(total));
     }
 
     public static View getToolbarLogoView(Toolbar toolbar){

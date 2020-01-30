@@ -20,6 +20,16 @@ public class KorisnikVjezba {
 
     private String datumVrijemePocetka;
 
+    public String getDatumPocetka() {
+        return datumPocetka;
+    }
+
+    public void setDatumPocetka(String datumPocetka) {
+        this.datumPocetka = datumPocetka;
+    }
+
+    private String datumPocetka;
+
     public String getDatumVrijemeKraja() {
         return datumVrijemeKraja;
     }

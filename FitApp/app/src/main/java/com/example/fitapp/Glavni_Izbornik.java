@@ -148,8 +148,8 @@ public class Glavni_Izbornik extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
 
         //kalorije hrane
         namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
@@ -165,6 +165,8 @@ public class Glavni_Izbornik extends AppCompatActivity {
         TextView calorie_goal = findViewById(R.id.calorie_goal);
         int pocetne_kalorije_korisnika= (int) KorisnikDAL.Trenutni(getApplicationContext()).pocetneKalorije(KorisnikDAL.Trenutni(getApplicationContext()));
         calorie_goal.setText(String.valueOf(pocetne_kalorije_korisnika));
+        TextView recommended_food = findViewById(R.id.recommended_food);
+        recommended_food.setText(String.valueOf(pocetne_kalorije_korisnika));
 
         //kilaza korisnika
         TextView tezinaKorisnika = findViewById(R.id.weight);

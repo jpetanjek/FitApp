@@ -143,6 +143,9 @@ public class AddSelectedFood extends AppCompatActivity {
         //iz bundle
         namirniceObroka.setObrok(obrok);
         namirniceObroka.setDatum(datum);
+        if(namirniceObroka.getMasa()==0){
+            namirniceObroka.setMasa(1);
+        }
         //lokalnaNamirniceObroka.setPlanirano();
         //SPREMI NamirnicaUObrok
 

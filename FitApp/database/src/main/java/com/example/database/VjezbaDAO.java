@@ -94,6 +94,11 @@ public interface VjezbaDAO {
     @Query("SELECT * FROM atributi_vjezbi_snage WHERE korisnikVjezbaId = :vjezbaId")
     public AtributiVjezbiSnage dohvatiAtributeVjezbeSnagePoVjezbi(int vjezbaId);
 
+    @Query("SELECT SUM(kalorijaPotroseno) FROM atributi_kardio_vjezbi,korisnik_vjezba WHERE atributi_kardio_vjezbi.id = korisnik_vjezba.id AND datumPocetka= :trenutniDatum")
+    public int dohvatiKalorijeKardio(String trenutniDatum);
+
+    @Query("SELECT SUM(kalorijaPotroseno) FROM atributi_vjezbi_snage,korisnik_vjezba WHERE atributi_vjezbi_snage.id = korisnik_vjezba.id AND datumPocetka= :trenutniDatum")
+    public int dohvatiKalorijeSnaga(String trenutniDatum);
 
     // CRUD atributi_vjezbe_snage
 

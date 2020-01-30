@@ -64,6 +64,21 @@
         android:textColor="#FFF" />
 
     <Button
+        android:id="@+id/btnResume"
+        android:layout_width="147dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="26dp"
+        android:layout_toStartOf="@+id/btnFinish"
+        android:background="#2CAE32"
+        android:text="RESUME"
+        android:textColor="#FFF"
+        tools:visibility="gone" />
+
+    <Button
         android:id="@+id/btnFinish"
         android:layout_width="146dp"
         android:layout_height="wrap_content"
@@ -74,6 +89,19 @@
         android:background="#B71C1C"
         android:text="Finish"
         android:textColor="#FFF" />
+
+    <Button
+        android:id="@+id/btnPause"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="214dp"
+        android:layout_marginBottom="26dp"
+        android:background="#B71C1C"
+        android:text="PAUSE"
+        android:textColor="#FFF"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/ivRest"
@@ -114,7 +142,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="11dp"
         android:layout_marginEnd="121dp"
-        android:text="82"
+        android:text="0"
         android:textSize="24sp" />
 
     <ImageView

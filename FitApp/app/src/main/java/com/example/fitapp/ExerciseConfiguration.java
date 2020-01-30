@@ -50,6 +50,20 @@ public class ExerciseConfiguration extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar1);
         toolbar.setTitle(nazivVjezbe);
 
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    Intent i = new Intent(ExerciseConfiguration.this, ExerciseSelection.class);
+                    startActivity(i);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
+
         // Popunjavanje listviewa
         final ListView lvOdabirVjezbi = findViewById(R.id.lvOdabirVjezbi);
 
@@ -130,9 +144,23 @@ public class ExerciseConfiguration extends AppCompatActivity {
          }
         );
 
+    }
+    public static View getToolbarLogoView(Toolbar toolbar){
+        boolean hadContentDescription = android.text.TextUtils.isEmpty(toolbar.getLogoDescription());
+        String contentDescription = String.valueOf(!hadContentDescription ? toolbar.getLogoDescription() : "logoContentDescription");
+        toolbar.setLogoDescription(contentDescription);
+        ArrayList<View> potentialViews = new ArrayList<View>();
+        toolbar.findViewsWithText(potentialViews,contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        View logoIcon = null;
 
+        if(potentialViews.size() > 0){
+            logoIcon = potentialViews.get(0);
+        }
 
+        if(hadContentDescription)
+            toolbar.setLogoDescription(null);
+
+        return logoIcon;
 
     }
-
 }

@@ -68,6 +68,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
 
             }
         });
+
         /*Button btnBarkodSkener = findViewById(R.id.btnBarkodSkener);
         btnBarkodSkener.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +77,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
                 startActivity(new Intent(Glavni_Izbornik.this,AddFoodToMeal.class));
             }
         });
+
 
          */
 
@@ -87,6 +89,7 @@ public class Glavni_Izbornik extends AppCompatActivity {
             }
         });
 
+
         /*
         Button btnStepChart = findViewById(R.id.stepChart);
         btnStepChart.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +100,15 @@ public class Glavni_Izbornik extends AppCompatActivity {
         });
         */
         /*
+
+        Button btnMeasure = findViewById(R.id.btnMeasure);
+        btnMeasure.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Glavni_Izbornik.this,Profil.class));
+            }
+        });
+
         Button button = (Button) findViewById(R.id.registracija);
 
         button.setOnClickListener(new View.OnClickListener() {

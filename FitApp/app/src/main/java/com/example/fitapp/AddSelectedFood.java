@@ -170,7 +170,8 @@ public class AddSelectedFood extends AppCompatActivity {
 
     private float IzracunajMasuNamirniceObroka(){
         int brPosluzivanja = Integer.parseInt(Number_of_servings.getText().toString());
-        float ukupnaMasa = brojKalorija * brPosluzivanja * tezinaNamirnice;
+        //float ukupnaMasa = brojKalorija * brPosluzivanja * tezinaNamirnice;
+        float ukupnaMasa = brPosluzivanja;
         return ukupnaMasa;
     }
 }

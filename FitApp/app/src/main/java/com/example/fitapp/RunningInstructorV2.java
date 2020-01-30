@@ -2,6 +2,7 @@ package com.example.fitapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
@@ -40,6 +41,8 @@ import java.util.Date;
 import adapter.CurrentActivity;
 import managers.RunningInterface;
 
+import static com.example.fitapp.Profil.getToolbarLogoView;
+
 //TODO
 //Implementirati udaljenost
 //Kada se prode zadana udaljenost - prekini vjezbu automatski
@@ -76,6 +79,22 @@ public class RunningInstructorV2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_instructor_v2);
+
+        Toolbar toolbar = findViewById(R.id.toolbarAddFood);
+        setSupportActionBar(toolbar);
+
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    finish();
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
 
         CurrentActivity.setActivity(this);
         lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);

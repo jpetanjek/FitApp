@@ -67,10 +67,10 @@ public class RunningReport extends AppCompatActivity {
             @Override
             public void onChanged(AtributiKardioVjezbi atributiKardioVjezbi) {
                 kalorije.setText(String.valueOf(atributiKardioVjezbi.getKalorijaPotroseno()));
-                distance.setText(String.valueOf(atributiKardioVjezbi.getUdaljenostOtrcana()));
-                pace.setText(String.valueOf((atributiKardioVjezbi.getUdaljenostOtrcana()/1000)/atributiKardioVjezbi.getTrajanje()));
-                distance2.setText(String.valueOf(atributiKardioVjezbi.getUdaljenostOtrcana()));
-                pace2.setText(String.valueOf((atributiKardioVjezbi.getUdaljenostOtrcana()/1000)/atributiKardioVjezbi.getTrajanje()));
+                distance.setText(String.valueOf(atributiKardioVjezbi.getUdaljenostOtrcana()/1000));
+                pace.setText(String.valueOf((atributiKardioVjezbi.getUdaljenostOtrcana())/atributiKardioVjezbi.getTrajanje()));
+                distance2.setText(String.valueOf(atributiKardioVjezbi.getUdaljenostOtrcana()/1000));
+                pace2.setText(String.valueOf((atributiKardioVjezbi.getUdaljenostOtrcana())/atributiKardioVjezbi.getTrajanje()));
                 chronometer = findViewById(R.id.chronometer);
                 chronometer.setFormat("%s");
                 chronometer.setBase(base);

@@ -259,14 +259,15 @@
 
                                 <ImageButton
 
+                                    android:id="@+id/rezim"
                                     android:layout_width="40dp"
                                     android:layout_height="match_parent"
-                                    android:textAllCaps="false"
-                                    android:src="@drawable/ic_history"
-                                    android:background="@drawable/button_bg"
-                                    android:scaleType="fitCenter"
                                     android:layout_marginLeft="8dp"
-                                    android:padding="7dp" />
+                                    android:background="@drawable/button_bg"
+                                    android:padding="7dp"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/ic_history"
+                                    android:textAllCaps="false" />
 
                                 <ImageButton
 

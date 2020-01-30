@@ -24,8 +24,8 @@ public class ExerciseRegimeViewModel extends AndroidViewModel {
         this.context = application;
     }
 
-    public void insert(KorisnikVjezba korisnikVjezba){
-        VjezbaDAL.UnesiKorisnikVjezbu(korisnikVjezba, context);
+    public long insert(KorisnikVjezba korisnikVjezba){
+        return VjezbaDAL.UnesiKorisnikVjezbu(korisnikVjezba, context);
     }
 
     public void delete(KorisnikVjezba korisnikVjezba){

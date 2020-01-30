@@ -302,7 +302,7 @@ public class ExerciseInstructor extends AppCompatActivity {
     }
 
     private void zavrsiVjezbu(){
-        /*
+
         Bundle bundle = new Bundle();
         bundle.putString("brKalorija",ivCalories.getText().toString());
         bundle.putInt("vrijemeVjezbi",ukupnoTrajanjeVjezbanja);
@@ -311,8 +311,7 @@ public class ExerciseInstructor extends AppCompatActivity {
         Intent intent = new Intent(ExerciseInstructor.this, ExerciseReport.class);
         intent.putExtras(bundle);
         startActivity(intent);
-         */
-
+        
         ExerciseInstructor.this.finish();
     }
 

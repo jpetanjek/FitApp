@@ -17,8 +17,8 @@ import java.util.List;
 
 public class VjezbaDAL {
 
-    public static void UnesiKorisnikVjezbu(KorisnikVjezba korisnikVjezba, Context context){
-        MyDatabase.getInstance(context).getVjezbaDAO().unosKorisnikoveVjezbe(korisnikVjezba);
+    public static long UnesiKorisnikVjezbu(KorisnikVjezba korisnikVjezba, Context context){
+        return MyDatabase.getInstance(context).getVjezbaDAO().unosKorisnikoveVjezbe(korisnikVjezba)[0];
     }
 
     public static void ObrisiKorisnikVjezbu(KorisnikVjezba korisnikVjezba, Context context){

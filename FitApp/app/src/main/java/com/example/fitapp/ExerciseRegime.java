@@ -260,13 +260,14 @@ public class ExerciseRegime extends AppCompatActivity {
                 korisnikVjezba.setPlaniraniDatum( dateToString(datum) );
                 korisnikVjezba.setIdVjezba( which + 2 );
 
-                exerciseRegimeViewModel.insert(korisnikVjezba);
+                int idVjezbe = (int) exerciseRegimeViewModel.insert(korisnikVjezba);
                 adapter.setKorisnikVjezbas( exerciseRegimeViewModel.getAllKorisnikVjezba( dateToString(datum) ) );
+
                 Calendar cal = Calendar.getInstance();
                 long pocetnoVrijeme = cal.getTimeInMillis();
                 long zavrsnoVrijeme = pocetnoVrijeme + 60*60*1000;
-                String naslov = "Kreirana vježba za "+MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().dohvatiVjezbu(korisnikVjezba.getIdVjezba()).getNaziv();
-                String opis = "Kreirali ste događaj za planiranje vježbe "+MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().dohvatiVjezbu(korisnikVjezba.getIdVjezba()).getNaziv();
+                String naslov = "Kreirana vježba za "+MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().dohvatiVjezbu(idVjezbe).getNaziv();
+                String opis = "Kreirali ste događaj za planiranje vježbe "+MyDatabase.getInstance(getApplicationContext()).getVjezbaDAO().dohvatiVjezbu(idVjezbe).getNaziv();
                 KalendarDogadaj.OtvoriDogadajKalendara(getApplicationContext(),pocetnoVrijeme,zavrsnoVrijeme,naslov,opis,KalendarDogadaj.KROZ_INTERVAL_POCETKA_I_KRAJA);
             }
         });

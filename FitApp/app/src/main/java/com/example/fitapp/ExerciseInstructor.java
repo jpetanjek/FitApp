@@ -17,8 +17,12 @@ import com.example.core.entities.KorisnikVjezba;
 import com.example.core.entities.Setovi;
 import com.example.core.entities.Vjezba;
 import com.example.database.MyDatabase;
+import com.example.database.VjezbaDAO;
 import com.example.repository.KorisnikDAL;
+import com.example.repository.VjezbaDAL;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 import features.Text2Speech;
 
 import static com.example.database.MyDatabase.getInstance;
+import static com.example.fitapp.Profil.getToolbarLogoView;
 
 public class ExerciseInstructor extends AppCompatActivity {
     private String nazivVjezbe;
@@ -69,6 +74,23 @@ public class ExerciseInstructor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_instructor);
 
+
+        Toolbar toolbar = findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar);
+
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    finish();
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
+
         //povezivanje varijabli za viewomvima
         btnStart = findViewById(R.id.btnStartTimer);
         tvCountDown = findViewById(R.id.tvCountdownTimer);
@@ -83,8 +105,7 @@ public class ExerciseInstructor extends AppCompatActivity {
 
 
         nazivVjezbe = getIntent().getExtras().getString("nazivVjezbe");
-        Toolbar toolbar = findViewById(R.id.toolbar1);
-        //toolbar.setTitle(toolbar.getTitle() + nazivVjezbe);
+
 
         listaKorisnikVjezbeId = getIntent().getIntegerArrayListExtra("listaKorisnikVjezbeId");
 
@@ -133,6 +154,7 @@ public class ExerciseInstructor extends AppCompatActivity {
             public void onClick(View v) {
                 //trajanje rep*broj rep + 5 sekundi za pripremu pozicije
                 startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja());
+                azurirajVjezbu();
                 btnStart.setVisibility(View.GONE);
                 btnPause.setVisibility(View.VISIBLE);
             }
@@ -162,6 +184,7 @@ public class ExerciseInstructor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 zavrsiVjezbu();
+                zapisiBrojKalorija();
             }
         });
 
@@ -256,6 +279,7 @@ public class ExerciseInstructor extends AppCompatActivity {
                     pauza=true;
                 }else{
                     startTimer(vjezba.get(brojTrenutneVjezbe).getRepetition_lenght()*atributiVjezbiSnage.get(brojTrenutneVjezbe).getBrojPonavljanja());
+                    azurirajVjezbu();
                     pauza=false;
                 }
             }
@@ -278,6 +302,7 @@ public class ExerciseInstructor extends AppCompatActivity {
     }
 
     private void zavrsiVjezbu(){
+        /*
         Bundle bundle = new Bundle();
         bundle.putString("brKalorija",ivCalories.getText().toString());
         bundle.putInt("vrijemeVjezbi",ukupnoTrajanjeVjezbanja);
@@ -286,7 +311,40 @@ public class ExerciseInstructor extends AppCompatActivity {
         Intent intent = new Intent(ExerciseInstructor.this, ExerciseReport.class);
         intent.putExtras(bundle);
         startActivity(intent);
+         */
+
         ExerciseInstructor.this.finish();
+    }
+
+    public String dateToString(Date datum){
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy"); //Dan, datum mjesec sati minute
+        return dateFormat.format(datum);
+    }
+
+    public void azurirajVjezbu(){
+
+        int idVjezbe = listaKorniskVjezbi.get( brojTrenutneVjezbe ).getId();
+
+        KorisnikVjezba korisnikVjezba = MyDatabase.getInstance(ExerciseInstructor.this).getVjezbaDAO().dohvatiKorisnikovuVjezbu( idVjezbe );
+        Date trenutniDatum = new Date(System.currentTimeMillis());
+        korisnikVjezba.setDatumPocetka( dateToString(trenutniDatum) );
+
+        MyDatabase.getInstance(ExerciseInstructor.this).getVjezbaDAO().azuriranjeKorisnikoveVjezbe(korisnikVjezba);
+    }
+
+
+
+    public void zapisiBrojKalorija(){
+        int idVjezbe = listaKorniskVjezbi.get( brojTrenutneVjezbe ).getId();
+
+        AtributiVjezbiSnage atributiVjezbiSnage = MyDatabase.getInstance( ExerciseInstructor.this ).getVjezbaDAO().dohvatiAtributeVjezbeSnagePoVjezbi( idVjezbe );
+
+        if(brojTrenutneVjezbe == 0)
+            atributiVjezbiSnage.setKalorijaPotroseno( (int) ukupanBrojKalorija );
+        else
+            atributiVjezbiSnage.setKalorijaPotroseno( (int) ukupanBrojKalorija/brojTrenutneVjezbe );
+
+        MyDatabase.getInstance(ExerciseInstructor.this).getVjezbaDAO().azuriranjeAtributaVjezbeSnage(atributiVjezbiSnage);
     }
 
 }

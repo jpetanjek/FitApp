@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
             Vjezba newVjezba1 = new Vjezba();
             newVjezba1.setId(2);
-            newVjezba1.setMet(new Float(9));
+            newVjezba1.setMet(new Float(13.5));
             newVjezba1.setNaziv("Running");
             newVjezba1.setTipVjezbe(1);
             newVjezba1.setRepetition_lenght(5);
@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba1.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba1);
 
+            /*
             Vjezba newVjezba2 = new Vjezba();
             newVjezba2.setId(3);
             newVjezba2.setMet(new Float(4.8));
@@ -193,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba3.setUpute("Drive With Your Legs.");
             newVjezba3.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba3);
-
+            */
             Vjezba newVjezba4= new Vjezba();
             newVjezba4.setId(5);
             newVjezba4.setMet(new Float(6));
@@ -234,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba7.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba7);
 
+            /*
             Vjezba newVjezba8= new Vjezba();
             newVjezba8.setId(9);
             newVjezba8.setMet(new Float(7.5));
@@ -244,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
             newVjezba8.setRepetition_lenght(5);
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba8);
             System.out.println("Kreirane vjezbe");
+             */
         }
     }
 

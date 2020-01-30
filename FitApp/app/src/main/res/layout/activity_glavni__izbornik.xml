@@ -73,7 +73,7 @@
                     <LinearLayout
                         android:layout_width="324dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="32dp"
                         android:orientation="horizontal"
                         android:layout_marginLeft="20dp">
 
@@ -197,7 +197,7 @@
                     <LinearLayout
                         android:layout_width="324dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="32dp"
                         android:orientation="horizontal"
                         android:layout_marginLeft="20dp">
 
@@ -242,63 +242,57 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="120dp"
-                            android:layout_height="43dp"
-                            android:layout_marginTop="1dp"
-                            android:layout_marginLeft="18dp"
-                            android:orientation="horizontal"
-                            android:gravity="center">
 
-                            <Button
-                                android:id="@+id/btnExcerciseSelection"
-                                android:layout_width="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right"
+                            android:layout_marginRight="25dp"
+                            >
+
+
+                            <LinearLayout
+                                android:layout_width="120dp"
                                 android:layout_height="43dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/btn2_background"
-                                android:text="Exercise\nselection"
-                                android:textAllCaps="false" />
+                                android:background="@drawable/layout_bg"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center">
+
+                                <ImageButton
+
+                                    android:id="@+id/rezim"
+                                    android:layout_width="40dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="8dp"
+                                    android:background="@drawable/button_bg"
+                                    android:padding="7dp"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/ic_history"
+                                    android:textAllCaps="false" />
+
+                                <ImageButton
+
+                                    android:layout_width="20dp"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/vertical_line"
+                                    android:background="@drawable/button_bg"
+                                    android:scaleType="fitCenter" />
+
+                                <ImageButton
+                                    android:id="@+id/btnExcerciseSelection"
+                                    android:layout_width="40dp"
+                                    android:layout_height="match_parent"
+                                    android:textAllCaps="false"
+                                    android:src="@drawable/dots"
+                                    android:background="@drawable/button_bg"
+                                    android:scaleType="fitCenter"
+                                    android:padding="10dp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
-                        <!--
-                        <LinearLayout
-                            android:layout_width="120dp"
-                            android:layout_height="43dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginLeft="50dp"
-                            android:background="@drawable/layout_bg"
-                            android:orientation="horizontal"
-                            android:gravity="center">
 
-                            <ImageButton
 
-                                android:layout_width="40dp"
-                                android:layout_height="match_parent"
-                                android:textAllCaps="false"
-                                android:src="@drawable/ic_history"
-                                android:background="@drawable/button_bg"
-                                android:scaleType="fitCenter"
-                                android:padding="7dp" />
 
-                            <ImageButton
-
-                                android:layout_width="20dp"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/vertical_line"
-                                android:background="@drawable/button_bg"
-                                android:scaleType="fitCenter" />
-
-                            <ImageButton
-
-                                android:layout_width="40dp"
-                                android:layout_height="match_parent"
-                                android:textAllCaps="false"
-                                android:src="@drawable/dots"
-                                android:background="@drawable/button_bg"
-                                android:scaleType="fitCenter"
-                                android:padding="10dp" />
-
-                        </LinearLayout>
-                        -->
                     </LinearLayout>
 
                 </LinearLayout>
@@ -352,7 +346,7 @@
                     <LinearLayout
                         android:layout_width="324dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="32dp"
                         android:orientation="horizontal"
                         android:layout_marginLeft="20dp">
 
@@ -397,23 +391,32 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="120dp"
-                            android:layout_height="43dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginLeft="18dp"
-                            android:orientation="horizontal"
-                            android:gravity="center">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right"
+                            android:layout_marginRight="25dp"
+                            >
 
-                            <Button
-                                android:id="@+id/btnFoodDiary"
-                                android:layout_width="match_parent"
+                            <LinearLayout
+                                android:layout_width="120dp"
                                 android:layout_height="43dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/btn2_background"
-                                android:text="Food Diary"
-                                android:textAllCaps="false" />
+
+                                android:layout_marginTop="10dp">
+
+                                <Button
+                                    android:id="@+id/btnFoodDiary"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="43dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/btn2_background"
+                                    android:text="Add"
+                                    android:textAllCaps="false" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
+
+
 
                     </LinearLayout>
 
@@ -423,10 +426,13 @@
 
         </androidx.cardview.widget.CardView>
 
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
+
             app:cardCornerRadius="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp">
@@ -472,7 +478,7 @@
                         <LinearLayout
                             android:layout_width="324dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="32dp"
                             android:orientation="horizontal"
                             android:layout_marginLeft="20dp">
                             <LinearLayout
@@ -496,22 +502,34 @@
                                 android:textSize="15dp" />
                             </LinearLayout>
                             <LinearLayout
-                                android:layout_width="120dp"
-                                android:layout_height="43dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginLeft="17dp"
-                                android:orientation="horizontal"
-                                android:gravity="center">
 
-                                <Button
-                                    android:id="@+id/btnMeasure"
-                                    android:layout_width="match_parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="right"
+                                android:layout_marginRight="10dp"
+                                >
+
+                                <LinearLayout
+                                    android:layout_width="120dp"
                                     android:layout_height="43dp"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/btn2_background"
-                                    android:text="Measure"
-                                    android:textAllCaps="false" />
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal"
+                                    android:gravity="center">
+
+                                    <!--<Button
+                                        android:layout_width="match_parent"
+                                        android:layout_height="43dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/btn2_background"
+                                        android:text="Measure"
+                                        android:textAllCaps="false" />
+                                     -->
+
+                                </LinearLayout>
+
                             </LinearLayout>
+
+
 
                         </LinearLayout>
 

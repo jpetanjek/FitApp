@@ -7,85 +7,116 @@
     android:layout_marginTop="2dp"
     android:layout_marginBottom="2dp">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/glavni"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:id="@+id/drugi"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_below="@id/prvi"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvRedniBroj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="111"
-            android:background="@drawable/btn2_background"
-            android:maxLines="1"
-            android:layout_marginEnd="40dp"
-            android:layout_toStartOf="@id/OkvirMasa"
-            android:padding="7dp"
-            android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            <LinearLayout
+                android:id="@+id/Lay1"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center">
 
-        <RelativeLayout
-            android:id="@+id/OkvirMasa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/btn2_background"
-            android:padding="7dp">
+                <TextView
+                    android:id="@+id/tvRedniBroj"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/btn_background"
+                    android:maxLines="1"
+                    android:text="1"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-            <EditText
-                android:id="@+id/tvMasa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="60"
-                android:background="@color/gray"
-                android:selectAllOnFocus="true"
-                android:maxLines="1"
-                android:minEms="1"
-                android:inputType="numberDecimal"
-                android:ellipsize="end"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </LinearLayout>
 
-            <TextView
-                android:layout_toEndOf="@id/tvMasa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  kg"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            <LinearLayout
+                android:id="@+id/unosLay"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/btn2_background"
+                    android:gravity="center">
 
-        <RelativeLayout
-            android:layout_toEndOf="@id/OkvirMasa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:background="@drawable/btn2_background"
-            android:padding="7dp">
+                    <EditText
+                        android:id="@+id/tvMasa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="60"
+                        android:background="@color/gray"
+                        android:selectAllOnFocus="true"
+                        android:maxLines="1"
+                        android:minEms="1"
+                        android:inputType="numberDecimal"
+                        android:ellipsize="end"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-            <EditText
-                android:id="@+id/tvBrojPonavljanja"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10"
-                android:minEms="1"
-                android:selectAllOnFocus="true"
-                android:inputType="number"
-                android:background="@color/gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    <TextView
+                        android:layout_toEndOf="@id/tvMasa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  kg"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                </LinearLayout>
 
-            <TextView
-                android:layout_toEndOf="@id/tvBrojPonavljanja"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  reps"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </LinearLayout>
 
-        </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/plusLay"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="30dp"
+                android:gravity="center">
 
-    </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/btn2_background"
+                    android:gravity="center">
 
+                    <EditText
+                        android:id="@+id/tvBrojPonavljanja"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:minEms="1"
+                        android:selectAllOnFocus="true"
+                        android:inputType="number"
+                        android:background="@color/gray"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
+                    <TextView
+                        android:layout_toEndOf="@id/tvBrojPonavljanja"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  reps"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

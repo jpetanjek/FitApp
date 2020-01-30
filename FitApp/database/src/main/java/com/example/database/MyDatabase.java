@@ -38,4 +38,6 @@ public abstract class MyDatabase extends RoomDatabase {
     public abstract NamirnicaDAO getNamirnicaDAO();
 
     public abstract VjezbaDAO getVjezbaDAO();
+
+    public abstract  atributi_kardio_vjezbi_DAO getAtributiKardioVjezbioDAO();
 }

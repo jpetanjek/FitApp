@@ -21,6 +21,7 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,8 +71,8 @@ public class FoodDiary extends AppCompatActivity {
         trenutniDatum = new Date(System.currentTimeMillis());
 
         final TextView tvDate = findViewById(R.id.tvDate);
-        Button btnDateDecrement = findViewById(R.id.btnDateDecrement);
-        Button btnDateIncrement = findViewById(R.id.btnDateIncrement);
+        ImageButton btnDateDecrement = findViewById(R.id.btnDateDecrement);
+        ImageButton btnDateIncrement = findViewById(R.id.btnDateIncrement);
         dodajTrigereNaGumbove();
         IspisiNamirniceObroka();
         tvDate.addTextChangedListener(new TextWatcher() {
@@ -151,10 +152,10 @@ public class FoodDiary extends AppCompatActivity {
 
     }
     private void dodajTrigereNaGumbove(){
-        Button btnAddDorucak = findViewById(R.id.btnAddBreakfast);
-        Button btnAddRucak = findViewById(R.id.btnAddLunch);
-        Button btnAddVecera = findViewById(R.id.btnAddDinner);
-        Button btnAddUzina = findViewById(R.id.btnAddSnack);
+        ImageButton btnAddDorucak = findViewById(R.id.btnAddBreakfast);
+        ImageButton btnAddRucak = findViewById(R.id.btnAddLunch);
+        ImageButton btnAddVecera = findViewById(R.id.btnAddDinner);
+        ImageButton btnAddUzina = findViewById(R.id.btnAddSnack);
 
         //bundle ("Datum" => datum, "Obrok" => obrok)
         btnAddDorucak.setOnClickListener(new View.OnClickListener() {

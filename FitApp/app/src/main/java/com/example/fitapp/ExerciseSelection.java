@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.IntentCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import adapter.CurrentActivity;
 import features.Text2Speech;
 
 public class ExerciseSelection extends AppCompatActivity {
@@ -79,43 +81,53 @@ public class ExerciseSelection extends AppCompatActivity {
                     switch (position){
                         case 0:
                             //Toast.makeText(ExerciseSelection.this, "Plan exercises description", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ExerciseSelection.this, ExerciseRegime.class);
+                            startActivity(intent);
                             break;
                         case 1:
                             //Toast.makeText(ExerciseSelection.this, "Running description", Toast.LENGTH_SHORT).show();
+
+                            Intent intentRunning = new Intent(ExerciseSelection.this, RunningConfiguration.class);
+                            intentRunning.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intentRunning.putExtra("idVjezbe",objektiVjezbi.get(position).getId());
+                            //intentRunning.putExtra("naziv",objektiVjezbi.get(position).getNaziv());
+                            startActivity(intentRunning);
+                            finish();
+
                             break;
                         case 2:
                             //Toast.makeText(ExerciseSelection.this, "Walking description", Toast.LENGTH_SHORT).show();
-                            break;
-                        case 3:
-                            //Toast.makeText(ExerciseSelection.this, "Rowing description", Toast.LENGTH_SHORT).show();
-                            break;
-                        case 4:
-                            //Toast.makeText(ExerciseSelection.this, "Deadlift description", Toast.LENGTH_SHORT).show();
                             Intent intentDeadlift = new Intent(ExerciseSelection.this, ExerciseConfiguration.class);
                             intentDeadlift.putExtra("idVjezbe",objektiVjezbi.get(position).getId());
                             intentDeadlift.putExtra("naziv",objektiVjezbi.get(position).getNaziv());
                             startActivity(intentDeadlift);
                             break;
-                        case 5:
-                            //Toast.makeText(ExerciseSelection.this, "Shoulder press description", Toast.LENGTH_SHORT).show();
+                        case 3:
+                            //Toast.makeText(ExerciseSelection.this, "Rowing description", Toast.LENGTH_SHORT).show();
                             Intent intentShoulderPress = new Intent(ExerciseSelection.this, ExerciseConfiguration.class);
                             intentShoulderPress.putExtra("idVjezbe",objektiVjezbi.get(position).getId());
                             intentShoulderPress.putExtra("naziv",objektiVjezbi.get(position).getNaziv());
                             startActivity(intentShoulderPress);
                             break;
-                        case 6:
-                            //Toast.makeText(ExerciseSelection.this, "Bench press description", Toast.LENGTH_SHORT).show();
+                        case 4:
+                            //Toast.makeText(ExerciseSelection.this, "Deadlift description", Toast.LENGTH_SHORT).show();
                             Intent intentBenchPress = new Intent(ExerciseSelection.this, ExerciseConfiguration.class);
                             intentBenchPress.putExtra("idVjezbe",objektiVjezbi.get(position).getId());
                             intentBenchPress.putExtra("naziv",objektiVjezbi.get(position).getNaziv());
                             startActivity(intentBenchPress);
                             break;
-                        case 7:
-                            //Toast.makeText(ExerciseSelection.this, "Squat description", Toast.LENGTH_SHORT).show();
+                        case 5:
+                            //Toast.makeText(ExerciseSelection.this, "Shoulder press description", Toast.LENGTH_SHORT).show();
                             Intent intentSquat = new Intent(ExerciseSelection.this, ExerciseConfiguration.class);
                             intentSquat.putExtra("idVjezbe",objektiVjezbi.get(position).getId());
                             intentSquat.putExtra("naziv",objektiVjezbi.get(position).getNaziv());
                             startActivity(intentSquat);
+                        case 6:
+                            //Toast.makeText(ExerciseSelection.this, "Bench press description", Toast.LENGTH_SHORT).show();
+
+                        case 7:
+                            //Toast.makeText(ExerciseSelection.this, "Squat description", Toast.LENGTH_SHORT).show();
+
                             break;
                         case 8:
                             //Toast.makeText(ExerciseSelection.this, "Biking description", Toast.LENGTH_SHORT).show();

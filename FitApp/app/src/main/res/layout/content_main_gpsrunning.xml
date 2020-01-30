@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/fragment_gpsrunning">
+    <!-- TODO: link GPS & display real time map -->
+
+    <!-- Current speed -->
+    <TextView
+        android:id="@+id/current_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/labels"
+        android:text="@string/current_speed"/>
+
+    <!-- Total distance travelled -->
+    <TextView
+        android:id="@+id/total_distance_rt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/current_speed"
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/labels"
+        android:text="@string/total_distance"/>
+
+    <!-- Average speed -->
+    <TextView
+        android:id="@+id/average_speed_rt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/total_distance_rt"
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/labels"
+        android:text="@string/average_speed"/>
+
+    <!-- Time elapsed -->
+    <TextView
+        android:id="@+id/elapsed_time_rt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/average_speed_rt"
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/labels"
+        android:text="@string/elapsed_time"/>
+
+    <!-- Chronometer -->
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:format="%s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/elapsed_time_rt"
+        android:textSize="@dimen/values"/>
+
+</RelativeLayout>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RunningInstructorV2">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarAddFood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:logo="@drawable/ic_arrow_back_black_24dp"
+        app:title="@string/Running"
+        app:titleMarginStart="30dp"
+        app:titleTextColor="@color/black"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <LinearLayout
+        android:id="@+id/glavni"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarAddFood"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/prvi"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:gravity="bottom|center"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Time"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="20sp" />
+
+            <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="55sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drugi"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/prvi"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <LinearLayout
+                android:id="@+id/drugi_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginRight="30dp">
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:textColor="@color/cardview_dark_background"
+                    android:text="Distance (km): " />
+                <TextView
+                    android:id="@+id/distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:text="Distance" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/treci"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/drugi"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="Calories (kcal):" />
+
+            <TextView
+                android:id="@+id/kalorijeIspis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:text="KalorijeIspis" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cetvrti"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/treci"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/cardview_dark_background"
+                android:text="Pace (/km): " />
+
+            <TextView
+                android:id="@+id/pace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:text="Pace" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/peti"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/cetvrti"
+            android:orientation="vertical"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/pause"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="-48dp"
+                android:text="Pause"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:background="@drawable/btn4_background" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="28dp"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/start"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Resume"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    android:background="@drawable/btn4_background" />
+
+                <Button
+                    android:id="@+id/stop"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Finish"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    android:background="@drawable/btn6_background" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

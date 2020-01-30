@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:logo="@drawable/ic_arrow_back_black_24dp"
+        app:titleMarginStart="30dp"
+        app:title="Exercise Regime"
+        app:titleTextColor="@color/black"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/dateSpace"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:background="@color/gray2"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/minusLay"
+                    android:layout_width="131dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+
+                    <ImageButton
+                        android:id="@+id/btnDateDecrement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/btn5_background"
+                        android:src="@drawable/prethodni"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/unosLay"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="dd.MM.yyyy"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/plusLay"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right">
+
+                        <ImageButton
+                            android:id="@+id/btnDateIncrement"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="15dp"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/btn5_background"
+                            android:src="@drawable/sljedeci"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:text="Monday"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewMonday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/exercise_regime_item"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2">
+
+                <ImageButton
+                    android:id="@+id/btnAddToMonday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add"
+                    />
+
+                <Button
+                    android:id="@+id/dodaj"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add Exercise"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewTuesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/exercise_regime_item"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2">
+
+                <ImageButton
+                    android:id="@+id/btnAddToTuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add" />
+
+                <Button
+                    android:id="@+id/dodajTuesday"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add Exercise"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewWednesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/exercise_regime_item"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2">
+
+                <ImageButton
+                    android:id="@+id/btnAddToWednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add" />
+
+                <Button
+                    android:id="@+id/dodajVeceru"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add Exercise"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thursday"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewThursday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/exercise_regime_item"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2"
+                >
+
+                <ImageButton
+                    android:id="@+id/btnAddToThursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add"
+                    />
+
+                <Button
+                    android:id="@+id/dodajThursday"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add Exercise"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:text="Friday"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewFriday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/exercise_regime_item"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2">
+
+                <ImageButton
+                    android:id="@+id/btnAddToFriday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add"
+                    />
+
+                <Button
+                    android:id="@+id/dodajFriday"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add Exercise"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:text="Saturday"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewSaturday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/exercise_regime_item"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2">
+
+                <ImageButton
+                    android:id="@+id/btnAddToSaturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add"
+                    />
+
+                <Button
+                    android:id="@+id/dodajSaturday"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add Exercise"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingStart="5dp"
+                android:text="Sunday"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewSunday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/exercise_regime_item"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray2">
+
+                <ImageButton
+                    android:id="@+id/btnAddToSunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn5_background"
+                    android:src="@drawable/add"
+                    />
+
+                <Button
+                    android:id="@+id/dodajSunday"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add Exercise"
+                    android:background="@drawable/btn5_background"
+                    android:textAllCaps="false"
+                    android:gravity="left|center_vertical"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!--
+        <Button
+            android:id="@+id/registracija"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Registracija"
+            android:layout_marginTop="670dp"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.292" />
+    -->
+
+</RelativeLayout>

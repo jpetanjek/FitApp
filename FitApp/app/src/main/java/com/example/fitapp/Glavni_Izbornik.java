@@ -10,9 +10,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.core.entities.Korisnik;
 import com.example.core.entities.Vjezba;
 import com.example.database.MyDatabase;
 import com.example.fitapp.viewmodels.NamirniceObrokaViewModel;
+import com.example.repository.KorisnikDAL;
 import com.example.repository.NamirnicaDAL;
 
 import androidx.appcompat.widget.Toolbar;
@@ -125,20 +127,43 @@ public class Glavni_Izbornik extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
-        int ukupniBrojKalorija = namirniceObrokaViewModel.getUkupniBrojKalorija(dohvatiStringDatuma());
-        TextView brojKalorija = findViewById(R.id.actual_food);
-        brojKalorija.setText(String.valueOf(ukupniBrojKalorija));
 
+        //kalorije hrane
+        namirniceObrokaViewModel = ViewModelProviders.of(this).get(NamirniceObrokaViewModel.class);
+        int kalorije_hrane = namirniceObrokaViewModel.getUkupniBrojKalorija(dohvatiStringDatuma());
+
+        TextView actual_food = findViewById(R.id.actual_food);
+        actual_food.setText(String.valueOf(kalorije_hrane));
+
+        TextView food_calorie = findViewById(R.id.food_calorie);
+        food_calorie.setText(String.valueOf(kalorije_hrane));
+
+        //pocetne kalorije korisnika
+        TextView calorie_goal = findViewById(R.id.calorie_goal);
+        int pocetne_kalorije_korisnika= (int) KorisnikDAL.Trenutni(getApplicationContext()).pocetneKalorije(KorisnikDAL.Trenutni(getApplicationContext()));
+        calorie_goal.setText(String.valueOf(pocetne_kalorije_korisnika));
+
+        //kilaza korisnika
         TextView tezinaKorisnika = findViewById(R.id.weight);
         tezinaKorisnika.setText(String.valueOf(MyDatabase.getInstance(this).getKorisnikDAO().dohvatiKorisnika().getMasa()));
 
 
         System.out.println(dohvatiStringDatuma());
         System.out.println(MyDatabase.getInstance(this).getVjezbaDAO().dohvatiKalorijeKardio(dohvatiStringDatuma()));
+
+        //String datumRodenja= KorisnikDAL.Trenutni(getApplicationContext()).getDatumRodenja();
+        //System.out.println(datumRodenja.substring(datumRodenja.length()-4));
+
+        //vjezbe
         TextView actual_exercise = findViewById(R.id.actual_exercise);
-        int total=MyDatabase.getInstance(this).getVjezbaDAO().dohvatiKalorijeKardio(dohvatiStringDatuma()) + MyDatabase.getInstance(this).getVjezbaDAO().dohvatiKalorijeSnaga(dohvatiStringDatuma());
-        actual_exercise.setText(String.valueOf(total));
+        int kalorije_vjezbe=MyDatabase.getInstance(this).getVjezbaDAO().dohvatiKalorijeKardio(dohvatiStringDatuma()) + MyDatabase.getInstance(this).getVjezbaDAO().dohvatiKalorijeSnaga(dohvatiStringDatuma());
+        actual_exercise.setText(String.valueOf(kalorije_vjezbe));
+        //calorie counter vjezbe
+        TextView exercise_calorie = findViewById(R.id.exercise_calorie);
+        exercise_calorie.setText(String.valueOf(kalorije_vjezbe));
+
+        TextView remaining_calorie= findViewById(R.id.remaining_calorie);
+        remaining_calorie.setText(String.valueOf(pocetne_kalorije_korisnika-kalorije_hrane+kalorije_vjezbe));
     }
 
     public static View getToolbarLogoView(Toolbar toolbar){

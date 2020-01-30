@@ -313,9 +313,9 @@ public class Profil extends AppCompatActivity {
                 public void onClick(View v) {
                     if(v.getId()== com.example.registracija.R.id.btnWeightLossOrGainGoal) {
                         final NumberPicker lossGainPick = new NumberPicker(Profil.this);
-                        final String[] inputValues = {"-0.25","-0.5","-1.0","1.0","0.5","0.25"};
+                        final String[] inputValues = {"0.00","-0.25","-0.5","-1.0","1.0","0.5","0.25"};
                         lossGainPick.setDisplayedValues(inputValues);
-                        lossGainPick.setMaxValue(5);
+                        lossGainPick.setMaxValue(6);
                         lossGainPick.setMinValue(0);
 
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Profil.this).setView(lossGainPick);

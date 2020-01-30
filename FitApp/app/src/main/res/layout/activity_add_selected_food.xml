@@ -263,6 +263,15 @@
                     android:background="@drawable/btn_background"
                     />
 
+                <Button
+                    android:id="@+id/btnKalendar"
+                    android:layout_width="182dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_background"
+                    android:text="Add to calendar"
+                    android:textAllCaps="false" />
+
             </LinearLayout>
 
         </LinearLayout>

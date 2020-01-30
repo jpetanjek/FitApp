@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ExerciseRegime"></activity>
         <activity android:name=".RunningReport"></activity>
         <activity android:name=".RunningInstructorV2" />
         <activity android:name=".GPSRunningSummary" />

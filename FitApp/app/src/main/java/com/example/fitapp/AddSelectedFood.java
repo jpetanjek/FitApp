@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,13 +18,20 @@ import android.widget.Toast;
 
 import com.example.core.entities.Namirnica;
 import com.example.core.entities.NamirniceObroka;
+import com.example.database.MyDatabase;
 import com.example.fitapp.viewmodels.AddSelectedFoodViewModel;
 import com.example.registracija.Repozitorij;
 import com.example.repository.KorisnikDAL;
 import com.example.repository.NamirnicaDAL;
 import com.example.unos_hrane.Add_new_food_ViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import RetroEntities.RetroNamirnica;
+import features.KalendarDogadaj;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +45,7 @@ public class AddSelectedFood extends AppCompatActivity {
     private TextView Number_of_servings;
     private TextView Serving_size;
     private TextView Calorie;
-    private Button btnCreateFood;
+    private Button btnCreateFood,btnKalendar;
     private NamirniceObroka namirniceObroka;
     private int brojKalorija;
     private int tezinaNamirnice;
@@ -136,7 +144,6 @@ public class AddSelectedFood extends AppCompatActivity {
         namirniceObroka.setObrok(obrok);
         namirniceObroka.setDatum(datum);
         //lokalnaNamirniceObroka.setPlanirano();
-
         //SPREMI NamirnicaUObrok
 
         System.out.println("Dodana");
@@ -147,8 +154,18 @@ public class AddSelectedFood extends AppCompatActivity {
                 finish();
             }
         });
-
-
+        Button btnKalendar = findViewById(R.id.btnKalendar);
+        btnKalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String naslov = "Pojedi "+ MyDatabase.getInstance(v.getContext()).getNamirnicaDAO().dohvatiNamirnicu(namirniceObroka.getIdNamirnica()).getNaziv();
+                String opis = "Potrebno je pojesti "+MyDatabase.getInstance(v.getContext()).getNamirnicaDAO().dohvatiNamirnicu(namirniceObroka.getIdNamirnica()).getNaziv()+" za obrok "+namirniceObroka.getObrok();
+                Calendar calendar = Calendar.getInstance();
+                long pocetnoVrijeme = calendar.getTimeInMillis();
+                long zavrsnoVrijeme = pocetnoVrijeme + 120*60*1000;
+                KalendarDogadaj.OtvoriDogadajKalendara(v.getContext(),pocetnoVrijeme,zavrsnoVrijeme,naslov,opis,KalendarDogadaj.KROZ_INTERVAL_POCETKA_I_KRAJA);
+            }
+        });
     }
 
     private float IzracunajMasuNamirniceObroka(){

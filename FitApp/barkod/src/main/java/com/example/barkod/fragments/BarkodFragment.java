@@ -26,14 +26,19 @@ import com.example.repository.NamirnicaDAL;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import RetroEntities.RetroNamirnica;
 import adapter.CurrentActivity;
 import adapter.CurrentFood;
 import dialog.NumberOfServingsDialog;
+import features.KalendarDogadaj;
 import info.androidhive.barcode.BarcodeReader;
 import managers.NamirnicaImporter;
 import retrofit2.Call;
@@ -125,20 +130,18 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
             CurrentActivity.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(!CurrentActivity.getActivity().isFinishing()){
-                        NumberOfServingsDialog cdd=new NumberOfServingsDialog(getActivity() ,Integer.valueOf(String.valueOf(1)));
-                        cdd.setDialogResult(new NumberOfServingsDialog.OnMyDialogResult() {
-                            @Override
-                            public void finish(String result) {
-                                NamirnicaDAL.UnesiKorisnikovObrok(CurrentActivity.getActivity(),CurrentFood.getNamirnicaObroka());
-                                getActivity().getSupportFragmentManager().popBackStack();
-                                if(mListener != null){
-                                    mListener.onFragmentInteraction(true);
-                                }
-                            }
-                        });
-                        cdd.show();
+                    if (!CurrentActivity.getActivity().isFinishing()) {
+                        if (mListener != null) {
+                            mListener.onFragmentInteraction(true);
+                        }
+                        if (mObjectListener != null) {
+                            mObjectListener.onScannedCompleteInteraction(dohvacenaNamirnica);
+                        }
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    }
+                }
 /*
+                        POPUP ZA PROVJERU UNOSA NA SLJEDEĆI EKRAN
                         new AlertDialog.Builder(getContext())
                                 .setTitle("Dodavanje namirnice u obrok!")
                                 .setMessage("Želite li staviti "+dohvacenaNamirnica.getNaziv()+" u obrok "+obrok)
@@ -163,10 +166,7 @@ public class BarkodFragment extends Fragment implements BarcodeReader.BarcodeRea
                                 }).show();
 
  */
-                    }
-                }
             });
-
         }
     }
 

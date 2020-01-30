@@ -54,6 +54,7 @@ public class ExerciseRegimeAdapter extends RecyclerView.Adapter<ExerciseRegimeAd
         //holder.tvBrojSetova.setText("3 sets");
         holder.idVjezbe = vjezba.getId();
         holder.tvNazivVjezbe.setText(vjezba.getNaziv());
+
     }
     @Override
     public int getItemCount() {
@@ -97,47 +98,38 @@ public class ExerciseRegimeAdapter extends RecyclerView.Adapter<ExerciseRegimeAd
 
         // Lose, kopirano iz ExerciseSelection - nisu vježbe pridružene tipu, ne može se dobiti naziv tipa vježbe preko upita.
         public void selekcijaVjezbi(){
-            Toast.makeText(context, Integer.toString(idVjezbe), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, Integer.toString(idVjezbe), Toast.LENGTH_SHORT).show();
             switch (idVjezbe){
                 case 2:
                     //Toast.makeText(ExerciseSelection.this, "Running description", Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    //Toast.makeText(ExerciseSelection.this, "Walking description", Toast.LENGTH_SHORT).show();
-                    break;
-                case 4:
-                    //Toast.makeText(ExerciseSelection.this, "Rowing description", Toast.LENGTH_SHORT).show();
-                    break;
-                case 5:
                     //Toast.makeText(ExerciseSelection.this, "Deadlift description", Toast.LENGTH_SHORT).show();
                     Intent intentDeadlift = new Intent(context, ExerciseConfiguration.class);
                     intentDeadlift.putExtra("idVjezbe",idVjezbe);
                     intentDeadlift.putExtra("naziv", tvNazivVjezbe.getText());
                     context.startActivity(intentDeadlift);
                     break;
-                case 6:
+                case 4:
                     //Toast.makeText(ExerciseSelection.this, "Shoulder press description", Toast.LENGTH_SHORT).show();
                     Intent intentShoulderPress = new Intent(context, ExerciseConfiguration.class);
                     intentShoulderPress.putExtra("idVjezbe",idVjezbe);
                     intentShoulderPress.putExtra("naziv", tvNazivVjezbe.getText());
                     context.startActivity(intentShoulderPress);
                     break;
-                case 7:
+                case 5:
                     //Toast.makeText(context, "Bench press description", Toast.LENGTH_SHORT).show();
                     Intent intentBenchPress = new Intent(context, ExerciseConfiguration.class);
                     intentBenchPress.putExtra("idVjezbe", idVjezbe);
                     intentBenchPress.putExtra("naziv", tvNazivVjezbe.getText());
                     context.startActivity(intentBenchPress);
                     break;
-                case 8:
+                case 6:
                     //Toast.makeText(context, "Squat description", Toast.LENGTH_SHORT).show();
                     Intent intentSquat = new Intent(context, ExerciseConfiguration.class);
                     intentSquat.putExtra("idVjezbe", idVjezbe);
                     intentSquat.putExtra("naziv", tvNazivVjezbe.getText());
                     context.startActivity(intentSquat);
-                    break;
-                case 9:
-                    //Toast.makeText(ExerciseSelection.this, "Biking description", Toast.LENGTH_SHORT).show();
                     break;
             }
         }

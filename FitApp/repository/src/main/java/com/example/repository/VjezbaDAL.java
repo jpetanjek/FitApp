@@ -17,8 +17,8 @@ import java.util.List;
 
 public class VjezbaDAL {
 
-    public static void UnesiKorisnikVjezbu(KorisnikVjezba korisnikVjezba, Context context){
-        MyDatabase.getInstance(context).getVjezbaDAO().unosKorisnikoveVjezbe(korisnikVjezba);
+    public static long UnesiKorisnikVjezbu(KorisnikVjezba korisnikVjezba, Context context){
+        return MyDatabase.getInstance(context).getVjezbaDAO().unosKorisnikoveVjezbe(korisnikVjezba)[0];
     }
 
     public static void ObrisiKorisnikVjezbu(KorisnikVjezba korisnikVjezba, Context context){
@@ -42,7 +42,6 @@ public class VjezbaDAL {
 
     public static List<KorisnikVjezba> DohvatiSveVjezbeZaDatum(String datum, Context context){
 
-
         List<KorisnikVjezba> korisnikVjezbas = MyDatabase.getInstance(context).getVjezbaDAO().dohvatiSveKorisnikoveVjezbe();
 
         List<KorisnikVjezba> filtriranaLista = new ArrayList<>();
@@ -54,14 +53,10 @@ public class VjezbaDAL {
         return filtriranaLista;
     }
 
-
-
     public static Vjezba DohvatiVjezbu(int id, Context context){
 
         return MyDatabase.getInstance(context).getVjezbaDAO().dohvatiVjezbu(id);
     }
-
-
 
     public static Date stringToDate(String datum){
         Date date1 = null;
@@ -77,6 +72,4 @@ public class VjezbaDAL {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         return dateFormat.format(datum);
     }
-
-
 }

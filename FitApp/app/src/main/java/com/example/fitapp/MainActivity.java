@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba3);
             */
             Vjezba newVjezba4= new Vjezba();
-            newVjezba4.setId(5);
+            newVjezba4.setId(3);
             newVjezba4.setMet(new Float(6));
             newVjezba4.setNaziv("Deadlift");
             newVjezba4.setTipVjezbe(1);
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba4);
 
             Vjezba newVjezba5= new Vjezba();
-            newVjezba5.setId(6);
+            newVjezba5.setId(4);
             newVjezba5.setMet(new Float(6));
             newVjezba5.setNaziv("Shoulder press");
             newVjezba5.setTipVjezbe(1);
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba5);
 
             Vjezba newVjezba6= new Vjezba();
-            newVjezba6.setId(7);
+            newVjezba6.setId(5);
             newVjezba6.setMet(new Float(6));
             newVjezba6.setNaziv("Bench press");
             newVjezba6.setTipVjezbe(1);
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
             MyDatabase.getInstance(this).getVjezbaDAO().unosVjezbe(newVjezba6);
 
             Vjezba newVjezba7= new Vjezba();
-            newVjezba7.setId(8);
+            newVjezba7.setId(6);
             newVjezba7.setMet(new Float(5));
             newVjezba7.setNaziv("Squating");
             newVjezba7.setTipVjezbe(1);

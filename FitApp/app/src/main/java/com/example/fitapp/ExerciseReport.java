@@ -61,7 +61,6 @@ public class ExerciseReport extends AppCompatActivity {
         tvTrajanjeVjezbanja.setText( Integer.toString ( vrijemeVjezbanja/60 )  ); // Sekunde u minute
     }
 
-
     public String formatSeconds(int timeInSeconds) {
         int hours = timeInSeconds / 3600;
         int secondsLeft = timeInSeconds - hours * 3600;

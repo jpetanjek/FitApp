@@ -1,6 +1,7 @@
 package com.example.fitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -27,6 +28,8 @@ import java.util.Date;
 
 import adapter.CurrentActivity;
 
+import static com.example.fitapp.Profil.getToolbarLogoView;
+
 public class RunningConfiguration extends AppCompatActivity {
     private AtributiKardioViewModel kardioViewModel;
     private LiveData<AtributiKardioVjezbi> atributiKardioVjezbi;
@@ -40,6 +43,23 @@ public class RunningConfiguration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_configuration);
+
+
+        Toolbar toolbar = findViewById(R.id.toolbarAddFood);
+        setSupportActionBar(toolbar);
+
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    finish();
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
 
         udaljenostPlan = findViewById(R.id.unosUdaljenosti);
         plus = findViewById(R.id.plus);

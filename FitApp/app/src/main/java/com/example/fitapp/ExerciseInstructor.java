@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 import features.Text2Speech;
 
 import static com.example.database.MyDatabase.getInstance;
+import static com.example.fitapp.Profil.getToolbarLogoView;
 
 public class ExerciseInstructor extends AppCompatActivity {
     private String nazivVjezbe;
@@ -73,6 +74,23 @@ public class ExerciseInstructor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_instructor);
 
+
+        Toolbar toolbar = findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar);
+
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    finish();
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
+
         //povezivanje varijabli za viewomvima
         btnStart = findViewById(R.id.btnStartTimer);
         tvCountDown = findViewById(R.id.tvCountdownTimer);
@@ -87,8 +105,7 @@ public class ExerciseInstructor extends AppCompatActivity {
 
 
         nazivVjezbe = getIntent().getExtras().getString("nazivVjezbe");
-        Toolbar toolbar = findViewById(R.id.toolbar1);
-        //toolbar.setTitle(toolbar.getTitle() + nazivVjezbe);
+
 
         listaKorisnikVjezbeId = getIntent().getIntegerArrayListExtra("listaKorisnikVjezbeId");
 
